@@ -67,6 +67,7 @@ const getTobPurple = () => {
     else {
         rewardMessage += 'Scythe of vitur (uncharged)';
     }
+    return rewardMessage;
 };
 exports.getTobPurple = getTobPurple;
 const getToaPurple = () => {

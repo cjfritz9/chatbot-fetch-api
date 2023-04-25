@@ -52,6 +52,7 @@ export const getTobPurple = () => {
   } else {
     rewardMessage += 'Scythe of vitur (uncharged)';
   }
+  return rewardMessage;
 };
 
 export const getToaPurple = () => {
