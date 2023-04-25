@@ -38,13 +38,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Raids = __importStar(require("../utils/osrs/raids-loot"));
 const osrsRouter = express_1.default.Router();
-osrsRouter.get('/osrs/raids/cox', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/cox', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(Raids.getCoxPurple());
 }));
-osrsRouter.get('/osrs/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(Raids.getTobPurple());
 }));
-osrsRouter.get('/osrs/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(Raids.getToaPurple());
 }));
 exports.default = osrsRouter;
