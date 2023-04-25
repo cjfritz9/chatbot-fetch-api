@@ -233,4 +233,4 @@ const getRandomLoadout = () => {
     `;
 };
 
-export default getRandomLoadout;
+export default getRandomLoadout
