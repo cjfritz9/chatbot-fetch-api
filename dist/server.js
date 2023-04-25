@@ -15,7 +15,7 @@ exports.app.use((0, cors_1.default)({ origin: '*' }));
 const hunt_showdown_1 = __importDefault(require("./routes/hunt_showdown"));
 exports.app.use('/hunt_showdown', hunt_showdown_1.default);
 const osrs_1 = __importDefault(require("./routes/osrs"));
-exports.app.use('/hunt_showdown', osrs_1.default);
+exports.app.use('/osrs', osrs_1.default);
 exports.app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);
 });

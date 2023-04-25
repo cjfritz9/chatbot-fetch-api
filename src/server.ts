@@ -13,7 +13,7 @@ import huntShowdownRouter from './routes/hunt_showdown';
 app.use('/hunt_showdown', huntShowdownRouter);
 
 import osrsRouter from './routes/osrs';
-app.use('/hunt_showdown', osrsRouter);
+app.use('/osrs', osrsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
