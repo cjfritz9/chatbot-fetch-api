@@ -12,7 +12,7 @@
 # below:
 .git
 .gitignore
-server.ts
+src
 tsconfig.json
 
 # Node.js dependencies:
