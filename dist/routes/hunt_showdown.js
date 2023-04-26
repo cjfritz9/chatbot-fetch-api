@@ -13,7 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const random_loadout_1 = __importDefault(require("../utils/hunt-showdown/random-loadout"));
+const random_loadout_1 = __importDefault(require("../utils/random-loadout"));
 const huntShowdownRouter = express_1.default.Router();
 huntShowdownRouter.get('/random_loadout', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send((0, random_loadout_1.default)());

@@ -15,6 +15,9 @@ app.use('/hunt_showdown', huntShowdownRouter);
 import osrsRouter from './routes/osrs';
 app.use('/osrs', osrsRouter);
 
+import joeRouter from './routes/joewatermelon';
+app.use('/joewatermelon', joeRouter);
+
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });

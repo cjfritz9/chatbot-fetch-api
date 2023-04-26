@@ -16,6 +16,8 @@ const hunt_showdown_1 = __importDefault(require("./routes/hunt_showdown"));
 exports.app.use('/hunt_showdown', hunt_showdown_1.default);
 const osrs_1 = __importDefault(require("./routes/osrs"));
 exports.app.use('/osrs', osrs_1.default);
+const joewatermelon_1 = __importDefault(require("./routes/joewatermelon"));
+exports.app.use('/joewatermelon', joewatermelon_1.default);
 exports.app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);
 });

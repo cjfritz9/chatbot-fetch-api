@@ -1,5 +1,5 @@
 import express from 'express';
-import * as Raids from '../utils/osrs/raids-loot';
+import * as Raids from '../utils/raids-loot';
 
 const osrsRouter = express.Router();
 
