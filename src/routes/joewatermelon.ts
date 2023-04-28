@@ -9,16 +9,11 @@ import { promises as fs } from 'fs';
 dotenv.config();
 const joeRouter = express.Router();
 
+const userId = process.env.USER_ID!;
 const clientId = process.env.CLIENT_ID!;
 const clientSecret = process.env.CLIENT_SECRET!;
-const accessToken = process.env.ACCESS_TOKEN!;
-const refreshToken = process.env.REFRESH_TOKEN!;
-const tokenData = {
-  accessToken,
-  refreshToken,
-  expiresIn: 0,
-  obtainmentTimestamp: 0
-};
+// const accessToken = process.env.ACCESS_TOKEN!;
+// const refreshToken = process.env.REFRESH_TOKEN!;
 
 joeRouter.get('/auth', async (req, res) => {
   const code = req.query.code;
@@ -40,7 +35,7 @@ joeRouter.get('/dog_treat', async (_req, res) => {
     clientSecret,
     onRefresh: async (userId, newTokenData) =>
       await fs.writeFile(
-        `./tokens.${userId}.json`,
+        `./db/tokens.${userId}.json`,
         JSON.stringify(newTokenData, null, 4),
         'utf-8'
       )
@@ -48,13 +43,11 @@ joeRouter.get('/dog_treat', async (_req, res) => {
   if (!authProvider) {
     res.send('Failed');
   } else {
-    const userId = await authProvider.addUserForToken(tokenData);
     const pubSubClient = new PubSubClient({ authProvider });
     const handler = pubSubClient.onRedemption(userId, (message) => {
       console.log(`${message.rewardTitle} was just redeemed!`);
     });
-    console.log(handler);
-    res.send('Success: ');
+    res.send('Success: ' + handler.topic);
   }
   // res.send(getDogTreat());
 });

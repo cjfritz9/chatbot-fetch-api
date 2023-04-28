@@ -20,16 +20,11 @@ const auth_1 = require("@twurple/auth");
 const fs_1 = require("fs");
 dotenv_1.default.config();
 const joeRouter = express_1.default.Router();
+const userId = process.env.USER_ID;
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
-const accessToken = process.env.ACCESS_TOKEN;
-const refreshToken = process.env.REFRESH_TOKEN;
-const tokenData = {
-    accessToken,
-    refreshToken,
-    expiresIn: 0,
-    obtainmentTimestamp: 0
-};
+// const accessToken = process.env.ACCESS_TOKEN!;
+// const refreshToken = process.env.REFRESH_TOKEN!;
 joeRouter.get('/auth', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const code = req.query.code;
     const response = yield axios_1.default.post('https://id.twitch.tv/oauth2/token', `client_id=${clientId}&client_secret=${clientSecret}&code=${code}&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth`);
@@ -46,20 +41,18 @@ joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, fun
         clientId,
         clientSecret,
         onRefresh: (userId, newTokenData) => __awaiter(void 0, void 0, void 0, function* () {
-            return yield fs_1.promises.writeFile(`./tokens.${userId}.json`, JSON.stringify(newTokenData, null, 4), 'utf-8');
+            return yield fs_1.promises.writeFile(`./db/tokens.${userId}.json`, JSON.stringify(newTokenData, null, 4), 'utf-8');
         })
     });
     if (!authProvider) {
         res.send('Failed');
     }
     else {
-        const userId = yield authProvider.addUserForToken(tokenData);
         const pubSubClient = new pubsub_1.PubSubClient({ authProvider });
         const handler = pubSubClient.onRedemption(userId, (message) => {
             console.log(`${message.rewardTitle} was just redeemed!`);
         });
-        console.log(handler);
-        res.send('Success: ');
+        res.send('Success: ' + handler.topic);
     }
     // res.send(getDogTreat());
 }));
