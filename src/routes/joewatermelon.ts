@@ -5,15 +5,12 @@ import getDogTreat from '../utils/joewatermelon';
 const joeRouter = express.Router();
 
 joeRouter.get('/auth', (req, res) => {
-  console.log('full request: ', req);
-  console.log('request url: ', req.url);
-  console.log('request original url: ', req.originalUrl);
-  console.log('request body: ', req.body);
+  console.log('--request url: ', req.url);
   const code = req.url.slice(
     req.url.indexOf('=') + 1,
     req.url.indexOf('&') + 1
   );
-  console.log('code: ', code)
+  console.log('--code: ', code)
   res.send('Success');
 });
 
@@ -22,8 +19,8 @@ joeRouter.get('/token', async (_req, res) => {
     'https://id.twitch.tv/oauth2/token',
     'client_id=1xkvdpm0d3i7kkfsvcglm29dvv71g4&client_secret=cme6w5kqh6b0bzvm7ag45ypfdxoibl&code=r1aikt0hk9fb7fuo7z0d8ppmdowb03&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth'
   );
-  console.log('full res: ', response);
-  console.log('res data: ', response.data);
+  console.log('--full res: ', response);
+  console.log('--res data: ', response.data);
   if (response && response.data) {
     res.send(response.data);
   } else {
