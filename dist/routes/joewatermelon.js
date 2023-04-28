@@ -32,7 +32,7 @@ const tokenData = {
 };
 joeRouter.get('/auth', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const code = req.query.code;
-    const response = yield axios_1.default.post('https://id.twitch.tv/oauth2/token', `client_id=1xkvdpm0d3i7kkfsvcglm29dvv71g4&client_secret=cme6w5kqh6b0bzvm7ag45ypfdxoibl&code=${code}&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth`);
+    const response = yield axios_1.default.post('https://id.twitch.tv/oauth2/token', `client_id=${clientId}&client_secret=${clientSecret}&code=${code}&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth`);
     if (response && response.data) {
         console.log('--user token data: ', response.data);
         res.send('Success. Get hacked Joe!');
