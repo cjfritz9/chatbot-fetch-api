@@ -21,10 +21,7 @@ const tokenData = {
 };
 
 joeRouter.get('/auth', async (req, res) => {
-  const code = req.url.slice(req.url.indexOf('=') + 1, req.url.indexOf('&'));
-  const code2 = req.query.code;
-  console.log('--code: ', code);
-  console.log('--code2: ', code2);
+  const code = req.query.code;
   const response = await axios.post(
     'https://id.twitch.tv/oauth2/token',
     `client_id=1xkvdpm0d3i7kkfsvcglm29dvv71g4&client_secret=cme6w5kqh6b0bzvm7ag45ypfdxoibl&code=${code}&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth`
