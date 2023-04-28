@@ -25,7 +25,9 @@
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "@twurple/auth": "^6.2.0",
+    "@twurple/pubsub": "^6.2.0"
   },
   "engines": {
     "node": "16.17.0"

@@ -1,8 +1,22 @@
 import express from 'express';
 import axios from 'axios';
 import getDogTreat from '../utils/joewatermelon';
+import { PubSubClient } from '@twurple/pubsub';
+import { RefreshingAuthProvider } from '@twurple/auth';
+import { promises as fs } from 'fs';
 
 const joeRouter = express.Router();
+
+const clientId = process.env.CLIENT_ID!;
+const clientSecret = process.env.CLIENT_SECRET!;
+const accessToken = process.env.ACCESS_TOKEN!;
+const refreshToken = process.env.REFRESH_TOKEN!;
+const tokenData = {
+  accessToken,
+  refreshToken,
+  expiresIn: 0,
+  obtainmentTimestamp: 0
+};
 
 joeRouter.get('/auth', async (req, res) => {
   const code = req.url.slice(req.url.indexOf('=') + 1, req.url.indexOf('&'));
@@ -12,15 +26,36 @@ joeRouter.get('/auth', async (req, res) => {
     `client_id=1xkvdpm0d3i7kkfsvcglm29dvv71g4&client_secret=cme6w5kqh6b0bzvm7ag45ypfdxoibl&code=${code}&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth`
   );
   if (response && response.data) {
-    console.log('--user token data: ',response.data);
+    console.log('--user token data: ', response.data);
     res.send('Success. Get hacked Joe!');
   } else {
     res.send('Failed');
   }
 });
 
-joeRouter.get('/dog_treat', (_req, res) => {
-  res.send(getDogTreat());
+joeRouter.get('/dog_treat', async (_req, res) => {
+  const authProvider = new RefreshingAuthProvider({
+    clientId,
+    clientSecret,
+    onRefresh: async (userId, newTokenData) =>
+      await fs.writeFile(
+        `./tokens.${userId}.json`,
+        JSON.stringify(newTokenData, null, 4),
+        'utf-8'
+      )
+  });
+  if (!authProvider) {
+    res.send('Failed');
+  } else {
+    const userId = await authProvider.addUserForToken(tokenData);
+    const pubSubClient = new PubSubClient({ authProvider });
+    const handler = pubSubClient.onRedemption(userId, (message) => {
+      console.log(`${message.rewardTitle} was just redeemed!`);
+    });
+    console.log(handler);
+    res.send('Success: ');
+  }
+  // res.send(getDogTreat());
 });
 
 export default joeRouter;
