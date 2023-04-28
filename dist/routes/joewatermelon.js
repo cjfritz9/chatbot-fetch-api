@@ -18,7 +18,7 @@ const joewatermelon_1 = __importDefault(require("../utils/joewatermelon"));
 const joeRouter = express_1.default.Router();
 joeRouter.get('/auth', (req, res) => {
     console.log('--request url: ', req.url);
-    const code = req.url.slice(req.url.indexOf('=') + 1, req.url.indexOf('&') + 1);
+    const code = req.url.slice(req.url.indexOf('=') + 1, req.url.indexOf('&'));
     console.log('--code: ', code);
     res.send('Success');
 });

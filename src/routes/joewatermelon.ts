@@ -8,7 +8,7 @@ joeRouter.get('/auth', (req, res) => {
   console.log('--request url: ', req.url);
   const code = req.url.slice(
     req.url.indexOf('=') + 1,
-    req.url.indexOf('&') + 1
+    req.url.indexOf('&')
   );
   console.log('--code: ', code)
   res.send('Success');
