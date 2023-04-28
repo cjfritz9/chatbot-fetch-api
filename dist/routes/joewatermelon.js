@@ -13,10 +13,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const dotenv_1 = __importDefault(require("dotenv"));
 const axios_1 = __importDefault(require("axios"));
 const pubsub_1 = require("@twurple/pubsub");
 const auth_1 = require("@twurple/auth");
 const fs_1 = require("fs");
+dotenv_1.default.config();
 const joeRouter = express_1.default.Router();
 const clientId = process.env.CLIENT_ID;
 const clientSecret = process.env.CLIENT_SECRET;
