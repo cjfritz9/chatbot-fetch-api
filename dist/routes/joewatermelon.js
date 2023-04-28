@@ -44,6 +44,7 @@ joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, fun
             return yield fs_1.promises.writeFile(`./db/tokens.${userId}.json`, JSON.stringify(newTokenData, null, 4), 'utf-8');
         })
     });
+    console.log('auth provider has user ID: ', authProvider.hasUser(userId));
     if (!authProvider) {
         res.send('Failed');
     }

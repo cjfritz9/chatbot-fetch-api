@@ -40,6 +40,7 @@ joeRouter.get('/dog_treat', async (_req, res) => {
         'utf-8'
       )
   });
+  console.log('auth provider has user ID: ', authProvider.hasUser(userId));
   if (!authProvider) {
     res.send('Failed');
   } else {
