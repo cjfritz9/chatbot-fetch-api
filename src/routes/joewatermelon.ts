@@ -12,7 +12,7 @@ joeRouter.get('/auth', (req, res) => {
 });
 
 joeRouter.get('/dog_treat', (_req, res) => {
-  res.send('test' + getDogTreat());
+  res.send(getDogTreat());
 });
 
 export default joeRouter;
