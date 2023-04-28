@@ -14,7 +14,6 @@ joeRouter.get('/auth', (req, res) => {
     req.url.indexOf('&') + 1
   );
   console.log('code: ', code)
-  console.log('doc hash: ', document.location.hash);
   res.send('Success');
 });
 

@@ -23,7 +23,6 @@ joeRouter.get('/auth', (req, res) => {
     console.log('request body: ', req.body);
     const code = req.url.slice(req.url.indexOf('=') + 1, req.url.indexOf('&') + 1);
     console.log('code: ', code);
-    console.log('doc hash: ', document.location.hash);
     res.send('Success');
 });
 joeRouter.get('/token', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
