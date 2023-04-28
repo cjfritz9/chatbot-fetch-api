@@ -4,7 +4,7 @@ import axios from 'axios';
 import getDogTreat from '../utils/joewatermelon';
 import { PubSubClient } from '@twurple/pubsub';
 import { RefreshingAuthProvider } from '@twurple/auth';
-import { promises as fs } from 'fs';
+import app from '../server';
 
 dotenv.config();
 const joeRouter = express.Router();
@@ -30,27 +30,7 @@ joeRouter.get('/auth', async (req, res) => {
 });
 
 joeRouter.get('/dog_treat', async (_req, res) => {
-  const authProvider = new RefreshingAuthProvider({
-    clientId,
-    clientSecret,
-    onRefresh: async (userId, newTokenData) =>
-      await fs.writeFile(
-        `./db/tokens.${userId}.json`,
-        JSON.stringify(newTokenData, null, 4),
-        'utf-8'
-      )
-  });
-  console.log('auth provider has user ID: ', authProvider.hasUser(userId));
-  if (!authProvider) {
-    res.send('Failed');
-  } else {
-    const pubSubClient = new PubSubClient({ authProvider });
-    const handler = pubSubClient.onRedemption(userId, (message) => {
-      console.log(`${message.rewardTitle} was just redeemed!`);
-    });
-    res.send('Success: ' + handler.topic);
-  }
-  // res.send(getDogTreat());
+  res.send(getDogTreat());
 });
 
 export default joeRouter;

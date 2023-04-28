@@ -15,9 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const axios_1 = __importDefault(require("axios"));
-const pubsub_1 = require("@twurple/pubsub");
-const auth_1 = require("@twurple/auth");
-const fs_1 = require("fs");
+const joewatermelon_1 = __importDefault(require("../utils/joewatermelon"));
 dotenv_1.default.config();
 const joeRouter = express_1.default.Router();
 const userId = process.env.USER_ID;
@@ -37,25 +35,7 @@ joeRouter.get('/auth', (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 }));
 joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const authProvider = new auth_1.RefreshingAuthProvider({
-        clientId,
-        clientSecret,
-        onRefresh: (userId, newTokenData) => __awaiter(void 0, void 0, void 0, function* () {
-            return yield fs_1.promises.writeFile(`./db/tokens.${userId}.json`, JSON.stringify(newTokenData, null, 4), 'utf-8');
-        })
-    });
-    console.log('auth provider has user ID: ', authProvider.hasUser(userId));
-    if (!authProvider) {
-        res.send('Failed');
-    }
-    else {
-        const pubSubClient = new pubsub_1.PubSubClient({ authProvider });
-        const handler = pubSubClient.onRedemption(userId, (message) => {
-            console.log(`${message.rewardTitle} was just redeemed!`);
-        });
-        res.send('Success: ' + handler.topic);
-    }
-    // res.send(getDogTreat());
+    res.send((0, joewatermelon_1.default)());
 }));
 exports.default = joeRouter;
 console.log('https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=1xkvdpm0d3i7kkfsvcglm29dvv71g4&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth&scope=channel%3Aread%3Aredemptions&state=c3ab8aa609ea11e793ae92361f002671');
