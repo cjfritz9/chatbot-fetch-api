@@ -50,6 +50,7 @@ joeRouter.get('/dog_treat', async (_req, res) => {
   //   });
   //   res.send('Success: ' + handler.topic);
   // }
+  //
   res.send(getDogTreat());
 });
 
