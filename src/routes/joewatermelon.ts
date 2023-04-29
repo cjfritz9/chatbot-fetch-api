@@ -9,24 +9,24 @@ import { promises as fs } from 'fs';
 dotenv.config();
 const joeRouter = express.Router();
 
-const userId = process.env.USER_ID!;
-const clientId = process.env.CLIENT_ID!;
-const clientSecret = process.env.CLIENT_SECRET!;
+// const userId = process.env.USER_ID!;
+// const clientId = process.env.CLIENT_ID!;
+// const clientSecret = process.env.CLIENT_SECRET!;
 // const accessToken = process.env.ACCESS_TOKEN!;
 // const refreshToken = process.env.REFRESH_TOKEN!;
 
-joeRouter.get('/auth', async (req, res) => {
-  const code = req.query.code;
-  const response = await axios.post(
-    'https://id.twitch.tv/oauth2/token',
-    `client_id=${clientId}&client_secret=${clientSecret}&code=${code}&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth`
-  );
-  if (response && response.data) {
-    console.log('--user token data: ', response.data);
-    res.send('Success. Get hacked Joe!');
-  } else {
-    res.send('Failed');
-  }
+joeRouter.get('/auth', async (_req, _res) => {
+  // const code = req.query.code;
+  // const response = await axios.post(
+  //   'https://id.twitch.tv/oauth2/token',
+  //   `client_id=${clientId}&client_secret=${clientSecret}&code=${code}&grant_type=authorization_code&redirect_uri=https://nightbot-fetch-api-l75xpo5a3a-uc.a.run.app/joewatermelon/auth`
+  // );
+  // if (response && response.data) {
+  //   console.log('--user token data: ', response.data);
+  //   res.send('Success. Get hacked Joe!');
+  // } else {
+  //   res.send('Failed');
+  // }
 });
 
 joeRouter.get('/dog_treat', async (_req, res) => {
