@@ -18,6 +18,9 @@ const osrs_1 = __importDefault(require("./routes/osrs"));
 exports.app.use('/osrs', osrs_1.default);
 const joewatermelon_1 = __importDefault(require("./routes/joewatermelon"));
 exports.app.use('/joewatermelon', joewatermelon_1.default);
+exports.app.get('/*', (_req, res) => {
+    res.status(404).send('The page you are looking for does not exist.');
+});
 exports.app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);
 });

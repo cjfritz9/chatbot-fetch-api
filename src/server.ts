@@ -18,6 +18,10 @@ app.use('/osrs', osrsRouter);
 import joeRouter from './routes/joewatermelon';
 app.use('/joewatermelon', joeRouter);
 
+app.get('/*', (_req, res) => {
+  res.status(404).send('The page you are looking for does not exist.')
+})
+
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });
