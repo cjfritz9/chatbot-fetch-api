@@ -2,9 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import axios from 'axios';
 import getDogTreat from '../utils/joewatermelon';
-import { PubSubClient } from '@twurple/pubsub';
-import { RefreshingAuthProvider } from '@twurple/auth';
-import { promises as fs } from 'fs';
+// import { PubSubClient } from '@twurple/pubsub';
+// import { RefreshingAuthProvider } from '@twurple/auth';
+// import { promises as fs } from 'fs';
 
 dotenv.config();
 const joeRouter = express.Router();
