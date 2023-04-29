@@ -20,4 +20,8 @@ const joeRouter = express_1.default.Router();
 joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send((0, joewatermelon_1.default)());
 }));
+joeRouter.get('/dog_treat/:username', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username } = req.params;
+    res.send('Received user: ' + username);
+}));
 exports.default = joeRouter;
