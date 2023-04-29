@@ -38,6 +38,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Raids = __importStar(require("../utils/raids-loot"));
 const osrsRouter = express_1.default.Router();
+// TODO: ADD USERNAME SUPPORT TO TRACK TOTAL WEALTH
 osrsRouter.get('/raids/cox', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(Raids.getCoxPurple());
 }));
@@ -46,5 +47,14 @@ osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, fu
 }));
 osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(Raids.getToaPurple());
+}));
+osrsRouter.get('/raids/cox_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(Raids.getCoxPurple(true));
+}));
+osrsRouter.get('/raids/tob_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(Raids.getTobPurple(true));
+}));
+osrsRouter.get('/raids/toa_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(Raids.getToaPurple(true));
 }));
 exports.default = osrsRouter;

@@ -1,6 +1,5 @@
-export const getCoxPurple = () => {
-  const roll = Math.random() * 100;
-
+export const getCoxPurple = (rngBuff = false) => {
+  const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
   let rewardMessage = 'Special Loot: ';
 
   if (roll < 29.986) {
@@ -32,8 +31,8 @@ export const getCoxPurple = () => {
   return rewardMessage;
 };
 
-export const getTobPurple = () => {
-  const roll = Math.random() * 100;
+export const getTobPurple = (rngBuff = false) => {
+  const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
 
   let rewardMessage = 'You found something special: ';
 
@@ -55,8 +54,8 @@ export const getTobPurple = () => {
   return rewardMessage;
 };
 
-export const getToaPurple = () => {
-  const roll = Math.random() * 100;
+export const getToaPurple = (rngBuff = false) => {
+  const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
 
   let rewardMessage = 'You found something special: ';
 
@@ -75,7 +74,21 @@ export const getToaPurple = () => {
   } else if (roll < 99.991) {
     rewardMessage += "Tumeken's shadow (uncharged)";
   } else {
-    rewardMessage += 'Fossilised dung';
+    if (rngBuff) {
+      rewardMessage += "Tumeken's shadow (uncharged)";
+    } else {
+      rewardMessage += 'Fossilised dung';
+    }
   }
+
   return rewardMessage;
+};
+
+const getBuffedRoll = () => {
+  const roll1 = Math.random() * 100;
+  const roll2 = Math.random() * 100;
+  let bestRoll = roll1 > roll2 ? roll1 : roll2;
+  const difference = 100 - bestRoll;
+  bestRoll += Math.random() * difference;
+  return bestRoll;
 };
