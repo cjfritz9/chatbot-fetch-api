@@ -26,21 +26,25 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
     const low = response.data.data[loot.itemId].low;
     const diff = high - low;
     const price = Math.round(low + diff / 2).toString();
+    const totalWealth = (+price + +user.gp).toString();
     let formattedPrice: string;
+    let formattedWealth: string;
     console.log(price);
     if (price.length > 9) {
       formattedPrice =
         price.slice(0, price.length - 9) + '.' + price.charAt(1) + 'B';
+      formattedWealth =
+        price.slice(0, price.length - 9) + '.' + price.charAt(1) + 'B';
     }
     if (price.length < 10 && price.length > 6) {
       formattedPrice = price.slice(0, price.length - 6) + 'M';
+      formattedWealth = price.slice(0, price.length - 6) + 'M';
     }
-    const totalWealth = (+price + +user.gp).toString();
     updateUser(username, totalWealth);
     res.send(
       `${username} successfully completed the Chambers of Xeric and received ${
         loot.message
-      } worth ${formattedPrice!}. Total wealth: ${totalWealth}`
+      } worth ${formattedPrice!}. Total wealth: ${formattedWealth!}`
     );
   } else {
     res.send('Server Error: Contact wandernaut#2205');
