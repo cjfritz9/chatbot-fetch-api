@@ -36,7 +36,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const Raids = __importStar(require("../utils/raids-loot"));
+const OSRS = __importStar(require("../utils/raids-loot"));
 const axios_1 = __importDefault(require("axios"));
 const osrs_1 = require("../db/osrs");
 const OSRS_API = 'https://prices.runescape.wiki/api/v1/osrs/latest';
@@ -48,7 +48,7 @@ osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, v
     var _a;
     const { username } = req.params;
     console.log(username);
-    const loot = Raids.getCoxPurple(true);
+    const loot = OSRS.getCoxPurple();
     const [response, user] = yield Promise.all([
         axios_1.default.get(`${OSRS_API}?id=${loot.itemId}`, {
             headers
@@ -56,33 +56,31 @@ osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, v
         (0, osrs_1.getUser)(username)
     ]);
     if ((_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) {
-        const high = response.data.data[loot.itemId].high;
-        const low = response.data.data[loot.itemId].low;
-        const diff = high - low;
-        const price = Math.round(low + diff / 2).toString();
+        const itemPrices = response.data.data[loot.itemId];
+        const price = OSRS.getMedianPrice(itemPrices.low, itemPrices.high);
         const totalWealth = (+price + +user.gp).toString();
-        const formattedPrice = Raids.formatGP(price);
-        const formattedWealth = Raids.formatGP(totalWealth);
+        const formattedPrice = OSRS.formatGP(price);
+        const formattedWealth = OSRS.formatGP(totalWealth);
         (0, osrs_1.updateUser)(username, totalWealth);
         res.send(`${username} successfully completed the Chambers of Xeric and received ${loot.message} worth ${formattedPrice}. Total wealth: ${formattedWealth}`);
     }
     else {
-        res.send('Server Error: Contact wandernaut#2205');
+        res.send('Server Error - Contact wandernaut#2205');
     }
 }));
 osrsRouter.get('/:username/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(Raids.getTobPurple());
+    res.send(OSRS.getTobPurple());
 }));
 osrsRouter.get('/:username/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(Raids.getToaPurple());
+    res.send(OSRS.getToaPurple());
 }));
 osrsRouter.get('/:username/raids/cox_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(Raids.getCoxPurple(true));
+    res.send(OSRS.getCoxPurple(true));
 }));
 osrsRouter.get('/:username/raids/tob_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(Raids.getTobPurple(true));
+    res.send(OSRS.getTobPurple(true));
 }));
 osrsRouter.get('/:username/raids/toa_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(Raids.getToaPurple(true));
+    res.send(OSRS.getToaPurple(true));
 }));
 exports.default = osrsRouter;

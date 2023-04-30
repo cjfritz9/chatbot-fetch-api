@@ -101,7 +101,7 @@ const getBuffedRoll = () => {
   const roll2 = Math.random() * 100;
   let bestRoll = roll1 > roll2 ? roll1 : roll2;
   const difference = 100 - bestRoll;
-  bestRoll += Math.random() * difference;
+  bestRoll += Math.random() + difference;
   return bestRoll;
 };
 
@@ -115,4 +115,9 @@ export const formatGP = (gp: string) => {
   } else {
     return gp.slice(0, gp.length - 12) + '.' + gp.charAt(1) + 'T';
   }
+};
+
+export const getMedianPrice = (lowPrice: number, highPrice: number) => {
+  const diff = highPrice - lowPrice;
+  return Math.round(lowPrice + diff / 2).toString();
 };

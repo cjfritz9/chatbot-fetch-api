@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.formatGP = exports.getToaPurple = exports.getTobPurple = exports.getCoxPurple = void 0;
+exports.getMedianPrice = exports.formatGP = exports.getToaPurple = exports.getTobPurple = exports.getCoxPurple = void 0;
 const getCoxPurple = (rngBuff = false) => {
     const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
     let response = { itemId: '0', message: '' };
@@ -122,7 +122,7 @@ const getBuffedRoll = () => {
     const roll2 = Math.random() * 100;
     let bestRoll = roll1 > roll2 ? roll1 : roll2;
     const difference = 100 - bestRoll;
-    bestRoll += Math.random() * difference;
+    bestRoll += Math.random() + difference;
     return bestRoll;
 };
 const formatGP = (gp) => {
@@ -140,3 +140,8 @@ const formatGP = (gp) => {
     }
 };
 exports.formatGP = formatGP;
+const getMedianPrice = (lowPrice, highPrice) => {
+    const diff = highPrice - lowPrice;
+    return Math.round(lowPrice + diff / 2).toString();
+};
+exports.getMedianPrice = getMedianPrice;

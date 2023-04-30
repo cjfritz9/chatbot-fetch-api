@@ -1,5 +1,5 @@
 import express from 'express';
-import * as Raids from '../utils/raids-loot';
+import * as OSRS from '../utils/raids-loot';
 import axios from 'axios';
 import { getUser, updateUser } from '../db/osrs';
 
@@ -14,7 +14,7 @@ const osrsRouter = express.Router();
 osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
   const { username } = req.params;
   console.log(username);
-  const loot = Raids.getCoxPurple(true);
+  const loot = OSRS.getCoxPurple();
   const [response, user] = await Promise.all([
     axios.get(`${OSRS_API}?id=${loot.itemId}`, {
       headers
@@ -22,43 +22,39 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
     getUser(username)
   ]);
   if (response?.data?.data) {
-    const high = response.data.data[loot.itemId].high;
-    const low = response.data.data[loot.itemId].low;
-    const diff = high - low;
-    const price = Math.round(low + diff / 2).toString();
+    const itemPrices = response.data.data[loot.itemId];
+    const price = OSRS.getMedianPrice(itemPrices.low, itemPrices.high);
     const totalWealth = (+price + +user.gp).toString();
-    const formattedPrice = Raids.formatGP(price);
-    const formattedWealth = Raids.formatGP(totalWealth);
+    const formattedPrice = OSRS.formatGP(price);
+    const formattedWealth = OSRS.formatGP(totalWealth);
     updateUser(username, totalWealth);
-    
+
     res.send(
-      `${username} successfully completed the Chambers of Xeric and received ${
-        loot.message
-      } worth ${formattedPrice!}. Total wealth: ${formattedWealth!}`
+      `${username} successfully completed the Chambers of Xeric and received ${loot.message} worth ${formattedPrice}. Total wealth: ${formattedWealth}`
     );
   } else {
-    res.send('Server Error: Contact wandernaut#2205');
+    res.send('Server Error - Contact wandernaut#2205');
   }
 });
 
 osrsRouter.get('/:username/raids/tob', async (_req: any, res: any) => {
-  res.send(Raids.getTobPurple());
+  res.send(OSRS.getTobPurple());
 });
 
 osrsRouter.get('/:username/raids/toa', async (_req: any, res: any) => {
-  res.send(Raids.getToaPurple());
+  res.send(OSRS.getToaPurple());
 });
 
 osrsRouter.get('/:username/raids/cox_buff', async (_req: any, res: any) => {
-  res.send(Raids.getCoxPurple(true));
+  res.send(OSRS.getCoxPurple(true));
 });
 
 osrsRouter.get('/:username/raids/tob_buff', async (_req: any, res: any) => {
-  res.send(Raids.getTobPurple(true));
+  res.send(OSRS.getTobPurple(true));
 });
 
 osrsRouter.get('/:username/raids/toa_buff', async (_req: any, res: any) => {
-  res.send(Raids.getToaPurple(true));
+  res.send(OSRS.getToaPurple(true));
 });
 
 export default osrsRouter;
