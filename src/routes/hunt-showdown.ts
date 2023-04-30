@@ -1,5 +1,5 @@
 import express from 'express';
-import getRandomLoadout from '../utils/random-loadout';
+import getRandomLoadout from '../utils/hunt-showdown/random-loadout';
 
 const huntShowdownRouter = express.Router();
 

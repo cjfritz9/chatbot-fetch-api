@@ -36,32 +36,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const OSRS = __importStar(require("../utils/raids-loot"));
-const axios_1 = __importDefault(require("axios"));
+const RAIDS = __importStar(require("../utils/osrs/raids"));
+const OSRS = __importStar(require("../utils/osrs/helpers"));
 const osrs_1 = require("../db/osrs");
 const OSRS_API = 'https://prices.runescape.wiki/api/v1/osrs/latest';
 const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
 const osrsRouter = express_1.default.Router();
 // TODO: ADD USERNAME SUPPORT TO TRACK TOTAL
 // TODO: ADD RAID PARTY SUPPORT (!join command?)
+// TODO: IMPLEMENT RNG BUFF STANDALONE
 osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
-    const { username } = req.query;
-    console.log(username);
-    const loot = OSRS.getCoxPurple();
-    const [response, user] = yield Promise.all([
-        axios_1.default.get(`${OSRS_API}?id=${loot.itemId}`, {
-            headers
-        }),
-        (0, osrs_1.getUser)(username)
-    ]);
-    if ((_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.data) {
-        const itemPrices = response.data.data[loot.itemId];
-        const price = OSRS.getMedianPrice(itemPrices.low, itemPrices.high);
-        const totalWealth = (+price + +user.gp).toString();
-        const formattedPrice = OSRS.formatGP(price);
+    const { username, rngBuff } = req.query;
+    const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
+    const user = yield (0, osrs_1.getUser)(username);
+    if (user) {
+        loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
+        const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
+        const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
         const formattedWealth = OSRS.formatGP(totalWealth);
-        loot.dbEntry.price = price;
         (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
         res.send(`${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`);
     }
@@ -70,18 +62,51 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 }));
 osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(OSRS.getTobPurple());
+    res.send(RAIDS.getTobPurple());
 }));
 osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(OSRS.getToaPurple());
+    res.send(RAIDS.getToaPurple());
 }));
-osrsRouter.get('/raids/cox_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(OSRS.getCoxPurple(true));
+osrsRouter.get('/raids/cox_buff', (_req, _res) => __awaiter(void 0, void 0, void 0, function* () {
+    // const { rngBonus, username } = req.query;
+    // if (+rngBonus) {
+    //   const loot = RAIDS.getCoxPurple(+rngBonus);
+    //   const [response, user] = await Promise.all([
+    //     axios.get(`${OSRS_API}?id=${loot.itemId}`, {
+    //       headers
+    //     }),
+    //     getUser(username)
+    //   ]);
+    //   if (response?.data?.data) {
+    //     const itemPrices = response.data.data[loot.itemId];
+    //     const price = OSRS.getMedianPrice(itemPrices.low, itemPrices.high);
+    //     const totalWealth = (+price + +user.gp).toString();
+    //     const formattedPrice = OSRS.formatGP(price);
+    //     const formattedWealth = OSRS.formatGP(totalWealth);
+    //     loot.dbEntry.price = price;
+    //     updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
+    //     res.send(
+    //       `${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`
+    //     );
+    //   } else {
+    //     console.log('-----OSRS WIKI API ERROR-----');
+    //     console.log('-----FULL RESPONSE BELOW-----');
+    //     console.log(response);
+    //     res.send({ error: 'Server Error - Contact wandernaut#2205' });
+    //   }
+    // } else {
+    //   console.log('-----URL QUERY ENCODING ERROR-----');
+    //   console.log('rngBonus: ', rngBonus);
+    //   console.log('username: ', username);
+    //   res.send({ error: 'Server Error - Contact wandernaut#2205' });
+    // }
 }));
-osrsRouter.get('/raids/tob_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(OSRS.getTobPurple(true));
+osrsRouter.get('/raids/tob_buff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { rngBonus, username } = req.query;
+    res.send(RAIDS.getTobPurple(rngBonus));
 }));
-osrsRouter.get('/raids/toa_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(OSRS.getToaPurple(true));
+osrsRouter.get('/raids/toa_buff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { rngBonus, username } = req.query;
+    res.send(RAIDS.getToaPurple(rngBonus));
 }));
 exports.default = osrsRouter;

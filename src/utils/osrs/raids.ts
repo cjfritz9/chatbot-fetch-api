@@ -1,7 +1,52 @@
-export const getCoxPurple = (rngBuff = false) => {
-  const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
-  let response = {
-    itemId: '0',
+import { rollQuantity, standardCoxLoot } from './helpers';
+
+export const raidCox = (rngBuff = 0) => {
+  //@ts-ignore
+  const purpleThreshold = 867500;
+  const { points, didPlank } = getPoints();
+  let isPurple = false;
+  if (Math.random() < points / purpleThreshold) {
+    isPurple = true;
+  }
+  if (isPurple) {
+    return getCoxPurple(rngBuff, points, didPlank);
+  } else {
+    const roll1 = standardCoxLoot[Math.round(Math.random() * 32)];
+    const roll2 = standardCoxLoot[Math.round(Math.random() * 32)];
+    const roll1qty = rollQuantity(roll1.maxQty, didPlank);
+    const roll2qty = rollQuantity(roll2.maxQty, didPlank);
+    const response = {
+      points,
+      didPlank,
+      beam: 'white',
+      itemInfo: [
+        { itemId: roll1.id, quantity: roll1qty },
+        { itemId: roll2.id, quantity: roll2qty }
+      ],
+      itemName: `${roll1qty}x ${roll1.name} and ${roll2qty}x ${roll2.name}`,
+      dbEntry: {
+        item: `${roll1qty}x ${roll1.name} and ${roll2qty}x ${roll2.name}`,
+        price: '',
+        dateReceived: new Date().toUTCString()
+      }
+    };
+
+    return response;
+  }
+};
+
+export const getCoxPurple = (
+  rngBuff = 0,
+  points: number,
+  didPlank: boolean
+) => {
+  //@ts-ignore
+  const roll = getRoll(rngBuff);
+  const response = {
+    points,
+    didPlank,
+    beam: 'purple',
+    itemInfo: [{ itemId: '0', quantity: 1 }],
     itemName: '',
     dbEntry: {
       item: '',
@@ -11,51 +56,51 @@ export const getCoxPurple = (rngBuff = false) => {
   };
 
   if (roll < 29.986) {
-    response.itemId = '21034';
+    response.itemInfo[0].itemId = '21034';
     response.itemName = 'a Dexterous prayer scroll';
     response.dbEntry.item = 'Dexterous prayer scroll';
   } else if (roll < 57.972) {
-    response.itemId = '21079';
+    response.itemInfo[0].itemId = '21079';
     response.itemName = 'an Arcane prayer scroll';
     response.dbEntry.item = 'Arcane prayer scroll';
   } else if (roll < 63.769) {
-    response.itemId = '21000';
+    response.itemInfo[0].itemId = '21000';
     response.itemName = 'a Twisted buckler';
     response.dbEntry.item = 'Twisted buckler';
   } else if (roll < 69.566) {
-    response.itemId = '21012';
+    response.itemInfo[0].itemId = '21012';
     response.itemName = 'a Dragon hunter crossbow';
     response.dbEntry.item = 'Dragon hunter crossbow';
   } else if (roll < 73.914) {
-    response.itemId = '21015';
+    response.itemInfo[0].itemId = '21015';
     response.itemName = "a Dinh's bulwark";
     response.dbEntry.item = "Dinh's bulwark";
   } else if (roll < 78.262) {
-    response.itemId = '21018';
+    response.itemInfo[0].itemId = '21018';
     response.itemName = 'an Ancestral hat';
     response.dbEntry.item = 'Ancestral hat';
   } else if (roll < 82.61) {
-    response.itemId = '21021';
+    response.itemInfo[0].itemId = '21021';
     response.itemName = 'an Ancestral robe top';
     response.dbEntry.item = 'Ancestral robe top';
   } else if (roll < 86.958) {
-    response.itemId = '21024';
+    response.itemInfo[0].itemId = '21024';
     response.itemName = 'an Ancestral robe bottom';
     response.dbEntry.item = 'Ancestral robe bottom';
   } else if (roll < 91.306) {
-    response.itemId = '13652';
+    response.itemInfo[0].itemId = '13652';
     response.itemName = 'Dragon claws';
     response.dbEntry.item = 'Dragon claws';
   } else if (roll < 94.205) {
-    response.itemId = '21003';
+    response.itemInfo[0].itemId = '21003';
     response.itemName = 'an Elder maul';
     response.dbEntry.item = 'Elder maul';
   } else if (roll < 97.104) {
-    response.itemId = '21043';
+    response.itemInfo[0].itemId = '21043';
     response.itemName = 'a Kodai insignia';
     response.dbEntry.item = 'Kodai insignia';
   } else {
-    response.itemId = '20997';
+    response.itemInfo[0].itemId = '20997';
     response.itemName = 'a Twisted bow';
     response.dbEntry.item = 'Twisted bow';
   }
@@ -63,8 +108,9 @@ export const getCoxPurple = (rngBuff = false) => {
   return response;
 };
 
-export const getTobPurple = (rngBuff = false) => {
-  const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
+export const getTobPurple = (rngBuff = 0) => {
+  //@ts-ignore
+  const roll = getRoll(rngBuff);
 
   let rewardMessage = 'You found something special: ';
 
@@ -86,8 +132,9 @@ export const getTobPurple = (rngBuff = false) => {
   return rewardMessage;
 };
 
-export const getToaPurple = (rngBuff = false) => {
-  const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
+export const getToaPurple = (rngBuff = 0) => {
+  //@ts-ignore
+  const roll = getRoll(rngBuff);
 
   let rewardMessage = 'You found something special: ';
 
@@ -116,29 +163,34 @@ export const getToaPurple = (rngBuff = false) => {
   return rewardMessage;
 };
 
-const getBuffedRoll = () => {
-  const roll1 = Math.random() * 100;
-  // const roll2 = Math.random() * 100;
-  let bestRoll = roll1
-    // > roll2 ? roll1 : roll2;
-  const difference = 100 - bestRoll;
-  bestRoll += Math.random() * difference;
-  return bestRoll;
-};
-
-export const formatGP = (gp: string) => {
-  if (gp.length < 7) {
-    return gp.slice(0, gp.length - 3) + 'k';
-  } else if (gp.length < 10) {
-    return gp.slice(0, gp.length - 6) + '.' + gp.charAt(1) + 'M';
-  } else if (gp.length < 13) {
-    return gp.slice(0, gp.length - 9) + '.' + gp.charAt(1) + 'B';
+const getRoll = (rngBuff: 0 | 1 | 2) => {
+  let roll = Math.random() * 100;
+  if (rngBuff === 0) {
+    return roll;
+  } else if (rngBuff === 1) {
+    const difference = 100 - roll;
+    roll += Math.random() * difference;
+    return roll;
   } else {
-    return gp.slice(0, gp.length - 12) + '.' + gp.charAt(1) + 'T';
+    const roll1 = Math.random() * 100;
+    const roll2 = Math.random() * 100;
+    let bestRoll = roll1 > roll2 ? roll1 : roll2;
+    const difference = 100 - bestRoll;
+    bestRoll += Math.random() * difference;
+    return bestRoll;
   }
 };
 
-export const getMedianPrice = (lowPrice: number, highPrice: number) => {
-  const diff = highPrice - lowPrice;
-  return Math.round(lowPrice + diff / 2).toString();
+const getPoints = () => {
+  let points = Math.random() * 15000 + 25000;
+  const plankRoll = Math.random() * 100;
+  let didPlank = false;
+  if (plankRoll < 6.5) {
+    points = points / 1.75;
+    didPlank = true;
+  }
+  return {
+    didPlank,
+    points
+  };
 };
