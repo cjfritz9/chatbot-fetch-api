@@ -27,8 +27,8 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
     const diff = high - low;
     const price = Math.round(low + diff / 2).toString();
     const totalWealth = (+price + +user.gp).toString();
-    let formattedPrice: string;
-    let formattedWealth: string;
+    let formattedPrice = price;
+    let formattedWealth = totalWealth;
     console.log(price);
     if (price.length > 9) {
       formattedPrice =
