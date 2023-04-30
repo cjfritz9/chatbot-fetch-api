@@ -1,34 +1,46 @@
 export const getCoxPurple = (rngBuff = false) => {
   const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
-  let rewardMessage = 'Special Loot: ';
+  let response = { itemId: 0, message: 'Special Loot: ' };
 
   if (roll < 29.986) {
-    rewardMessage += 'Dexterous prayer scroll';
+    response.itemId = 21034;
+    response.message += 'Dexterous prayer scroll';
   } else if (roll < 57.972) {
-    rewardMessage += 'Arcane prayer scroll';
+    response.itemId = 21079;
+    response.message += 'Arcane prayer scroll';
   } else if (roll < 63.769) {
-    rewardMessage += 'Twisted buckler';
+    response.itemId = 21000;
+    response.message += 'Twisted buckler';
   } else if (roll < 69.566) {
-    rewardMessage += 'Dragon hunter crossbow';
+    response.itemId = 21012;
+    response.message += 'Dragon hunter crossbow';
   } else if (roll < 73.914) {
-    rewardMessage += "Dinh's bulwark";
+    response.itemId = 21015;
+    response.message += "Dinh's bulwark";
   } else if (roll < 78.262) {
-    rewardMessage += 'Ancestral hat';
+    response.itemId = 21018;
+    response.message += 'Ancestral hat';
   } else if (roll < 82.61) {
-    rewardMessage += 'Ancestral robe top';
+    response.itemId = 21021;
+    response.message += 'Ancestral robe top';
   } else if (roll < 86.958) {
-    rewardMessage += 'Ancestral robe bottom';
+    response.itemId = 21024;
+    response.message += 'Ancestral robe bottom';
   } else if (roll < 91.306) {
-    rewardMessage += 'Dragon claws';
+    response.itemId = 13652;
+    response.message += 'Dragon claws';
   } else if (roll < 94.205) {
-    rewardMessage += 'Elder maul';
+    response.itemId = 21003;
+    response.message += 'Elder maul';
   } else if (roll < 97.104) {
-    rewardMessage += 'Kodai insignia';
+    response.itemId = 21043;
+    response.message += 'Kodai insignia';
   } else {
-    rewardMessage += 'Twisted bow';
+    response.itemId = 20997;
+    response.message += 'Twisted bow';
   }
 
-  return rewardMessage;
+  return response;
 };
 
 export const getTobPurple = (rngBuff = false) => {

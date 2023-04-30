@@ -37,12 +37,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Raids = __importStar(require("../utils/raids-loot"));
+const axios_1 = __importDefault(require("axios"));
+const OSRS_API = 'prices.runescape.wiki/api/v1/osrs/latest';
+const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
 const osrsRouter = express_1.default.Router();
 // TODO: ADD USERNAME SUPPORT TO TRACK TOTAL
 osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username } = req.params;
     console.log(username);
-    res.send(Raids.getCoxPurple());
+    const loot = Raids.getCoxPurple();
+    const response = yield axios_1.default.get(`${OSRS_API}?id=${loot.itemId}`, {
+        headers
+    });
+    console.log(response);
+    res.send(response.data);
 }));
 osrsRouter.get('/:username/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(Raids.getTobPurple());
