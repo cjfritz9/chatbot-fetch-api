@@ -10,6 +10,7 @@ interface UserData {
 export const getUser = async (username: string) => {
   const docRef = await usersSnap.doc(username).get();
   const docData = docRef.data();
+  if (!docRef.exists) return;
   return {
     username: docRef.id,
     gp: docData!.gp

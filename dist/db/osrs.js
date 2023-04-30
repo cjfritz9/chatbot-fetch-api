@@ -18,6 +18,8 @@ const usersSnap = firestore_client_1.default.collection('users-testing');
 const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
     const docData = docRef.data();
+    if (!docRef.exists)
+        return;
     return {
         username: docRef.id,
         gp: docData.gp
