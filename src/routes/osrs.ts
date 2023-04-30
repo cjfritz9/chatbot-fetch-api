@@ -22,9 +22,11 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
     const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
     console.log(loot);
     let user = await getUser(username);
+    console.log('user response, expect undefined', user)
     if (!user) {
       user = await createUser(username, '0', loot.itemName);
     }
+    console.log('user creation + response, expect user data', user)
 
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
     const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
