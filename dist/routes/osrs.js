@@ -44,26 +44,32 @@ const osrsRouter = express_1.default.Router();
 // TODO: ADD RAID PARTY SUPPORT (!join command?)
 // TODO: IMPLEMENT RNG BUFF STANDALONE
 osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, rngBuff } = req.query;
-    if (!username) {
-        return res.send('Error - No username was supplied');
+    try {
+        const { username, rngBuff } = req.query;
+        if (!username) {
+            return res.send('Error - No username was supplied');
+        }
+        const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
+        console.log(loot);
+        let user = yield (0, osrs_1.getUser)(username);
+        if (!user) {
+            user = yield (0, osrs_1.createUser)(username, '0', loot.itemName);
+        }
+        loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
+        const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
+        const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
+        const formattedWealth = OSRS.formatGP(totalWealth);
+        (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
+        if (loot.beam === 'purple') {
+            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`);
+        }
+        else {
+            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points${loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''}. They see a white loot beam. Never lucky Sadge. Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
+        }
     }
-    const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
-    console.log(loot);
-    let user = yield (0, osrs_1.getUser)(username);
-    if (!user) {
-        user = yield (0, osrs_1.createUser)(username, '0', loot.itemName);
-    }
-    loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
-    const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
-    const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
-    const formattedWealth = OSRS.formatGP(totalWealth);
-    (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
-    if (loot.beam === 'purple') {
-        res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`);
-    }
-    else {
-        res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points${loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''}. They see a white loot beam. Never lucky Sadge. Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
+    catch (error) {
+        res.send('Error - contact wandernaut#2205');
+        console.error('Caught error: ', error);
     }
 }));
 osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
