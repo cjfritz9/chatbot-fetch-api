@@ -21,11 +21,14 @@ export const createUser = async (
   gp?: string,
   loot?: string
 ): Promise<UserData> => {
-  await usersSnap
+  const res = await usersSnap
     .doc(username)
     .create({ gp: gp ? gp : '0', lootEntries: loot ? [loot] : [] });
   const docRef = await usersSnap.doc(username).get();
   const docData = docRef.data();
+  console.log('create user response: ', res);
+  console.log('user doc ref: ', docRef);
+  console.log('user doc data: ', docData);
   return {
     username: docRef.id,
     gp: docData!.gp
