@@ -10,44 +10,45 @@ const osrsRouter = express.Router();
 // TODO: IMPLEMENT RNG BUFF STANDALONE
 
 osrsRouter.get('/raids/cox', async (req: any, res: any) => {
-  const { username, rngBuff }: { username: string | undefined; rngBuff: string | undefined } =
-    req.query;
+  const {
+    username,
+    rngBuff
+  }: { username: string | undefined; rngBuff: string | undefined } = req.query;
   if (!username) {
-    return res.send('Error - No username was supplied')
+    return res.send('Error - No username was supplied');
   }
   const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
+  console.log(loot);
   let user = await getUser(username);
   if (!user) {
     user = await createUser(username, '0', loot.itemName);
   }
-  if (user) {
-    loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
-    const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
-    const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
-    const formattedWealth = OSRS.formatGP(totalWealth);
-    updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
 
-    if (loot.beam === 'purple') {
-      res.send(
-        `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
-          0
-        )} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${
-          loot.itemName
-        } worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`
-      );
-    } else {
-      res.send(
-        `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
-          0
-        )} points${
-          loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''
-        }. They see a white loot beam. Never lucky Sadge. Within the chest they find ${
-          loot.itemName
-        } worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`
-      );
-    }
+  loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
+  const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
+  const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
+  const formattedWealth = OSRS.formatGP(totalWealth);
+  updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
+
+  if (loot.beam === 'purple') {
+    res.send(
+      `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
+        0
+      )} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${
+        loot.itemName
+      } worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`
+    );
   } else {
-    res.send('Server Error - Contact wandernaut#2205');
+    res.send(
+      `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
+        0
+      )} points${
+        loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''
+      }. They see a white loot beam. Never lucky Sadge. Within the chest they find ${
+        loot.itemName
+      }
+              } worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`
+    );
   }
 });
 
