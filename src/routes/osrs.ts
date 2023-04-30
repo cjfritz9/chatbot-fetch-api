@@ -46,8 +46,7 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
         loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''
       }. They see a white loot beam. Never lucky Sadge. Within the chest they find ${
         loot.itemName
-      }
-              } worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`
+      } worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`
     );
   }
 });

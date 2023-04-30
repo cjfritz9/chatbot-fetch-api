@@ -63,8 +63,7 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`);
     }
     else {
-        res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points${loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''}. They see a white loot beam. Never lucky Sadge. Within the chest they find ${loot.itemName}
-              } worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
+        res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points${loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''}. They see a white loot beam. Never lucky Sadge. Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
     }
 }));
 osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
