@@ -30,8 +30,10 @@ const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUser = getUser;
-const createUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
-    yield usersSnap.doc(username).create({ gp: '0' });
+const createUser = (username, loot) => __awaiter(void 0, void 0, void 0, function* () {
+    yield usersSnap
+        .doc(username)
+        .create({ gp: '0', lootEntries: loot ? [loot] : [] });
     const docRef = yield usersSnap.doc(username).get();
     const docData = docRef.data();
     return {
@@ -42,8 +44,7 @@ const createUser = (username) => __awaiter(void 0, void 0, void 0, function* () 
 const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
     if (!docRef.exists) {
-        yield createUser(username);
-        usersSnap.doc(username).update({ gp, lootEntries: [itemInfo] });
+        createUser(username, itemInfo);
         return {
             username,
             gp
