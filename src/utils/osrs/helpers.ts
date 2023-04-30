@@ -22,6 +22,8 @@ export const fetchAndAddPrices = async (
         +getMedianPrice(itemPrices.low, itemPrices.high) * items[i].quantity;
       console.log('stack value: ', stackValue);
       totalValue = (+totalValue + +stackValue).toString();
+    } else {
+      totalValue = totalValue;
     }
   });
   return totalValue;

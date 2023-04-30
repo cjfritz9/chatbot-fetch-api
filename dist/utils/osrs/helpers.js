@@ -32,6 +32,9 @@ const fetchAndAddPrices = (items) => __awaiter(void 0, void 0, void 0, function*
             console.log('stack value: ', stackValue);
             totalValue = (+totalValue + +stackValue).toString();
         }
+        else {
+            totalValue = totalValue;
+        }
     });
     return totalValue;
 });
