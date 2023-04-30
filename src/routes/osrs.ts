@@ -17,7 +17,7 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
     headers
   });
   console.log(response);
-  res.send(response.data)
+  res.send(response.data);
 });
 
 osrsRouter.get('/:username/raids/tob', async (_req: any, res: any) => {
