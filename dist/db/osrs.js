@@ -12,22 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.getUser = void 0;
+exports.updateUser = exports.createUser = exports.getUser = void 0;
 const firestore_client_1 = __importDefault(require("./firestore-client"));
 const usersSnap = firestore_client_1.default.collection('users-testing');
 const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
-    if (docRef.exists) {
-        const docData = docRef.data();
-        return {
-            username: docRef.id,
-            gp: docData.gp
-        };
-    }
-    else {
-        const user = yield createUser(username);
-        return user;
-    }
+    const docData = docRef.data();
+    return {
+        username: docRef.id,
+        gp: docData.gp
+    };
 });
 exports.getUser = getUser;
 const createUser = (username, gp, loot) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,10 +35,11 @@ const createUser = (username, gp, loot) => __awaiter(void 0, void 0, void 0, fun
         gp: docData.gp
     };
 });
+exports.createUser = createUser;
 const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
     if (!docRef.exists) {
-        const user = yield createUser(username, itemInfo);
+        const user = yield (0, exports.createUser)(username, itemInfo);
         return user;
     }
     else {

@@ -39,8 +39,6 @@ const express_1 = __importDefault(require("express"));
 const RAIDS = __importStar(require("../utils/osrs/raids"));
 const OSRS = __importStar(require("../utils/osrs/helpers"));
 const osrs_1 = require("../db/osrs");
-const OSRS_API = 'https://prices.runescape.wiki/api/v1/osrs/latest';
-const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
 const osrsRouter = express_1.default.Router();
 // TODO: ADD USERNAME SUPPORT TO TRACK TOTAL
 // TODO: ADD RAID PARTY SUPPORT (!join command?)
@@ -48,7 +46,10 @@ const osrsRouter = express_1.default.Router();
 osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, rngBuff } = req.query;
     const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
-    const user = yield (0, osrs_1.getUser)(username);
+    let user = yield (0, osrs_1.getUser)(username);
+    if (!user) {
+        user = yield (0, osrs_1.createUser)(username, '0', loot.itemName);
+    }
     if (user) {
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
         const totalWealth = (+user.gp + +loot.dbEntry.price).toString();

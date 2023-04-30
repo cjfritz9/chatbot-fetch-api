@@ -9,19 +9,14 @@ interface UserData {
 
 export const getUser = async (username: string) => {
   const docRef = await usersSnap.doc(username).get();
-  if (docRef.exists) {
-    const docData = docRef.data();
-    return {
-      username: docRef.id,
-      gp: docData!.gp
-    };
-  } else {
-    const user = await createUser(username);
-    return user;
-  }
+  const docData = docRef.data();
+  return {
+    username: docRef.id,
+    gp: docData!.gp
+  };
 };
 
-const createUser = async (
+export const createUser = async (
   username: string,
   gp?: string,
   loot?: string

@@ -1,11 +1,7 @@
 import express from 'express';
 import * as RAIDS from '../utils/osrs/raids';
 import * as OSRS from '../utils/osrs/helpers';
-import axios from 'axios';
-import { getUser, updateUser } from '../db/osrs';
-
-const OSRS_API = 'https://prices.runescape.wiki/api/v1/osrs/latest';
-const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
+import { createUser, getUser, updateUser } from '../db/osrs';
 
 const osrsRouter = express.Router();
 
@@ -17,7 +13,10 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
   const { username, rngBuff }: { username: string; rngBuff: string } =
     req.query;
   const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
-  const user = await getUser(username);
+  let user = await getUser(username);
+  if (!user) {
+    user = await createUser(username, '0', loot.itemName);
+  }
   if (user) {
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
     const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
