@@ -34,11 +34,11 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
       formattedPrice =
         price.slice(0, price.length - 9) + '.' + price.charAt(1) + 'B';
       formattedWealth =
-        price.slice(0, price.length - 9) + '.' + price.charAt(1) + 'B';
+        totalWealth.slice(0, totalWealth.length - 9) + '.' + totalWealth.charAt(1) + 'B';
     }
     if (price.length < 10 && price.length > 6) {
       formattedPrice = price.slice(0, price.length - 6) + 'M';
-      formattedWealth = price.slice(0, price.length - 6) + 'M';
+      formattedWealth = totalWealth.slice(0, totalWealth.length - 6) + 'M';
     }
     updateUser(username, totalWealth);
     res.send(
