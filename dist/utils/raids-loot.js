@@ -139,8 +139,9 @@ const getToaPurple = (rngBuff = false) => {
 exports.getToaPurple = getToaPurple;
 const getBuffedRoll = () => {
     const roll1 = Math.random() * 100;
-    const roll2 = Math.random() * 100;
-    let bestRoll = roll1 > roll2 ? roll1 : roll2;
+    // const roll2 = Math.random() * 100;
+    let bestRoll = roll1;
+    // > roll2 ? roll1 : roll2;
     const difference = 100 - bestRoll;
     bestRoll += Math.random() * difference;
     return bestRoll;
