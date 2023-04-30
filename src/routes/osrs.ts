@@ -1,7 +1,7 @@
 import express from 'express';
 import * as Raids from '../utils/raids-loot';
 import axios from 'axios';
-import { getUser } from '../db/osrs';
+import { getUser, updateUser } from '../db/osrs';
 
 const OSRS_API = 'https://prices.runescape.wiki/api/v1/osrs/latest';
 const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
@@ -36,6 +36,7 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
       formattedPrice = price.slice(0, price.length - 6) + 'M';
     }
     const bankValue = (+price + +user.gp).toString();
+    updateUser(username, bankValue);
     res.send(
       `${username} successfully completed the Chambers of Xeric and received ${
         loot.message

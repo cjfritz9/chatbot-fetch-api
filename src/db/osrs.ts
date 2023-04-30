@@ -33,7 +33,7 @@ const createUser = async (username: string): Promise<UserData> => {
 
 export const updateUser = async (
   username: string,
-  gp: 'string'
+  gp: string
 ): Promise<UserData> => {
   const userDoc = usersSnap.doc(username);
   let docRef = await userDoc.get();
