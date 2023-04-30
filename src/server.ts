@@ -9,6 +9,14 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 
+app.use('*', (req) => {
+  console.log('-----REQUEST LOGGER-----');
+  console.log('request URL: ', req.url);
+  console.log('request queries: ', { ...req.query });
+  console.log('request body: ', req.body);
+  console.log('-----END LOGGER-----');
+});
+
 import huntShowdownRouter from './routes/hunt-showdown';
 app.use('/hunt_showdown', huntShowdownRouter);
 
@@ -27,13 +35,19 @@ app.get('/testing', async (_req, _res) => {
     _res.send(
       `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
         0
-      )} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName}!`
+      )} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${
+        loot.itemName
+      }!`
     );
   } else {
     _res.send(
       `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
         0
-      )} points${loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''}. They see a white loot beam. Within the chest they find ${loot.itemName}. Never lucky Sadge`
+      )} points${
+        loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''
+      }. They see a white loot beam. Within the chest they find ${
+        loot.itemName
+      }. Never lucky Sadge`
     );
   }
 });
