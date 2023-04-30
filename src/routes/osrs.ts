@@ -2,12 +2,13 @@ import express from 'express';
 import * as Raids from '../utils/raids-loot';
 import axios from 'axios';
 
-const OSRS_API = 'prices.runescape.wiki/api/v1/osrs/latest';
+const OSRS_API = 'https://prices.runescape.wiki/api/v1/osrs/latest';
 const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
 
 const osrsRouter = express.Router();
 
 // TODO: ADD USERNAME SUPPORT TO TRACK TOTAL
+// TODO: ADD RAID PARTY SUPPORT (!join command?)
 
 osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
   const { username } = req.params;
