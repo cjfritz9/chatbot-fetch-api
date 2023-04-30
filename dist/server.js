@@ -23,7 +23,7 @@ exports.app.use(express_1.default.json());
 exports.app.use((0, cors_1.default)({ origin: '*' }));
 exports.app.use('*', (req) => {
     console.log('-----REQUEST LOGGER-----');
-    console.log('request URL: ', req.url);
+    console.log('request URL: ', req.originalUrl);
     console.log('request queries: ', Object.assign({}, req.query));
     console.log('request body: ', req.body);
     console.log('-----END LOGGER-----');

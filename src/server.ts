@@ -11,7 +11,7 @@ app.use(cors({ origin: '*' }));
 
 app.use('*', (req) => {
   console.log('-----REQUEST LOGGER-----');
-  console.log('request URL: ', req.url);
+  console.log('request URL: ', req.originalUrl);
   console.log('request queries: ', { ...req.query });
   console.log('request body: ', req.body);
   console.log('-----END LOGGER-----');
