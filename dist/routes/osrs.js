@@ -48,7 +48,7 @@ osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, v
     var _a;
     const { username } = req.params;
     console.log(username);
-    const loot = OSRS.getCoxPurple();
+    const loot = OSRS.getCoxPurple(true);
     const [response, user] = yield Promise.all([
         axios_1.default.get(`${OSRS_API}?id=${loot.itemId}`, {
             headers
@@ -62,7 +62,10 @@ osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, v
         const formattedPrice = OSRS.formatGP(price);
         const formattedWealth = OSRS.formatGP(totalWealth);
         (0, osrs_1.updateUser)(username, totalWealth);
-        res.send(`${username} successfully completed the Chambers of Xeric and received ${loot.message} worth ${formattedPrice}. Total wealth: ${formattedWealth}`);
+        res.send(`${loot}`);
+        // res.send(
+        //   `${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`
+        // );
     }
     else {
         res.send('Server Error - Contact wandernaut#2205');
