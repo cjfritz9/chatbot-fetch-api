@@ -9,12 +9,13 @@ const PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 
-app.use('*', (req) => {
+app.use('*', (req, _res, next) => {
   console.log('-----REQUEST LOGGER-----');
   console.log('request URL: ', req.originalUrl);
   console.log('request queries: ', { ...req.query });
   console.log('request body: ', req.body);
   console.log('-----END LOGGER-----');
+  next();
 });
 
 import huntShowdownRouter from './routes/hunt-showdown';
