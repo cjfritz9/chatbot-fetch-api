@@ -14,7 +14,7 @@ const osrsRouter = express.Router();
 osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
   const { username } = req.params;
   console.log(username);
-  const loot = OSRS.getCoxPurple(true);
+  const loot = OSRS.getCoxPurple();
   const [response, user] = await Promise.all([
     axios.get(`${OSRS_API}?id=${loot.itemId}`, {
       headers
