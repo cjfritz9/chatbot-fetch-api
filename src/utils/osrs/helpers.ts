@@ -16,6 +16,7 @@ export const fetchAndAddPrices = async (
   let totalValue = '0';
   responses.map((res, i) => {
     if (res?.data?.data) {
+      console.log('response data: ', res.data.data)
       const itemPrices = res.data.data[items[i].itemId];
       console.log('item prices: ', itemPrices);
       const stackValue =
