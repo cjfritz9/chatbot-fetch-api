@@ -45,6 +45,9 @@ const osrsRouter = express_1.default.Router();
 // TODO: IMPLEMENT RNG BUFF STANDALONE
 osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, rngBuff } = req.query;
+    if (!username) {
+        return res.send('Error - No username was supplied');
+    }
     const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
     let user = yield (0, osrs_1.getUser)(username);
     if (!user) {
