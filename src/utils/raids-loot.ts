@@ -104,3 +104,15 @@ const getBuffedRoll = () => {
   bestRoll += Math.random() * difference;
   return bestRoll;
 };
+
+export const formatGP = (gp: string) => {
+  if (gp.length < 7) {
+    return gp.slice(0, gp.length - 3) + 'k';
+  } else if (gp.length < 10) {
+    return gp.slice(0, gp.length - 6) + '.' + gp.charAt(1) + 'M';
+  } else if (gp.length < 13) {
+    return gp.slice(0, gp.length - 9) + '.' + gp.charAt(1) + 'B';
+  } else {
+    return gp.slice(0, gp.length - 12) + '.' + gp.charAt(1) + 'T';
+  }
+};

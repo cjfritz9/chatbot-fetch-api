@@ -61,19 +61,8 @@ osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, v
         const diff = high - low;
         const price = Math.round(low + diff / 2).toString();
         const totalWealth = (+price + +user.gp).toString();
-        let formattedPrice = price;
-        let formattedWealth = totalWealth;
-        console.log(price);
-        if (price.length > 9) {
-            formattedPrice =
-                price.slice(0, price.length - 9) + '.' + price.charAt(1) + 'B';
-            formattedWealth =
-                totalWealth.slice(0, totalWealth.length - 9) + '.' + totalWealth.charAt(1) + 'B';
-        }
-        if (price.length < 10 && price.length > 6) {
-            formattedPrice = price.slice(0, price.length - 6) + 'M';
-            formattedWealth = totalWealth.slice(0, totalWealth.length - 6) + 'M';
-        }
+        const formattedPrice = Raids.formatGP(price);
+        const formattedWealth = Raids.formatGP(totalWealth);
         (0, osrs_1.updateUser)(username, totalWealth);
         res.send(`${username} successfully completed the Chambers of Xeric and received ${loot.message} worth ${formattedPrice}. Total wealth: ${formattedWealth}`);
     }

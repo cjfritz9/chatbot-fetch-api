@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getToaPurple = exports.getTobPurple = exports.getCoxPurple = void 0;
+exports.formatGP = exports.getToaPurple = exports.getTobPurple = exports.getCoxPurple = void 0;
 const getCoxPurple = (rngBuff = false) => {
     const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
     let response = { itemId: '0', message: '' };
@@ -125,3 +125,18 @@ const getBuffedRoll = () => {
     bestRoll += Math.random() * difference;
     return bestRoll;
 };
+const formatGP = (gp) => {
+    if (gp.length < 7) {
+        return gp.slice(0, gp.length - 3) + 'k';
+    }
+    else if (gp.length < 10) {
+        return gp.slice(0, gp.length - 6) + '.' + gp.charAt(1) + 'M';
+    }
+    else if (gp.length < 13) {
+        return gp.slice(0, gp.length - 9) + '.' + gp.charAt(1) + 'B';
+    }
+    else {
+        return gp.slice(0, gp.length - 12) + '.' + gp.charAt(1) + 'T';
+    }
+};
+exports.formatGP = formatGP;
