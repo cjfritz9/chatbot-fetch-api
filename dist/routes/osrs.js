@@ -55,7 +55,12 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
         const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
         const formattedWealth = OSRS.formatGP(totalWealth);
         (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
-        res.send(`${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`);
+        if (loot.beam === 'purple') {
+            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`);
+        }
+        else {
+            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(0)} points${loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''}. They see a white loot beam. Never lucky Sadge. Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
+        }
     }
     else {
         res.send('Server Error - Contact wandernaut#2205');
