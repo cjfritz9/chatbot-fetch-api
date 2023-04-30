@@ -36,19 +36,22 @@ export const updateUser = async (
   gp: string,
   itemInfo: string
 ): Promise<UserData> => {
-  const userDoc = usersSnap.doc(username);
-  let docRef = await userDoc.get();
+  const docRef = await usersSnap.doc(username).get();
   if (!docRef.exists) {
     await createUser(username);
-    docRef = await userDoc.get();
-    userDoc.update({ lootEntries: [itemInfo] });
+    usersSnap.doc(username).update({ gp, lootEntries: [itemInfo] });
+    return {
+      username,
+      gp
+    };
+  } else {
+    const docData = docRef.data();
+    await usersSnap
+      .doc(username)
+      .update({ gp, lootEntries: [...docData!.lootEntries, itemInfo] });
+    return {
+      username: docRef.id,
+      gp: docData!.gp
+    };
   }
-  const docData = docRef.data();
-  await usersSnap
-    .doc(username)
-    .update({ gp, lootEntries: [...docData!.lootEntries, itemInfo] });
-  return {
-    username: docRef.id,
-    gp: docData!.gp
-  };
 };
