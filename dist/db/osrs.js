@@ -30,10 +30,10 @@ const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getUser = getUser;
-const createUser = (username, loot) => __awaiter(void 0, void 0, void 0, function* () {
+const createUser = (username, gp, loot) => __awaiter(void 0, void 0, void 0, function* () {
     yield usersSnap
         .doc(username)
-        .create({ gp: '0', lootEntries: loot ? [loot] : [] });
+        .create({ gp: gp ? gp : '0', lootEntries: loot ? [loot] : [] });
     const docRef = yield usersSnap.doc(username).get();
     const docData = docRef.data();
     return {
