@@ -29,10 +29,9 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
     const formattedWealth = OSRS.formatGP(totalWealth);
     updateUser(username, totalWealth);
 
-    res.send({ loot });
-    // res.send(
-    //   `${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`
-    // );
+    res.send(
+      `${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`
+    );
   } else {
     res.send('Server Error - Contact wandernaut#2205');
   }
