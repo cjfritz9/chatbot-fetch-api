@@ -44,11 +44,11 @@ const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
 const osrsRouter = express_1.default.Router();
 // TODO: ADD USERNAME SUPPORT TO TRACK TOTAL
 // TODO: ADD RAID PARTY SUPPORT (!join command?)
-osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const { username } = req.params;
+    const { username } = req.query;
     console.log(username);
-    const loot = OSRS.getCoxPurple(true);
+    const loot = OSRS.getCoxPurple();
     const [response, user] = yield Promise.all([
         axios_1.default.get(`${OSRS_API}?id=${loot.itemId}`, {
             headers
@@ -69,19 +69,19 @@ osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, v
         res.send('Server Error - Contact wandernaut#2205');
     }
 }));
-osrsRouter.get('/:username/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(OSRS.getTobPurple());
 }));
-osrsRouter.get('/:username/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(OSRS.getToaPurple());
 }));
-osrsRouter.get('/:username/raids/cox_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/cox_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(OSRS.getCoxPurple(true));
 }));
-osrsRouter.get('/:username/raids/tob_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/tob_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(OSRS.getTobPurple(true));
 }));
-osrsRouter.get('/:username/raids/toa_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+osrsRouter.get('/raids/toa_buff', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(OSRS.getToaPurple(true));
 }));
 exports.default = osrsRouter;

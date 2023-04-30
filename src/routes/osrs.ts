@@ -11,8 +11,8 @@ const osrsRouter = express.Router();
 // TODO: ADD USERNAME SUPPORT TO TRACK TOTAL
 // TODO: ADD RAID PARTY SUPPORT (!join command?)
 
-osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
-  const { username } = req.params;
+osrsRouter.get('/raids/cox', async (req: any, res: any) => {
+  const { username } = req.query;
   console.log(username);
   const loot = OSRS.getCoxPurple();
   const [response, user] = await Promise.all([
@@ -38,23 +38,23 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
   }
 });
 
-osrsRouter.get('/:username/raids/tob', async (_req: any, res: any) => {
+osrsRouter.get('/raids/tob', async (_req: any, res: any) => {
   res.send(OSRS.getTobPurple());
 });
 
-osrsRouter.get('/:username/raids/toa', async (_req: any, res: any) => {
+osrsRouter.get('/raids/toa', async (_req: any, res: any) => {
   res.send(OSRS.getToaPurple());
 });
 
-osrsRouter.get('/:username/raids/cox_buff', async (_req: any, res: any) => {
+osrsRouter.get('/raids/cox_buff', async (_req: any, res: any) => {
   res.send(OSRS.getCoxPurple(true));
 });
 
-osrsRouter.get('/:username/raids/tob_buff', async (_req: any, res: any) => {
+osrsRouter.get('/raids/tob_buff', async (_req: any, res: any) => {
   res.send(OSRS.getTobPurple(true));
 });
 
-osrsRouter.get('/:username/raids/toa_buff', async (_req: any, res: any) => {
+osrsRouter.get('/raids/toa_buff', async (_req: any, res: any) => {
   res.send(OSRS.getToaPurple(true));
 });
 

@@ -18,7 +18,9 @@ app.use('/osrs', osrsRouter);
 import joeRouter from './routes/joewatermelon';
 app.use('/joewatermelon', joeRouter);
 
-app.get('/*', (_req, res) => {
+app.get('/*', (req, res) => {
+  console.log('request url: ', req.url)
+  console.log('request user query: ', req.query.user)
   res.status(404).send('The page you are looking for does not exist.')
 })
 
