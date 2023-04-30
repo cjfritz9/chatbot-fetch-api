@@ -2,7 +2,13 @@ import { rollQuantity, standardCoxLoot } from './helpers';
 
 export const raidCox = (rngBuff = 0) => {
   //@ts-ignore
-  const purpleThreshold = 867500;
+  let purpleThreshold = 867500;
+  if (rngBuff === 1) {
+    purpleThreshold = purpleThreshold / 2.5;
+  }
+  if (rngBuff === 2) {
+    purpleThreshold = purpleThreshold / 5;
+  }
   const { points, didPlank } = getPoints();
   let isPurple = false;
   if (Math.random() < points / purpleThreshold) {
