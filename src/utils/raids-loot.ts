@@ -1,48 +1,63 @@
 export const getCoxPurple = (rngBuff = false) => {
   const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
   let response = {
-    itemId: '0', itemName: '', dbEntry: {
+    itemId: '0',
+    itemName: '',
+    dbEntry: {
       item: '',
       price: '',
       dateReceived: new Date().toUTCString()
-  } };
+    }
+  };
 
   if (roll < 29.986) {
     response.itemId = '21034';
     response.itemName = 'a Dexterous prayer scroll';
+    response.dbEntry.item = 'Dexterous prayer scroll';
   } else if (roll < 57.972) {
     response.itemId = '21079';
     response.itemName = 'an Arcane prayer scroll';
+    response.dbEntry.item = 'Arcane prayer scroll';
   } else if (roll < 63.769) {
     response.itemId = '21000';
     response.itemName = 'a Twisted buckler';
+    response.dbEntry.item = 'Twisted buckler';
   } else if (roll < 69.566) {
     response.itemId = '21012';
     response.itemName = 'a Dragon hunter crossbow';
+    response.dbEntry.item = 'Dragon hunter crossbow';
   } else if (roll < 73.914) {
     response.itemId = '21015';
     response.itemName = "a Dinh's bulwark";
+    response.dbEntry.item = "Dinh's bulwark";
   } else if (roll < 78.262) {
     response.itemId = '21018';
     response.itemName = 'an Ancestral hat';
+    response.dbEntry.item = 'Ancestral hat';
   } else if (roll < 82.61) {
     response.itemId = '21021';
     response.itemName = 'an Ancestral robe top';
+    response.dbEntry.item = 'Ancestral robe top';
   } else if (roll < 86.958) {
     response.itemId = '21024';
     response.itemName = 'an Ancestral robe bottom';
+    response.dbEntry.item = 'Ancestral robe bottom';
   } else if (roll < 91.306) {
     response.itemId = '13652';
     response.itemName = 'Dragon claws';
+    response.dbEntry.item = 'Dragon claws';
   } else if (roll < 94.205) {
     response.itemId = '21003';
     response.itemName = 'an Elder maul';
+    response.dbEntry.item = 'Elder maul';
   } else if (roll < 97.104) {
     response.itemId = '21043';
     response.itemName = 'a Kodai insignia';
+    response.dbEntry.item = 'Kodai insignia';
   } else {
     response.itemId = '20997';
     response.itemName = 'a Twisted bow';
+    response.dbEntry.item = 'Twisted bow';
   }
 
   return response;
