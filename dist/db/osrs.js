@@ -44,11 +44,8 @@ const createUser = (username, gp, loot) => __awaiter(void 0, void 0, void 0, fun
 const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
     if (!docRef.exists) {
-        createUser(username, itemInfo);
-        return {
-            username,
-            gp
-        };
+        const user = yield createUser(username, itemInfo);
+        return user;
     }
     else {
         const docData = docRef.data();
