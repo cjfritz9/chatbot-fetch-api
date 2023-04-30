@@ -1,6 +1,7 @@
 import express from 'express';
 import * as Raids from '../utils/raids-loot';
 import axios from 'axios';
+import { getUser } from '../db/osrs';
 
 const OSRS_API = 'https://prices.runescape.wiki/api/v1/osrs/latest';
 const headers = { 'User-Agent': 'chatbot_raid_sim - @wandernaut#2205' };
@@ -13,12 +14,36 @@ const osrsRouter = express.Router();
 osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
   const { username } = req.params;
   console.log(username);
-  const loot = Raids.getCoxPurple();
-  const response = await axios.get(`${OSRS_API}?id=${loot.itemId}`, {
-    headers
-  });
-  console.log(response);
-  res.send(response.data);
+  const loot = Raids.getCoxPurple(true);
+  const [response, user] = await Promise.all([
+    axios.get(`${OSRS_API}?id=${loot.itemId}`, {
+      headers
+    }),
+    getUser(username)
+  ]);
+  if (response?.data?.data) {
+    const high = response.data.data[loot.itemId].high;
+    const low = response.data.data[loot.itemId].low;
+    const diff = high - low;
+    const price = Math.round(low + diff / 2).toString();
+    let formattedPrice: string;
+    console.log(price);
+    if (price.length > 9) {
+      formattedPrice =
+        price.slice(0, price.length - 9) + '.' + price.charAt(1) + 'B';
+    }
+    if (price.length < 10 && price.length > 6) {
+      formattedPrice = price.slice(0, price.length - 6) + 'M';
+    }
+    const bankValue = (+price + +user.gp).toString();
+    res.send(
+      `${username} successfully completed the Chambers of Xeric and received ${
+        loot.message
+      } worth ${formattedPrice!}. Total bank value: ${bankValue}`
+    );
+  } else {
+    res.send('Server Error: Contact wandernaut#2205');
+  }
 });
 
 osrsRouter.get('/:username/raids/tob', async (_req: any, res: any) => {

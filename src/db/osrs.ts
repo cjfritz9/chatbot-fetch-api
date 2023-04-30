@@ -7,6 +7,20 @@ interface UserData {
   gp: string;
 }
 
+export const getUser = async (username: string) => {
+  const docRef = await usersSnap.doc(username).get();
+  if (docRef.exists) {
+    const docData = docRef.data();
+    return {
+      username: docRef.id,
+      gp: docData!.gp
+    };
+  } else {
+    const user = await createUser(username);
+    return user;
+  }
+};
+
 const createUser = async (username: string): Promise<UserData> => {
   await usersSnap.doc(username).create({ gp: '0' });
   const docRef = await usersSnap.doc(username).get();
@@ -17,7 +31,7 @@ const createUser = async (username: string): Promise<UserData> => {
   };
 };
 
-const updateUser = async (
+export const updateUser = async (
   username: string,
   gp: 'string'
 ): Promise<UserData> => {
@@ -34,5 +48,3 @@ const updateUser = async (
     gp: docData!.gp
   };
 };
-
-export default updateUser;

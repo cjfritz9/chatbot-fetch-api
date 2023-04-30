@@ -12,8 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateUser = exports.getUser = void 0;
 const firestore_client_1 = __importDefault(require("./firestore-client"));
 const usersSnap = firestore_client_1.default.collection('users');
+const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    const docRef = yield usersSnap.doc(username).get();
+    if (docRef.exists) {
+        const docData = docRef.data();
+        return {
+            username: docRef.id,
+            gp: docData.gp
+        };
+    }
+    else {
+        const user = yield createUser(username);
+        return user;
+    }
+});
+exports.getUser = getUser;
 const createUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     yield usersSnap.doc(username).create({ gp: '0' });
     const docRef = yield usersSnap.doc(username).get();
@@ -37,4 +53,4 @@ const updateUser = (username, gp) => __awaiter(void 0, void 0, void 0, function*
         gp: docData.gp
     };
 });
-exports.default = updateUser;
+exports.updateUser = updateUser;
