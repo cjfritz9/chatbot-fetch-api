@@ -27,7 +27,8 @@ osrsRouter.get('/:username/raids/cox', async (req: any, res: any) => {
     const totalWealth = (+price + +user.gp).toString();
     const formattedPrice = OSRS.formatGP(price);
     const formattedWealth = OSRS.formatGP(totalWealth);
-    updateUser(username, totalWealth);
+    loot.dbEntry.price = price;
+    updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
 
     res.send(
       `${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`

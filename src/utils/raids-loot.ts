@@ -1,6 +1,11 @@
 export const getCoxPurple = (rngBuff = false) => {
   const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
-  let response = { itemId: '0', itemName: '', roll };
+  let response = {
+    itemId: '0', itemName: '', dbEntry: {
+      item: '',
+      price: '',
+      dateReceived: new Date().toUTCString()
+  } };
 
   if (roll < 29.986) {
     response.itemId = '21034';

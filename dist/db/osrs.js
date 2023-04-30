@@ -39,15 +39,18 @@ const createUser = (username) => __awaiter(void 0, void 0, void 0, function* () 
         gp: docData.gp
     };
 });
-const updateUser = (username, gp) => __awaiter(void 0, void 0, void 0, function* () {
+const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0, function* () {
     const userDoc = usersSnap.doc(username);
     let docRef = yield userDoc.get();
     if (!docRef.exists) {
         yield createUser(username);
         docRef = yield userDoc.get();
+        userDoc.update({ lootEntries: [itemInfo] });
     }
     const docData = docRef.data();
-    yield usersSnap.doc(username).update({ gp });
+    yield usersSnap
+        .doc(username)
+        .update({ gp, lootEntries: [...docData.lootEntries, itemInfo] });
     return {
         username: docRef.id,
         gp: docData.gp

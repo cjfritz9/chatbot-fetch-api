@@ -33,16 +33,20 @@ const createUser = async (username: string): Promise<UserData> => {
 
 export const updateUser = async (
   username: string,
-  gp: string
+  gp: string,
+  itemInfo: string
 ): Promise<UserData> => {
   const userDoc = usersSnap.doc(username);
   let docRef = await userDoc.get();
   if (!docRef.exists) {
     await createUser(username);
     docRef = await userDoc.get();
+    userDoc.update({ lootEntries: [itemInfo] });
   }
   const docData = docRef.data();
-  await usersSnap.doc(username).update({ gp });
+  await usersSnap
+    .doc(username)
+    .update({ gp, lootEntries: [...docData!.lootEntries, itemInfo] });
   return {
     username: docRef.id,
     gp: docData!.gp

@@ -3,7 +3,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMedianPrice = exports.formatGP = exports.getToaPurple = exports.getTobPurple = exports.getCoxPurple = void 0;
 const getCoxPurple = (rngBuff = false) => {
     const roll = rngBuff ? getBuffedRoll() : Math.random() * 100;
-    let response = { itemId: '0', itemName: '', roll };
+    let response = {
+        itemId: '0', itemName: '', dbEntry: {
+            item: '',
+            price: '',
+            dateReceived: new Date().toUTCString()
+        }
+    };
     if (roll < 29.986) {
         response.itemId = '21034';
         response.itemName = 'a Dexterous prayer scroll';
