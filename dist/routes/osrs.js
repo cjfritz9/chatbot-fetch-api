@@ -69,9 +69,9 @@ osrsRouter.get('/:username/raids/cox', (req, res) => __awaiter(void 0, void 0, v
         if (price.length < 10 && price.length > 6) {
             formattedPrice = price.slice(0, price.length - 6) + 'M';
         }
-        const bankValue = (+price + +user.gp).toString();
-        (0, osrs_1.updateUser)(username, bankValue);
-        res.send(`${username} successfully completed the Chambers of Xeric and received ${loot.message} worth ${formattedPrice}. Total bank value: ${bankValue}`);
+        const totalWealth = (+price + +user.gp).toString();
+        (0, osrs_1.updateUser)(username, totalWealth);
+        res.send(`${username} successfully completed the Chambers of Xeric and received ${loot.message} worth ${formattedPrice}. Total wealth: ${totalWealth}`);
     }
     else {
         res.send('Server Error: Contact wandernaut#2205');
