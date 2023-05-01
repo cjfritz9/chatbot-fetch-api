@@ -22,11 +22,11 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
     const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
     console.log(loot);
     let user = await getUser(username);
-    console.log('user response, expect undefined', user)
+    console.log('user response, expect undefined', user);
     if (!user) {
       user = await createUser(username, '0', loot.itemName);
     }
-    console.log('user creation + response, expect user data', user)
+    console.log('user creation + response, expect user data', user);
 
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
     const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
@@ -36,17 +36,19 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
 
     if (loot.beam === 'purple') {
       res.send(
-        `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
+        `${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(
           0
+        )).toLocaleString(
+          'en-US'
         )} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${
           loot.itemName
         } worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`
       );
     } else {
       res.send(
-        `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
+        `${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(
           0
-        )} points${
+        )).toLocaleString('en-US')} points${
           loot.didPlank ? ' ( what a planker x0r6ztGiggle )' : ''
         }. They see a white loot beam. Never lucky Sadge . Within the chest they find ${
           loot.itemName
@@ -55,7 +57,7 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
     }
   } catch (error) {
     res.send('Error - contact wandernaut#2205');
-    console.error('Caught error: ', error)
+    console.error('Caught error: ', error);
   }
 });
 

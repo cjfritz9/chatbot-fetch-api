@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateUser = exports.createUser = exports.getUser = void 0;
 const firestore_client_1 = __importDefault(require("./firestore-client"));
-const usersSnap = firestore_client_1.default.collection('users-testing');
+const usersSnap = firestore_client_1.default.collection('users');
 const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
     if (!docRef.exists)

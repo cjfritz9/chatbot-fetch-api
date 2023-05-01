@@ -1,6 +1,6 @@
 import db from './firestore-client';
 
-const usersSnap = db.collection('users-testing');
+const usersSnap = db.collection('users');
 
 interface UserData {
   username: string;
