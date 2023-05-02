@@ -24,7 +24,7 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
     let user = await getUser(username);
     console.log('user response, expect undefined', user);
     if (!user) {
-      user = await createUser(username, '0', loot.itemName);
+      user = await createUser(username, '0', JSON.stringify(loot.dbEntry));
     }
     console.log('user creation + response, expect user data', user);
 
