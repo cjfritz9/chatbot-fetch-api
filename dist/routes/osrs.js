@@ -54,7 +54,7 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
         let user = yield (0, osrs_1.getUser)(username);
         console.log('user response, expect undefined', user);
         if (!user) {
-            user = yield (0, osrs_1.createUser)(username, '0', loot.itemName);
+            user = { username: 'username', gp: '0' };
         }
         console.log('user creation + response, expect user data', user);
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
