@@ -44,7 +44,7 @@ exports.createUser = createUser;
 const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
     if (!docRef.exists) {
-        const user = yield (0, exports.createUser)(username, itemInfo);
+        const user = yield (0, exports.createUser)(username, '0', itemInfo);
         return user;
     }
     else {
