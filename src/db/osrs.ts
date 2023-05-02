@@ -43,7 +43,7 @@ export const updateUser = async (
 ): Promise<UserData> => {
   const docRef = await usersSnap.doc(username).get();
   if (!docRef.exists) {
-    const user = await createUser(username, '0', itemInfo);
+    const user = await createUser(username, gp, itemInfo);
     return user;
   } else {
     const docData = docRef.data();
