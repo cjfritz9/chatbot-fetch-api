@@ -1,7 +1,7 @@
 import express from 'express';
 import * as RAIDS from '../utils/osrs/raids';
 import * as OSRS from '../utils/osrs/helpers';
-import { createUser, getUser, updateUser } from '../db/osrs';
+import { addRngFields, createUser, getUser, updateUser } from '../db/osrs';
 
 const osrsRouter = express.Router();
 
@@ -69,40 +69,7 @@ osrsRouter.get('/raids/toa', async (_req: any, res: any) => {
   res.send(RAIDS.getToaPurple());
 });
 
-osrsRouter.get('/raids/cox_buff', async (_req: any, _res: any) => {
-  // const { rngBonus, username } = req.query;
-  // if (+rngBonus) {
-  //   const loot = RAIDS.getCoxPurple(+rngBonus);
-  //   const [response, user] = await Promise.all([
-  //     axios.get(`${OSRS_API}?id=${loot.itemId}`, {
-  //       headers
-  //     }),
-  //     getUser(username)
-  //   ]);
-  //   if (response?.data?.data) {
-  //     const itemPrices = response.data.data[loot.itemId];
-  //     const price = OSRS.getMedianPrice(itemPrices.low, itemPrices.high);
-  //     const totalWealth = (+price + +user.gp).toString();
-  //     const formattedPrice = OSRS.formatGP(price);
-  //     const formattedWealth = OSRS.formatGP(totalWealth);
-  //     loot.dbEntry.price = price;
-  //     updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
-  //     res.send(
-  //       `${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`
-  //     );
-  //   } else {
-  //     console.log('-----OSRS WIKI API ERROR-----');
-  //     console.log('-----FULL RESPONSE BELOW-----');
-  //     console.log(response);
-  //     res.send({ error: 'Server Error - Contact wandernaut#2205' });
-  //   }
-  // } else {
-  //   console.log('-----URL QUERY ENCODING ERROR-----');
-  //   console.log('rngBonus: ', rngBonus);
-  //   console.log('username: ', username);
-  //   res.send({ error: 'Server Error - Contact wandernaut#2205' });
-  // }
-});
+osrsRouter.get('/rngbuff', async (_req: any, _res: any) => {});
 
 osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
   const { rngBonus, username } = req.query;
@@ -112,6 +79,11 @@ osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
 osrsRouter.get('/raids/toa_buff', async (req: any, res: any) => {
   const { rngBonus, username } = req.query;
   res.send(RAIDS.getToaPurple(rngBonus));
+});
+
+osrsRouter.get('/addrngfield', async (_req: any, res: any) => {
+  addRngFields();
+  res.send('added rng fields');
 });
 
 export default osrsRouter;

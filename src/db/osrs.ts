@@ -5,6 +5,8 @@ const usersSnap = db.collection('users');
 interface UserData {
   username: string;
   gp: string;
+  rngBuff?: number;
+  lootEntries?: string[];
 }
 
 export const getUser = async (username: string) => {
@@ -47,12 +49,42 @@ export const updateUser = async (
     return user;
   } else {
     const docData = docRef.data();
-    await usersSnap
-      .doc(username)
-      .update({ gp, lootEntries: [...docData!.lootEntries, itemInfo] });
+    await usersSnap.doc(username).update({
+      gp,
+      lootEntries: [...docData!.lootEntries, itemInfo],
+      rngBuff: 0
+    });
     return {
       username: docRef.id,
       gp: docData!.gp
     };
   }
+};
+
+export const addRng = async (username: string) => {
+  const docRef = await usersSnap.doc(username).get();
+  if (docRef.exists) {
+    let { rngBuff } = docRef.data() as UserData;
+    if (!rngBuff) rngBuff = 0;
+    if (rngBuff < 2) {
+      rngBuff += 1;
+      await usersSnap.doc(username).update({ rngBuff });
+      return { success: `${username} now has a +${rngBuff} RNG buff!` };
+    } else {
+      return {
+        error: `Silly ${username}, you're already at max RNG! (No RNG added)`
+      };
+    }
+  } else {
+    await createUser(username);
+    await usersSnap.doc(username).update({ rngBuff: 1 });
+    return { success: `${username} now has a +${1} RNG buff!` };
+  }
+};
+
+export const addRngFields = async () => {
+  const userDocs = await usersSnap.get();
+  userDocs.forEach((doc) => {
+    doc.ref.update({ rngBuff: 0 });
+  });
 };
