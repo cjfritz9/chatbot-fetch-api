@@ -45,7 +45,7 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
         `${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(
           0
         )).toLocaleString('en-US')} points${
-          loot.didPlank ? ' ( what a planker x0r6ztGiggle )' : ''
+          loot.didPlank ? ' ( what a planker x0r6ztGiggle !)' : ''
         }. They see a white loot beam. Never lucky Sadge . Within the chest they find ${
           loot.itemName
         } worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`
@@ -75,14 +75,14 @@ osrsRouter.get('/rngbuff', async (req: any, res: any) => {
   }
 });
 
-osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
-  const { rngBonus, username } = req.query;
-  res.send(RAIDS.getTobPurple(rngBonus));
-});
+// osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
+//   const { rngBonus, username } = req.query;
+//   res.send(RAIDS.getTobPurple(rngBonus));
+// });
 
-osrsRouter.get('/raids/toa_buff', async (req: any, res: any) => {
-  const { rngBonus, username } = req.query;
-  res.send(RAIDS.getToaPurple(rngBonus));
-});
+// osrsRouter.get('/raids/toa_buff', async (req: any, res: any) => {
+//   const { rngBonus, username } = req.query;
+//   res.send(RAIDS.getToaPurple(rngBonus));
+// });
 
 export default osrsRouter;

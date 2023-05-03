@@ -66,7 +66,7 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
             res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(0)).toLocaleString('en-US')} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`);
         }
         else {
-            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(0)).toLocaleString('en-US')} points${loot.didPlank ? ' ( what a planker x0r6ztGiggle )' : ''}. They see a white loot beam. Never lucky Sadge . Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
+            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(0)).toLocaleString('en-US')} points${loot.didPlank ? ' ( what a planker x0r6ztGiggle !)' : ''}. They see a white loot beam. Never lucky Sadge . Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
         }
     }
     catch (error) {
@@ -90,12 +90,12 @@ osrsRouter.get('/rngbuff', (req, res) => __awaiter(void 0, void 0, void 0, funct
         res.send(response.success);
     }
 }));
-osrsRouter.get('/raids/tob_buff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rngBonus, username } = req.query;
-    res.send(RAIDS.getTobPurple(rngBonus));
-}));
-osrsRouter.get('/raids/toa_buff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { rngBonus, username } = req.query;
-    res.send(RAIDS.getToaPurple(rngBonus));
-}));
+// osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
+//   const { rngBonus, username } = req.query;
+//   res.send(RAIDS.getTobPurple(rngBonus));
+// });
+// osrsRouter.get('/raids/toa_buff', async (req: any, res: any) => {
+//   const { rngBonus, username } = req.query;
+//   res.send(RAIDS.getToaPurple(rngBonus));
+// });
 exports.default = osrsRouter;
