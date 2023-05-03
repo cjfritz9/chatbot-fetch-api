@@ -69,7 +69,12 @@ const addRng = (username) => __awaiter(void 0, void 0, void 0, function* () {
         if (rngBuff < 2) {
             rngBuff += 1;
             yield usersSnap.doc(username).update({ rngBuff });
-            return { success: `${username} now has a +${rngBuff} RNG buff!` };
+            if (rngBuff === 2) {
+                return { success: `${username} now has a +${rngBuff} (MAX) RNG buff!` };
+            }
+            else {
+                return { success: `${username} now has a +${rngBuff} RNG buff!` };
+            }
         }
         else {
             return {

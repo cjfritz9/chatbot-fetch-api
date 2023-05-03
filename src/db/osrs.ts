@@ -69,7 +69,11 @@ export const addRng = async (username: string) => {
     if (rngBuff < 2) {
       rngBuff += 1;
       await usersSnap.doc(username).update({ rngBuff });
-      return { success: `${username} now has a +${rngBuff} RNG buff!` };
+      if (rngBuff === 2) {
+        return { success: `${username} now has a +${rngBuff} (MAX) RNG buff!` };
+      } else {
+        return { success: `${username} now has a +${rngBuff} RNG buff!` };
+      }
     } else {
       return {
         error: `Silly ${username}, you're already at max RNG! (No RNG added)`
