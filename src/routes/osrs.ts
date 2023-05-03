@@ -1,7 +1,7 @@
 import express from 'express';
 import * as RAIDS from '../utils/osrs/raids';
 import * as OSRS from '../utils/osrs/helpers';
-import { createUser, getUser, updateUser } from '../db/osrs';
+import { addRng, createUser, getUser, updateUser } from '../db/osrs';
 
 const osrsRouter = express.Router();
 
@@ -11,10 +11,7 @@ const osrsRouter = express.Router();
 
 osrsRouter.get('/raids/cox', async (req: any, res: any) => {
   try {
-    const {
-      username
-    }: { username: string | undefined; rngBuff: string | undefined } =
-      req.query;
+    const { username } = req.query;
     if (!username) {
       return res.send('Error - No username was supplied');
     }
@@ -68,7 +65,15 @@ osrsRouter.get('/raids/toa', async (_req: any, res: any) => {
   res.send(RAIDS.getToaPurple());
 });
 
-osrsRouter.get('/rngbuff', async (_req: any, _res: any) => {});
+osrsRouter.get('/rngbuff', async (req: any, res: any) => {
+  const { username } = req.query;
+  const response = await addRng(username);
+  if (response.error) {
+    res.send(response.error);
+  } else {
+    res.send(response.success);
+  }
+});
 
 osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
   const { rngBonus, username } = req.query;

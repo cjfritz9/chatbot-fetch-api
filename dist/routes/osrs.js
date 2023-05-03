@@ -80,7 +80,16 @@ osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, fu
 osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(RAIDS.getToaPurple());
 }));
-osrsRouter.get('/rngbuff', (_req, _res) => __awaiter(void 0, void 0, void 0, function* () { }));
+osrsRouter.get('/rngbuff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username } = req.query;
+    const response = yield (0, osrs_1.addRng)(username);
+    if (response.error) {
+        res.send(response.error);
+    }
+    else {
+        res.send(response.success);
+    }
+}));
 osrsRouter.get('/raids/tob_buff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rngBonus, username } = req.query;
     res.send(RAIDS.getTobPurple(rngBonus));
