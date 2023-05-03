@@ -4,10 +4,10 @@ export const raidCox = (rngBuff = 0) => {
   //@ts-ignore
   let purpleThreshold = 867500;
   if (rngBuff === 1) {
-    purpleThreshold = purpleThreshold / 2.5;
+    purpleThreshold = purpleThreshold / 4;
   }
   if (rngBuff === 2) {
-    purpleThreshold = purpleThreshold / 5;
+    purpleThreshold = purpleThreshold / 8;
   }
   console.log('RNG BUFF: ', rngBuff);
   console.log('PURP THRESH: ', purpleThreshold);
