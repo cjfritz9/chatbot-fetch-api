@@ -82,9 +82,13 @@ export const addRng = async (username: string) => {
   }
 };
 
-export const addRngFields = async () => {
+export const addNewFields = async () => {
   const userDocs = await usersSnap.get();
   userDocs.forEach((doc) => {
-    doc.ref.update({ rngBuff: 0 });
+    doc.ref.update({
+      rngBuff: 0,
+      createdAt: new Date().toUTCString(),
+      updatedAt: new Date().toUTCString()
+    });
   });
 };

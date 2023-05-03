@@ -1,7 +1,7 @@
 import express from 'express';
 import * as RAIDS from '../utils/osrs/raids';
 import * as OSRS from '../utils/osrs/helpers';
-import { addRngFields, createUser, getUser, updateUser } from '../db/osrs';
+import { addNewFields, createUser, getUser, updateUser } from '../db/osrs';
 
 const osrsRouter = express.Router();
 
@@ -82,7 +82,7 @@ osrsRouter.get('/raids/toa_buff', async (req: any, res: any) => {
 });
 
 osrsRouter.get('/addrngfield', async (_req: any, res: any) => {
-  addRngFields();
+  addNewFields();
   res.send('added rng fields');
 });
 
