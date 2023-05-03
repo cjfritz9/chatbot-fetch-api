@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.createUser = exports.getUser = void 0;
+exports.addNewFields = exports.addRng = exports.updateUser = exports.createUser = exports.getUser = void 0;
 const firestore_client_1 = __importDefault(require("./firestore-client"));
 const usersSnap = firestore_client_1.default.collection('users');
 const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
@@ -22,7 +22,8 @@ const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
     const docData = docRef.data();
     return {
         username: docRef.id,
-        gp: docData.gp
+        gp: docData.gp,
+        rngBuff: docData.rngBuff
     };
 });
 exports.getUser = getUser;
@@ -49,9 +50,11 @@ const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0,
     }
     else {
         const docData = docRef.data();
-        yield usersSnap
-            .doc(username)
-            .update({ gp, lootEntries: [...docData.lootEntries, itemInfo] });
+        yield usersSnap.doc(username).update({
+            gp,
+            lootEntries: [...docData.lootEntries, itemInfo],
+            rngBuff: 0
+        });
         return {
             username: docRef.id,
             gp: docData.gp
@@ -59,3 +62,38 @@ const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.updateUser = updateUser;
+const addRng = (username) => __awaiter(void 0, void 0, void 0, function* () {
+    const docRef = yield usersSnap.doc(username).get();
+    if (docRef.exists) {
+        let { rngBuff } = docRef.data();
+        if (!rngBuff)
+            rngBuff = 0;
+        if (rngBuff < 2) {
+            rngBuff += 1;
+            yield usersSnap.doc(username).update({ rngBuff });
+            return { success: `${username} now has a +${rngBuff} RNG buff!` };
+        }
+        else {
+            return {
+                error: `Silly ${username}, you're already at max RNG! (No RNG added)`
+            };
+        }
+    }
+    else {
+        yield (0, exports.createUser)(username);
+        yield usersSnap.doc(username).update({ rngBuff: 1 });
+        return { success: `${username} now has a +${1} RNG buff!` };
+    }
+});
+exports.addRng = addRng;
+const addNewFields = () => __awaiter(void 0, void 0, void 0, function* () {
+    const userDocs = yield usersSnap.get();
+    userDocs.forEach((doc) => {
+        doc.ref.update({
+            rngBuff: 0,
+            createdAt: new Date().toUTCString(),
+            updatedAt: new Date().toUTCString()
+        });
+    });
+});
+exports.addNewFields = addNewFields;

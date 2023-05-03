@@ -45,18 +45,18 @@ const osrsRouter = express_1.default.Router();
 // TODO: IMPLEMENT RNG BUFF STANDALONE
 osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username, rngBuff } = req.query;
+        const { username } = req.query;
         if (!username) {
             return res.send('Error - No username was supplied');
         }
-        const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
-        console.log(loot);
         let user = yield (0, osrs_1.getUser)(username);
-        console.log('user response, expect undefined', user);
         if (!user) {
-            user = { username: 'username', gp: '0' };
+            user = { username: 'username', gp: '0', rngBuff: 0 };
         }
         console.log('user creation + response, expect user data', user);
+        const loot = RAIDS.raidCox(user.rngBuff);
+        console.log(loot);
+        console.log('user response, expect undefined', user);
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
         const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
         const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
@@ -80,40 +80,7 @@ osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, fu
 osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(RAIDS.getToaPurple());
 }));
-osrsRouter.get('/raids/cox_buff', (_req, _res) => __awaiter(void 0, void 0, void 0, function* () {
-    // const { rngBonus, username } = req.query;
-    // if (+rngBonus) {
-    //   const loot = RAIDS.getCoxPurple(+rngBonus);
-    //   const [response, user] = await Promise.all([
-    //     axios.get(`${OSRS_API}?id=${loot.itemId}`, {
-    //       headers
-    //     }),
-    //     getUser(username)
-    //   ]);
-    //   if (response?.data?.data) {
-    //     const itemPrices = response.data.data[loot.itemId];
-    //     const price = OSRS.getMedianPrice(itemPrices.low, itemPrices.high);
-    //     const totalWealth = (+price + +user.gp).toString();
-    //     const formattedPrice = OSRS.formatGP(price);
-    //     const formattedWealth = OSRS.formatGP(totalWealth);
-    //     loot.dbEntry.price = price;
-    //     updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
-    //     res.send(
-    //       `${username} successfully completed the Chambers of Xeric and received ${loot.itemName} worth ${formattedPrice}! Total wealth: ${formattedWealth}`
-    //     );
-    //   } else {
-    //     console.log('-----OSRS WIKI API ERROR-----');
-    //     console.log('-----FULL RESPONSE BELOW-----');
-    //     console.log(response);
-    //     res.send({ error: 'Server Error - Contact wandernaut#2205' });
-    //   }
-    // } else {
-    //   console.log('-----URL QUERY ENCODING ERROR-----');
-    //   console.log('rngBonus: ', rngBonus);
-    //   console.log('username: ', username);
-    //   res.send({ error: 'Server Error - Contact wandernaut#2205' });
-    // }
-}));
+osrsRouter.get('/rngbuff', (_req, _res) => __awaiter(void 0, void 0, void 0, function* () { }));
 osrsRouter.get('/raids/tob_buff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rngBonus, username } = req.query;
     res.send(RAIDS.getTobPurple(rngBonus));
@@ -121,5 +88,9 @@ osrsRouter.get('/raids/tob_buff', (req, res) => __awaiter(void 0, void 0, void 0
 osrsRouter.get('/raids/toa_buff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { rngBonus, username } = req.query;
     res.send(RAIDS.getToaPurple(rngBonus));
+}));
+osrsRouter.get('/addrngfield', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    (0, osrs_1.addNewFields)();
+    res.send('added rng fields');
 }));
 exports.default = osrsRouter;

@@ -12,22 +12,21 @@ const osrsRouter = express.Router();
 osrsRouter.get('/raids/cox', async (req: any, res: any) => {
   try {
     const {
-      username,
-      rngBuff
+      username
     }: { username: string | undefined; rngBuff: string | undefined } =
       req.query;
     if (!username) {
       return res.send('Error - No username was supplied');
     }
-    const loot = RAIDS.raidCox(rngBuff ? +rngBuff : 0);
-    console.log(loot);
     let user = await getUser(username);
-    console.log('user response, expect undefined', user);
     if (!user) {
-      user = { username: 'username', gp: '0' };
+      user = { username: 'username', gp: '0', rngBuff: 0 };
     }
     console.log('user creation + response, expect user data', user);
 
+    const loot = RAIDS.raidCox(user.rngBuff);
+    console.log(loot);
+    console.log('user response, expect undefined', user);
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
     const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
     const formattedPrice = OSRS.formatGP(loot.dbEntry.price);

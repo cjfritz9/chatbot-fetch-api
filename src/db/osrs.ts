@@ -15,7 +15,8 @@ export const getUser = async (username: string) => {
   const docData = docRef.data();
   return {
     username: docRef.id,
-    gp: docData!.gp
+    gp: docData!.gp,
+    rngBuff: docData!.rngBuff
   };
 };
 
