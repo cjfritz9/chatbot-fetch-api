@@ -32,11 +32,13 @@ const createUser = (username, gp, loot) => __awaiter(void 0, void 0, void 0, fun
         gp: gp ? gp : '0',
         lootEntries: loot ? [loot] : [],
         createdAt: new Date().toUTCString(),
-        updatedAt: new Date().toUTCString()
+        updatedAt: new Date().toUTCString(),
+        rngBuff: 0
     });
     return {
         username,
-        gp: '0'
+        gp: '0',
+        rngBuff: 0
     };
 });
 const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0, function* () {
