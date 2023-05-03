@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addRng = exports.updateUser = exports.createUser = exports.getUser = void 0;
+exports.addRng = exports.updateUser = exports.getUser = void 0;
 const firestore_client_1 = __importDefault(require("./firestore-client"));
 const usersSnap = firestore_client_1.default.collection('users');
 const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,24 +28,21 @@ const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getUser = getUser;
 const createUser = (username, gp, loot) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield usersSnap
-        .doc(username)
-        .create({ gp: gp ? gp : '0', lootEntries: loot ? [loot] : [] });
-    const docRef = yield usersSnap.doc(username).get();
-    const docData = docRef.data();
-    console.log('create user response: ', res);
-    console.log('user doc ref: ', docRef);
-    console.log('user doc data: ', docData);
+    yield usersSnap.doc(username).create({
+        gp: gp ? gp : '0',
+        lootEntries: loot ? [loot] : [],
+        createdAt: new Date().toUTCString(),
+        updatedAt: new Date().toUTCString()
+    });
     return {
-        username: docRef.id,
-        gp: docData.gp
+        username,
+        gp: '0'
     };
 });
-exports.createUser = createUser;
 const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0, function* () {
     const docRef = yield usersSnap.doc(username).get();
     if (!docRef.exists) {
-        const user = yield (0, exports.createUser)(username, gp, itemInfo);
+        const user = yield createUser(username, gp, itemInfo);
         return user;
     }
     else {
@@ -53,7 +50,8 @@ const updateUser = (username, gp, itemInfo) => __awaiter(void 0, void 0, void 0,
         yield usersSnap.doc(username).update({
             gp,
             lootEntries: [...docData.lootEntries, itemInfo],
-            rngBuff: 0
+            rngBuff: 0,
+            updatedAt: new Date().toUTCString()
         });
         return {
             username: docRef.id,
@@ -80,7 +78,7 @@ const addRng = (username) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
     else {
-        yield (0, exports.createUser)(username);
+        yield createUser(username);
         yield usersSnap.doc(username).update({ rngBuff: 1 });
         return { success: `${username} now has a +${1} RNG buff!` };
     }

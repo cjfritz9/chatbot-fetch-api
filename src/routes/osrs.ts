@@ -1,7 +1,7 @@
 import express from 'express';
 import * as RAIDS from '../utils/osrs/raids';
 import * as OSRS from '../utils/osrs/helpers';
-import { addRng, createUser, getUser, updateUser } from '../db/osrs';
+import { addRng, getUser, updateUser } from '../db/osrs';
 
 const osrsRouter = express.Router();
 
