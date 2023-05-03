@@ -51,19 +51,20 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
         }
         let user = yield (0, osrs_1.getUser)(username);
         if (!user) {
-            user = { username: 'username', gp: '0', rngBuff: 0 };
+            user = { username: username, gp: '0', rngBuff: 0 };
         }
         const loot = RAIDS.raidCox(user.rngBuff);
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
         const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
         const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
         const formattedWealth = OSRS.formatGP(totalWealth);
+        const formattedPoints = (+loot.points.toFixed(0)).toLocaleString('en-US');
         (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
         if (loot.beam === 'purple') {
-            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(0)).toLocaleString('en-US')} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`);
+            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${formattedPoints} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`);
         }
         else {
-            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(0)).toLocaleString('en-US')} points${loot.didPlank ? ' ( what a planker x0r6ztGiggle !)' : ''}. They see a white loot beam. Never lucky Sadge . Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
+            res.send(`${username} enters the Chambers of Xeric. They complete the raid with ${formattedPoints} points${loot.didPlank ? ' ( what a planker x0r6ztGiggle !)' : ''}. They see a white loot beam. Never lucky Sadge . Within the chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now: ${formattedWealth}.`);
         }
     }
     catch (error) {

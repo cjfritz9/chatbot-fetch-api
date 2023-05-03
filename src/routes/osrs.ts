@@ -17,7 +17,7 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
     }
     let user = await getUser(username);
     if (!user) {
-      user = { username: 'username', gp: '0', rngBuff: 0 };
+      user = { username: username, gp: '0', rngBuff: 0 };
     }
 
     const loot = RAIDS.raidCox(user.rngBuff);
@@ -25,23 +25,16 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
     const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
     const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
     const formattedWealth = OSRS.formatGP(totalWealth);
+    const formattedPoints = (+loot.points.toFixed(0)).toLocaleString('en-US');
     updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
 
     if (loot.beam === 'purple') {
       res.send(
-        `${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(
-          0
-        )).toLocaleString(
-          'en-US'
-        )} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${
-          loot.itemName
-        } worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`
+        `${username} enters the Chambers of Xeric. They complete the raid with ${formattedPoints} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${loot.itemName} worth ${formattedPrice}! Their total wealth is now: ${formattedWealth}`
       );
     } else {
       res.send(
-        `${username} enters the Chambers of Xeric. They complete the raid with ${(+loot.points.toFixed(
-          0
-        )).toLocaleString('en-US')} points${
+        `${username} enters the Chambers of Xeric. They complete the raid with ${formattedPoints} points${
           loot.didPlank ? ' ( what a planker x0r6ztGiggle !)' : ''
         }. They see a white loot beam. Never lucky Sadge . Within the chest they find ${
           loot.itemName
