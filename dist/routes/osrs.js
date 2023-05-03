@@ -89,8 +89,4 @@ osrsRouter.get('/raids/toa_buff', (req, res) => __awaiter(void 0, void 0, void 0
     const { rngBonus, username } = req.query;
     res.send(RAIDS.getToaPurple(rngBonus));
 }));
-osrsRouter.get('/addrngfield', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    (0, osrs_1.addNewFields)();
-    res.send('added rng fields');
-}));
 exports.default = osrsRouter;

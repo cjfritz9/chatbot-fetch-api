@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addNewFields = exports.addRng = exports.updateUser = exports.createUser = exports.getUser = void 0;
+exports.addRng = exports.updateUser = exports.createUser = exports.getUser = void 0;
 const firestore_client_1 = __importDefault(require("./firestore-client"));
 const usersSnap = firestore_client_1.default.collection('users');
 const getUser = (username) => __awaiter(void 0, void 0, void 0, function* () {
@@ -86,14 +86,3 @@ const addRng = (username) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.addRng = addRng;
-const addNewFields = () => __awaiter(void 0, void 0, void 0, function* () {
-    const userDocs = yield usersSnap.get();
-    userDocs.forEach((doc) => {
-        doc.ref.update({
-            rngBuff: 0,
-            createdAt: new Date().toUTCString(),
-            updatedAt: new Date().toUTCString()
-        });
-    });
-});
-exports.addNewFields = addNewFields;

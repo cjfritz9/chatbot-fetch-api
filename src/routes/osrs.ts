@@ -1,7 +1,7 @@
 import express from 'express';
 import * as RAIDS from '../utils/osrs/raids';
 import * as OSRS from '../utils/osrs/helpers';
-import { addNewFields, createUser, getUser, updateUser } from '../db/osrs';
+import { createUser, getUser, updateUser } from '../db/osrs';
 
 const osrsRouter = express.Router();
 
@@ -78,11 +78,6 @@ osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
 osrsRouter.get('/raids/toa_buff', async (req: any, res: any) => {
   const { rngBonus, username } = req.query;
   res.send(RAIDS.getToaPurple(rngBonus));
-});
-
-osrsRouter.get('/addrngfield', async (_req: any, res: any) => {
-  addNewFields();
-  res.send('added rng fields');
 });
 
 export default osrsRouter;

@@ -82,14 +82,3 @@ export const addRng = async (username: string) => {
     return { success: `${username} now has a +${1} RNG buff!` };
   }
 };
-
-export const addNewFields = async () => {
-  const userDocs = await usersSnap.get();
-  userDocs.forEach((doc) => {
-    doc.ref.update({
-      rngBuff: 0,
-      createdAt: new Date().toUTCString(),
-      updatedAt: new Date().toUTCString()
-    });
-  });
-};
