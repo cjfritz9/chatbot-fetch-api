@@ -29,30 +29,6 @@ import { fetchAndAddPrices } from './utils/osrs/helpers';
 import { raidCox } from './utils/osrs/raids';
 app.use('/joewatermelon', joeRouter);
 
-app.get('/testing', async (_req, _res) => {
-  const { username, rngBuff } = _req.query;
-  const loot = raidCox();
-  if (loot.beam === 'purple') {
-    _res.send(
-      `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
-        0
-      )} points. They see a joewatLOOT PURPLE joewatLOOT loot beam! Within the chest they find ${
-        loot.itemName
-      }!`
-    );
-  } else {
-    _res.send(
-      `${username} enters the Chambers of Xeric. They complete the raid with ${loot.points.toFixed(
-        0
-      )} points${
-        loot.didPlank ? ' (what a planker x0r6ztGiggle)' : ''
-      }. They see a white loot beam. Within the chest they find ${
-        loot.itemName
-      }. Never lucky Sadge`
-    );
-  }
-});
-
 app.get('/*', (req, res) => {
   console.log('request url: ', req.url);
   console.log('request user query: ', req.query.user);

@@ -9,6 +9,8 @@ export const raidCox = (rngBuff = 0) => {
   if (rngBuff === 2) {
     purpleThreshold = purpleThreshold / 5;
   }
+  console.log('RNG BUFF: ', rngBuff);
+  console.log('PURP THRESH: ', purpleThreshold);
   const { points, didPlank } = getPoints();
   let isPurple = false;
   if (Math.random() < points / purpleThreshold) {
