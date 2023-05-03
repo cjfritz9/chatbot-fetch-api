@@ -55,11 +55,13 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
 });
 
 osrsRouter.get('/raids/tob', async (_req: any, res: any) => {
-  res.send(RAIDS.getTobPurple());
+  res.send(':construction_site: Remaking this to be like !lootcox :construction_site:')
+  // res.send(RAIDS.getTobPurple());
 });
 
 osrsRouter.get('/raids/toa', async (_req: any, res: any) => {
-  res.send(RAIDS.getToaPurple());
+  res.send(':construction_site: Remaking this to be like !lootcox :construction_site:')
+  // res.send(RAIDS.getToaPurple());
 });
 
 osrsRouter.get('/rngbuff', async (req: any, res: any) => {

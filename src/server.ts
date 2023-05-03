@@ -25,8 +25,6 @@ import osrsRouter from './routes/osrs';
 app.use('/osrs', osrsRouter);
 
 import joeRouter from './routes/joewatermelon';
-import { fetchAndAddPrices } from './utils/osrs/helpers';
-import { raidCox } from './utils/osrs/raids';
 app.use('/joewatermelon', joeRouter);
 
 app.get('/*', (req, res) => {
