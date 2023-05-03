@@ -12,7 +12,7 @@ const getDogTreat = () => {
         return 'Zippy is the good pupper and gets a treat! joewatZippy';
     }
     else {
-        return 'Joe is the good boy and gets a pat joewatPATTHEBORIS';
+        return 'Joe is the good boy and gets a pat PATTHEMELON';
     }
 };
 exports.default = getDogTreat;

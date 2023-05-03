@@ -8,7 +8,7 @@ const getDogTreat = () => {
   } else if (roll < 100) {
     return 'Zippy is the good pupper and gets a treat! joewatZippy';
   } else {
-    return 'Joe is the good boy and gets a pat joewatPATTHEBORIS'
+    return 'Joe is the good boy and gets a pat PATTHEMELON'
   }
 };
 
