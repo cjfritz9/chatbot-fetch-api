@@ -46,54 +46,6 @@ export const raidCox = (rngBuff = 0) => {
   }
 };
 
-export const raidTob = (rngBuff = 0) => {
-  //@ts-ignore
-  const { deaths, weDoRaids, horribleRng } = getTobStats(rngBuff);
-  let purpleThreshold = 0.10989;
-  purpleThreshold -= deaths * 0.0065;
-  const purpleRoll = Math.random();
-  if (rngBuff === 1) {
-    purpleThreshold = purpleThreshold * 2;
-  }
-  if (rngBuff === 2) {
-    purpleThreshold = purpleThreshold * 4;
-  }
-
-  let isPurple = false;
-  if (purpleRoll < purpleThreshold) {
-    isPurple = true;
-  }
-  if (isPurple) {
-    return getTobPurple(rngBuff, deaths, weDoRaids, horribleRng);
-  } else {
-    const roll1 = standardTobLoot[Math.round(Math.random() * 28)];
-    const roll2 = standardTobLoot[Math.round(Math.random() * 28)];
-    const roll3 = standardTobLoot[Math.round(Math.random() * 28)];
-    const roll1qty = tobRollQuantity(roll1.minQty, roll1.maxQty);
-    const roll2qty = tobRollQuantity(roll2.minQty, roll2.maxQty);
-    const roll3qty = tobRollQuantity(roll3.minQty, roll3.maxQty);
-    const response = {
-      deaths,
-      weDoRaids,
-      horribleRng,
-      chestColor: 'white',
-      itemInfo: [
-        { itemId: roll1.id, quantity: roll1qty },
-        { itemId: roll2.id, quantity: roll2qty },
-        { itemId: roll3.id, quantity: roll3qty }
-      ],
-      itemName: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
-      dbEntry: {
-        item: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
-        price: '',
-        dateReceived: new Date().toUTCString()
-      }
-    };
-
-    return response;
-  }
-};
-
 export const getCoxPurple = (
   rngBuff = 0,
   points: number,
@@ -165,6 +117,54 @@ export const getCoxPurple = (
   }
 
   return response;
+};
+
+export const raidTob = (rngBuff = 0) => {
+  //@ts-ignore
+  const { deaths, weDoRaids, horribleRng } = getTobStats(rngBuff);
+  let purpleThreshold = 0.10989;
+  purpleThreshold -= deaths * 0.0065;
+  const purpleRoll = Math.random();
+  if (rngBuff === 1) {
+    purpleThreshold = purpleThreshold * 2;
+  }
+  if (rngBuff === 2) {
+    purpleThreshold = purpleThreshold * 4;
+  }
+
+  let isPurple = false;
+  if (purpleRoll < purpleThreshold) {
+    isPurple = true;
+  }
+  if (isPurple) {
+    return getTobPurple(rngBuff, deaths, weDoRaids, horribleRng);
+  } else {
+    const roll1 = standardTobLoot[Math.round(Math.random() * 28)];
+    const roll2 = standardTobLoot[Math.round(Math.random() * 28)];
+    const roll3 = standardTobLoot[Math.round(Math.random() * 28)];
+    const roll1qty = tobRollQuantity(roll1.minQty, roll1.maxQty);
+    const roll2qty = tobRollQuantity(roll2.minQty, roll2.maxQty);
+    const roll3qty = tobRollQuantity(roll3.minQty, roll3.maxQty);
+    const response = {
+      deaths,
+      weDoRaids,
+      horribleRng,
+      chestColor: 'white',
+      itemInfo: [
+        { itemId: roll1.id, quantity: roll1qty },
+        { itemId: roll2.id, quantity: roll2qty },
+        { itemId: roll3.id, quantity: roll3qty }
+      ],
+      itemName: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+      dbEntry: {
+        item: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+        price: '',
+        dateReceived: new Date().toUTCString()
+      }
+    };
+
+    return response;
+  }
 };
 
 export const getTobPurple = (

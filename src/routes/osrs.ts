@@ -66,8 +66,8 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
   );
   const totalWealth = (
     loot.chestColor === 'purple'
-      ? (+'0' + +loot.dbEntry.price / 3).toFixed(0)
-      : +'0' + +loot.dbEntry.price
+      ? (+user.gp + +loot.dbEntry.price / 3).toFixed(0)
+      : +user.gp + +loot.dbEntry.price
   ).toString();
   const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
   const formattedWealth = OSRS.formatGP(totalWealth);
@@ -87,7 +87,7 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
         loot.deaths === 1 ? 'death' : 'deaths'
       } and find a joewatLOOT PURPLE joewatLOOT chest. Within the chest they find ${
         loot.itemName
-      } worth ${formattedPrice} (~${formattedSplit} split). Their total wealth is now ${formattedWealth}!
+      } (${formattedPrice} | ~${formattedSplit} split). Total wealth: ${formattedWealth}!
     `);
     } else {
       res.send(`
@@ -99,7 +99,7 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
         loot.deaths === 1 ? 'death' : 'deaths'
       } and do not find a purple chest Sadge . Within their chest they find ${
         loot.itemName
-      } worth ${formattedPrice}. Their total wealth is now ${formattedWealth}!
+      } (${formattedPrice}). Total wealth ${formattedWealth}!
       `);
     }
   }

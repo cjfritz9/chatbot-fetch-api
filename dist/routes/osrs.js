@@ -85,8 +85,8 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
     console.log('loot res: ', loot);
     const formattedSplit = OSRS.formatGP((+'0' + +loot.dbEntry.price / 3).toFixed(0));
     const totalWealth = (loot.chestColor === 'purple'
-        ? (+'0' + +loot.dbEntry.price / 3).toFixed(0)
-        : +'0' + +loot.dbEntry.price).toString();
+        ? (+user.gp + +loot.dbEntry.price / 3).toFixed(0)
+        : +user.gp + +loot.dbEntry.price).toString();
     const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
     const formattedWealth = OSRS.formatGP(totalWealth);
     (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
@@ -100,14 +100,14 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
             res.send(`
       ${username} enters the Theatre of Blood with ${loot.weDoRaids
                 ? 'two people from WDR monkaW'
-                : "two GIGACHAD s from Joewatermelon's clan"}. They manage to finish the raid with ${loot.deaths} ${loot.deaths === 1 ? 'death' : 'deaths'} and find a joewatLOOT PURPLE joewatLOOT chest. Within the chest they find ${loot.itemName} worth ${formattedPrice} (~${formattedSplit} split). Their total wealth is now ${formattedWealth}!
+                : "two GIGACHAD s from Joewatermelon's clan"}. They manage to finish the raid with ${loot.deaths} ${loot.deaths === 1 ? 'death' : 'deaths'} and find a joewatLOOT PURPLE joewatLOOT chest. Within the chest they find ${loot.itemName} (${formattedPrice} | ~${formattedSplit} split). Total wealth: ${formattedWealth}!
     `);
         }
         else {
             res.send(`
       ${username} enters the Theatre of Blood with ${loot.weDoRaids
                 ? 'two people from WDR monkaW'
-                : 'two GIGACHAD s from the Joewatermelon clan'}. They manage to finish the raid with ${loot.deaths} ${loot.deaths === 1 ? 'death' : 'deaths'} and do not find a purple chest Sadge . Within their chest they find ${loot.itemName} worth ${formattedPrice}. Their total wealth is now ${formattedWealth}!
+                : 'two GIGACHAD s from the Joewatermelon clan'}. They manage to finish the raid with ${loot.deaths} ${loot.deaths === 1 ? 'death' : 'deaths'} and do not find a purple chest Sadge . Within their chest they find ${loot.itemName} (${formattedPrice}). Total wealth ${formattedWealth}!
       `);
         }
     }
