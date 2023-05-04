@@ -49,14 +49,14 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
 
 osrsRouter.get('/raids/tob', async (_req: any, res: any) => {
   res.send(
-    `:construction_site: Remaking this to be like !lootcox :construction_site: (You would've gotten ${RAIDS.getTobPurple()}, unlucky)`
+    `🏗️ Remaking this to be like !lootcox 🏗️ (You rolled: ${RAIDS.getTobPurple()})`
   );
   // res.send(RAIDS.getTobPurple());
 });
 
 osrsRouter.get('/raids/toa', async (_req: any, res: any) => {
   res.send(
-    `:construction_site: Remaking this to be like !lootcox :construction_site: (You would've gotten ${RAIDS.getToaPurple()}, unlucky)`
+    `🏗️ Remaking this to be like !lootcox 🏗️ (You rolled: ${RAIDS.getToaPurple()})`
   );
   // res.send(RAIDS.getToaPurple());
 });

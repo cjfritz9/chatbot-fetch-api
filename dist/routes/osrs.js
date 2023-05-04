@@ -73,11 +73,11 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 }));
 osrsRouter.get('/raids/tob', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(`:construction_site: Remaking this to be like !lootcox :construction_site: (You would've gotten ${RAIDS.getTobPurple()}, unlucky)`);
+    res.send(`🏗️ Remaking this to be like !lootcox 🏗️ (You rolled: ${RAIDS.getTobPurple()})`);
     // res.send(RAIDS.getTobPurple());
 }));
 osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(`:construction_site: Remaking this to be like !lootcox :construction_site: (You would've gotten ${RAIDS.getToaPurple()}, unlucky)`);
+    res.send(`🏗️ Remaking this to be like !lootcox 🏗️ (You rolled: ${RAIDS.getToaPurple()})`);
     // res.send(RAIDS.getToaPurple());
 }));
 osrsRouter.get('/rngbuff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
