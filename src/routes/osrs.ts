@@ -56,8 +56,11 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
     user = { username: username, gp: '0', rngBuff: 0 };
   }
 
-  const loot = RAIDS.raidTob(user.rngBuff);
+  const loot = RAIDS.raidTob(
+    user.rngBuff
+  );
   loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
+  console.log('loot res: ', loot);
   const formattedSplit = OSRS.formatGP(
     (+'0' + +loot.dbEntry.price / 3).toFixed(0)
   );

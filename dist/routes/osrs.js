@@ -82,6 +82,7 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
     const loot = RAIDS.raidTob(user.rngBuff);
     loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
+    console.log('loot res: ', loot);
     const formattedSplit = OSRS.formatGP((+'0' + +loot.dbEntry.price / 3).toFixed(0));
     const totalWealth = (loot.chestColor === 'purple'
         ? (+'0' + +loot.dbEntry.price / 3).toFixed(0)

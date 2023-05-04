@@ -167,7 +167,6 @@ export const getCoxPurple = (
   return response;
 };
 
-
 export const getTobPurple = (
   rngBuff = 0,
   deaths: number,
@@ -189,8 +188,6 @@ export const getTobPurple = (
       dateReceived: new Date().toUTCString()
     }
   };
-
-  let rewardMessage = 'You found something special: ';
 
   if (roll < 42.105) {
     response.itemInfo[0].itemId = '22477';
@@ -214,7 +211,7 @@ export const getTobPurple = (
     response.itemInfo[0].itemId = '22486';
     response.itemName = 'Scythe of vitur (uncharged)';
   }
-  response.dbEntry.item = rewardMessage;
+  response.dbEntry.item = response.itemName;
   return response;
 };
 

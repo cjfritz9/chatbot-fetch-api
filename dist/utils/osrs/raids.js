@@ -184,7 +184,6 @@ const getTobPurple = (rngBuff = 0, deaths, weDoRaids, horribleRng) => {
             dateReceived: new Date().toUTCString()
         }
     };
-    let rewardMessage = 'You found something special: ';
     if (roll < 42.105) {
         response.itemInfo[0].itemId = '22477';
         response.itemName = 'Avernic defender hilt';
@@ -213,7 +212,7 @@ const getTobPurple = (rngBuff = 0, deaths, weDoRaids, horribleRng) => {
         response.itemInfo[0].itemId = '22486';
         response.itemName = 'Scythe of vitur (uncharged)';
     }
-    response.dbEntry.item = rewardMessage;
+    response.dbEntry.item = response.itemName;
     return response;
 };
 exports.getTobPurple = getTobPurple;
