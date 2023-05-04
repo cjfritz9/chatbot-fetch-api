@@ -16,13 +16,10 @@ export const fetchAndAddPrices = async (
   let totalValue = '0';
   responses.map((res, i) => {
     if (res?.data?.data) {
-      console.log('response data: ', res.data.data);
       const itemPrices = res.data.data[items[i].itemId];
       if (itemPrices) {
-        console.log('item prices: ', itemPrices);
         const stackValue =
           +getMedianPrice(itemPrices.low, itemPrices.high) * items[i].quantity;
-        console.log('stack value: ', stackValue);
         totalValue = (+totalValue + +stackValue).toString();
       } else {
         totalValue = totalValue;
@@ -85,7 +82,39 @@ export const standardCoxLoot = [
   { name: 'Dark relic', id: '0', maxQty: 1 }
 ];
 
-export const rollQuantity = (maxQty: number, didPlank: boolean) => {
+export const standardTobLoot = [
+  { name: 'Vial of blood', id: '22446', minQty: 50, maxQty: 60 },
+  { name: 'Death rune', id: '560', minQty: 500, maxQty: 600 },
+  { name: 'Blood rune', id: '565', minQty: 500, maxQty: 600 },
+  { name: 'Swamp tar', id: '1939', minQty: 500, maxQty: 600 },
+  { name: 'Coal', id: '453', minQty: 500, maxQty: 600 },
+  { name: 'Gold ore', id: '444', minQty: 300, maxQty: 360 },
+  { name: 'Molten glass', id: '1775', minQty: 200, maxQty: 240 },
+  { name: 'Adamantite ore', id: '449', minQty: 130, maxQty: 156 },
+  { name: 'Runite ore', id: '451', minQty: 60, maxQty: 72 },
+  { name: 'Wine of zamorak', id: '245', minQty: 50, maxQty: 60 },
+  { name: 'Potato cactus', id: '3138', minQty: 50, maxQty: 60 },
+  { name: 'Grimy cadantine', id: '215', minQty: 50, maxQty: 60 },
+  { name: 'Grimy avantoe', id: '211', minQty: 40, maxQty: 48 },
+  { name: 'Grimy toadflax', id: '3049', minQty: 37, maxQty: 44 },
+  { name: 'Grimy kwuarm', id: '213', minQty: 36, maxQty: 43 },
+  { name: 'Grimy irit leaf', id: '209', minQty: 34, maxQty: 40 },
+  { name: 'Grimy ranarr weed', id: '207', minQty: 30, maxQty: 36 },
+  { name: 'Grimy snapdragon', id: '3051', minQty: 27, maxQty: 32 },
+  { name: 'Grimy lantadyme', id: '2485', minQty: 26, maxQty: 31 },
+  { name: 'Grimy dwarf weed', id: '217', minQty: 24, maxQty: 28 },
+  { name: 'Grimy torstol', id: '219', minQty: 20, maxQty: 24 },
+  { name: 'Battlestaff', id: '1391', minQty: 15, maxQty: 18 },
+  { name: 'Rune battleaxe', id: '1373', minQty: 4, maxQty: 4 },
+  { name: 'Rune platebody', id: '1127', minQty: 4, maxQty: 4 },
+  { name: 'Rune chainbody', id: '1113', minQty: 4, maxQty: 4 },
+  { name: 'Palm tree seed', id: '5289', minQty: 3, maxQty: 3 },
+  { name: 'Yew seed', id: '5315', minQty: 3, maxQty: 3 },
+  { name: 'Magic seed', id: '5316', minQty: 3, maxQty: 3 },
+  { name: 'Mahogany seed', id: '21488', minQty: 10, maxQty: 12 }
+];
+
+export const coxRollQuantity = (maxQty: number, didPlank = false) => {
   const quantity = maxQty / 3.3;
   if (maxQty === 1) return 1;
   if (didPlank) {
@@ -93,4 +122,8 @@ export const rollQuantity = (maxQty: number, didPlank: boolean) => {
   } else {
     return Math.round(quantity / 2);
   }
+};
+
+export const tobRollQuantity = (minQty: number, maxQty: number) => {
+  return minQty + Math.round(Math.random() * (maxQty - minQty));
 };
