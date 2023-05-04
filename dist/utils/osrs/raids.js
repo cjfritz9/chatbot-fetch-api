@@ -133,6 +133,7 @@ const raidTob = (rngBuff = 0) => {
     if (rngBuff === 2) {
         purpleThreshold = purpleThreshold * 4;
     }
+    console.log('purple thresh + purple roll', purpleThreshold, purpleRoll);
     let isPurple = false;
     if (purpleRoll < purpleThreshold) {
         isPurple = true;
