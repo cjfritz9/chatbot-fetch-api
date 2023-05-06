@@ -8,7 +8,7 @@ export const TESTING_getDogTreat = async () => {
   console.log('last dog: ', response.lastDog);
   console.log('roll: ', roll);
   if (roll === response.lastDog) {
-    getDogTreat();
+    TESTING_getDogTreat();
   } else {
     updateLastDog(roll);
     console.log('last dog (post-recursion): ', response.lastDog);
