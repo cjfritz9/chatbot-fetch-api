@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const index_1 = __importDefault(require("../utils/joewatermelon/index"));
+const dog_treat_1 = __importDefault(require("../utils/joewatermelon/dog-treat"));
 dotenv_1.default.config();
 const joeRouter = express_1.default.Router();
 joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send((0, index_1.default)());
+    res.send(yield (0, dog_treat_1.default)());
 }));
 exports.default = joeRouter;
