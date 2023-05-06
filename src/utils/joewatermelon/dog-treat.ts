@@ -13,7 +13,11 @@ const getDogTreat = async (lastDog = null): Promise<any> => {
   if (response.error) return response.error;
   console.log('last dog: ', response.lastDog);
   console.log('roll: ', roll);
-  if (roll === response.lastDog) {
+  if (roll <= 32 && response.lastDog === 0) {
+    return getDogTreat(response.lastDog);
+  } else if (roll <= 65 && response.lastDog === 1) {
+    return getDogTreat(response.lastDog);
+  } else if (roll > 65 && response.lastDog === 2) {
     return getDogTreat(response.lastDog);
   } else {
     console.log('last dog (post-recursion): ', response.lastDog);
