@@ -1,7 +1,7 @@
 import { getLastDog, updateLastDog } from '../../db/joewatermelon';
 
 const getDogTreat = async (lastDog = null): Promise<any> => {
-  const roll = Math.round(Math.random() * 2);
+  const roll = Math.random() * 99;
   let response: any = { lastDog };
   // Skip call to database if recursion is running and lastDog
   // is already known
@@ -16,14 +16,16 @@ const getDogTreat = async (lastDog = null): Promise<any> => {
   if (roll === response.lastDog) {
     return getDogTreat(response.lastDog);
   } else {
-    updateLastDog(roll);
     console.log('last dog (post-recursion): ', response.lastDog);
     console.log('roll (post-recursion): ', roll);
-    if (roll === 0) {
+    if (roll <= 32) {
+      updateLastDog(0);
       return 'Finn is the good pupper and gets a treat! joewatFinn';
-    } else if (roll === 1) {
+    } else if (roll <= 65) {
+      updateLastDog(1);
       return 'Tilly is the good pupper and gets a treat! joewatTilly';
     } else {
+      updateLastDog(2);
       return 'Zippy is the good pupper and gets a treat! joewatZippy';
     }
   }

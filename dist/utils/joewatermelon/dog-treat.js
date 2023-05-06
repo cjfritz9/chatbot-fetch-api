@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const joewatermelon_1 = require("../../db/joewatermelon");
 const getDogTreat = (lastDog = null) => __awaiter(void 0, void 0, void 0, function* () {
-    const roll = Math.round(Math.random() * 2);
+    const roll = Math.random() * 99;
     let response = { lastDog };
     // Skip call to database if recursion is running and lastDog
     // is already known
@@ -29,16 +29,18 @@ const getDogTreat = (lastDog = null) => __awaiter(void 0, void 0, void 0, functi
         return getDogTreat(response.lastDog);
     }
     else {
-        (0, joewatermelon_1.updateLastDog)(roll);
         console.log('last dog (post-recursion): ', response.lastDog);
         console.log('roll (post-recursion): ', roll);
-        if (roll === 0) {
+        if (roll <= 32) {
+            (0, joewatermelon_1.updateLastDog)(0);
             return 'Finn is the good pupper and gets a treat! joewatFinn';
         }
-        else if (roll === 1) {
+        else if (roll <= 65) {
+            (0, joewatermelon_1.updateLastDog)(1);
             return 'Tilly is the good pupper and gets a treat! joewatTilly';
         }
         else {
+            (0, joewatermelon_1.updateLastDog)(2);
             return 'Zippy is the good pupper and gets a treat! joewatZippy';
         }
     }
