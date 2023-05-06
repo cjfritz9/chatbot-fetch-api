@@ -5,7 +5,7 @@ const getDogTreat = async (lastDog = null): Promise<any> => {
   let response: any = { lastDog };
   // Skip call to database if recursion is running and lastDog
   // is already known
-  if (lastDog !== null) {
+  if (lastDog === null) {
     response = await getLastDog();
   }
   if (!response) return { error: 'Database error - contact wandernaut#2205' };

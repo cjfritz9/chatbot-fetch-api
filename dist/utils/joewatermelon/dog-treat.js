@@ -15,7 +15,7 @@ const getDogTreat = (lastDog = null) => __awaiter(void 0, void 0, void 0, functi
     let response = { lastDog };
     // Skip call to database if recursion is running and lastDog
     // is already known
-    if (lastDog !== null) {
+    if (lastDog === null) {
         response = yield (0, joewatermelon_1.getLastDog)();
     }
     if (!response)
