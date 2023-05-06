@@ -10,9 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const joewatermelon_1 = require("../../db/joewatermelon");
-const getDogTreat = () => __awaiter(void 0, void 0, void 0, function* () {
+const getDogTreat = (lastDog = null) => __awaiter(void 0, void 0, void 0, function* () {
     const roll = Math.round(Math.random() * 2);
-    const response = yield (0, joewatermelon_1.getLastDog)();
+    let response = { lastDog };
+    // Skip call to database if recursion is running and lastDog
+    // is already known
+    if (lastDog !== null) {
+        response = yield (0, joewatermelon_1.getLastDog)();
+    }
     if (!response)
         return { error: 'Database error - contact wandernaut#2205' };
     if (response.error)
@@ -20,7 +25,7 @@ const getDogTreat = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('last dog: ', response.lastDog);
     console.log('roll: ', roll);
     if (roll === response.lastDog) {
-        return getDogTreat();
+        return getDogTreat(response.lastDog);
     }
     else {
         (0, joewatermelon_1.updateLastDog)(roll);

@@ -1,14 +1,19 @@
 import { getLastDog, updateLastDog } from '../../db/joewatermelon';
 
-const getDogTreat = async (): Promise<any> => {
+const getDogTreat = async (lastDog = null): Promise<any> => {
   const roll = Math.round(Math.random() * 2);
-  const response = await getLastDog();
+  let response: any = { lastDog };
+  // Skip call to database if recursion is running and lastDog
+  // is already known
+  if (lastDog !== null) {
+    response = await getLastDog();
+  }
   if (!response) return { error: 'Database error - contact wandernaut#2205' };
   if (response.error) return response.error;
   console.log('last dog: ', response.lastDog);
   console.log('roll: ', roll);
   if (roll === response.lastDog) {
-    return getDogTreat();
+    return getDogTreat(response.lastDog);
   } else {
     updateLastDog(roll);
     console.log('last dog (post-recursion): ', response.lastDog);
