@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateLastDog = exports.getLastDog = void 0;
+const firestore_1 = require("firebase-admin/firestore");
 const firestore_client_1 = __importDefault(require("./firestore-client"));
 const docSnap = firestore_client_1.default.collection('joewatermelon').doc('dog_treats');
 const getLastDog = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,5 +28,19 @@ const getLastDog = () => __awaiter(void 0, void 0, void 0, function* () {
 exports.getLastDog = getLastDog;
 const updateLastDog = (lastDog) => {
     docSnap.update({ lastDog });
+    if (lastDog === 0) {
+        docSnap.update({ finnCount: firestore_1.FieldValue.increment(1) });
+    }
+    else if (lastDog === 1) {
+        docSnap.update({ tillyCount: firestore_1.FieldValue.increment(1) });
+    }
+    else if (lastDog === 2) {
+        docSnap.update({ zippyCount: firestore_1.FieldValue.increment(1) });
+    }
+    else {
+        docSnap.update({
+            invalidNumberError: firestore_1.FieldValue.arrayUnion(`Received invalid dogId: ${lastDog}. ${new Date().toUTCString()}`)
+        });
+    }
 };
 exports.updateLastDog = updateLastDog;

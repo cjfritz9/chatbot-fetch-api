@@ -1,3 +1,4 @@
+import { FieldValue } from 'firebase-admin/firestore';
 import db from './firestore-client';
 
 const docSnap = db.collection('joewatermelon').doc('dog_treats');
@@ -21,4 +22,17 @@ export const getLastDog = async () => {
 
 export const updateLastDog = (lastDog: number) => {
   docSnap.update({ lastDog });
+  if (lastDog === 0) {
+    docSnap.update({ finnCount: FieldValue.increment(1) });
+  } else if (lastDog === 1) {
+    docSnap.update({ tillyCount: FieldValue.increment(1) });
+  } else if (lastDog === 2) {
+    docSnap.update({ zippyCount: FieldValue.increment(1) });
+  } else {
+    docSnap.update({
+      invalidNumberError: FieldValue.arrayUnion(
+        `Received invalid dogId: ${lastDog}. ${new Date().toUTCString()}`
+      )
+    });
+  }
 };
