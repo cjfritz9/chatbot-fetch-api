@@ -7,6 +7,7 @@ const getDogTreat = async (lastDog = null): Promise<any> => {
   // is already known
   if (lastDog === null) {
     response = await getLastDog();
+    console.log('db response: ', response);
   }
   if (!response) return { error: 'Database error - contact wandernaut#2205' };
   if (response.error) return response.error;

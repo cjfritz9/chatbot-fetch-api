@@ -17,6 +17,7 @@ const getDogTreat = (lastDog = null) => __awaiter(void 0, void 0, void 0, functi
     // is already known
     if (lastDog === null) {
         response = yield (0, joewatermelon_1.getLastDog)();
+        console.log('db response: ', response);
     }
     if (!response)
         return { error: 'Database error - contact wandernaut#2205' };
