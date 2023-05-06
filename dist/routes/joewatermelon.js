@@ -44,6 +44,6 @@ joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, fun
     res.send((0, index_1.default)());
 }));
 joeRouter.get('/dog_treat/testing', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send((0, index_1.TESTING_getDogTreat)());
+    res.send(yield (0, index_1.TESTING_getDogTreat)());
 }));
 exports.default = joeRouter;

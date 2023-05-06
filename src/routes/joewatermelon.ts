@@ -10,7 +10,7 @@ joeRouter.get('/dog_treat', async (_req, res) => {
 });
 
 joeRouter.get('/dog_treat/testing', async (_req, res) => {
-  res.send(TESTING_getDogTreat());
+  res.send(await TESTING_getDogTreat());
 });
 
 export default joeRouter;
