@@ -12,10 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const random_loadout_1 = __importDefault(require("../utils/random-loadout"));
-const huntShowdownRouter = express_1.default.Router();
-huntShowdownRouter.get('/random_loadout', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send((0, random_loadout_1.default)());
-}));
-exports.default = huntShowdownRouter;
+exports.updateLastDog = exports.getLastDog = void 0;
+const firestore_client_1 = __importDefault(require("./firestore-client"));
+const docSnap = firestore_client_1.default.collection('joewatermelon').doc('dog_treats');
+const getLastDog = () => __awaiter(void 0, void 0, void 0, function* () {
+    const docRef = yield docSnap.get();
+    if (!docRef.exists) {
+        return { error: 'Database error - contact wandernaut#2205' };
+    }
+    else {
+        return docRef.data();
+    }
+});
+exports.getLastDog = getLastDog;
+const updateLastDog = (lastDog) => {
+    docSnap.update({ lastDog });
+};
+exports.updateLastDog = updateLastDog;
