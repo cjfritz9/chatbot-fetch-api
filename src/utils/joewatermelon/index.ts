@@ -1,6 +1,6 @@
 import { getLastDog, updateLastDog } from '../../db/joewatermelon';
 
-export const TESTING_getDogTreat = async () => {
+export const TESTING_getDogTreat = async (): Promise<any> => {
   const roll = Math.round(Math.random() * 2);
   const response = await getLastDog();
   if (!response) return { error: 'Database error - contact wandernaut#2205' };

@@ -21,7 +21,7 @@ const TESTING_getDogTreat = () => __awaiter(void 0, void 0, void 0, function* ()
     console.log('last dog: ', response.lastDog);
     console.log('roll: ', roll);
     if (roll === response.lastDog) {
-        (0, exports.TESTING_getDogTreat)();
+        return (0, exports.TESTING_getDogTreat)();
     }
     else {
         (0, joewatermelon_1.updateLastDog)(roll);
