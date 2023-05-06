@@ -1,4 +1,4 @@
-import { getLastDog } from '../../db/joewatermelon';
+import { getLastDog, updateLastDog } from '../../db/joewatermelon';
 
 export const TESTING_getDogTreat = async () => {
   const roll = Math.round(Math.random() * 2);
@@ -10,6 +10,7 @@ export const TESTING_getDogTreat = async () => {
   if (roll === response.lastDog) {
     getDogTreat();
   } else {
+    updateLastDog(roll);
     console.log('last dog (post-recursion): ', response.lastDog);
     console.log('roll (post-recursion): ', roll);
     if (roll === 0) {

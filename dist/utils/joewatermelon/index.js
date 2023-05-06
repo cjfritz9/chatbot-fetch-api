@@ -24,6 +24,7 @@ const TESTING_getDogTreat = () => __awaiter(void 0, void 0, void 0, function* ()
         getDogTreat();
     }
     else {
+        (0, joewatermelon_1.updateLastDog)(roll);
         console.log('last dog (post-recursion): ', response.lastDog);
         console.log('roll (post-recursion): ', roll);
         if (roll === 0) {
