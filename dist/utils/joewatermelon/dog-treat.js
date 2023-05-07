@@ -25,15 +25,15 @@ const getDogTreat = (lastDog = null) => __awaiter(void 0, void 0, void 0, functi
         return response.error;
     if (roll <= 32 && response.lastDog === 0) {
         console.log('finn roll & finn prev roll: ', roll, response.lastDog);
-        return getDogTreat(response.lastDog);
+        return yield getDogTreat(response.lastDog);
     }
     else if (roll <= 65 && response.lastDog === 1) {
         console.log('tilly roll & tilly prev roll: ', roll, response.lastDog);
-        return getDogTreat(response.lastDog);
+        return yield getDogTreat(response.lastDog);
     }
     else if (roll > 65 && response.lastDog === 2) {
         console.log('zippy roll & zippy prev roll: ', roll, response.lastDog);
-        return getDogTreat(response.lastDog);
+        return yield getDogTreat(response.lastDog);
     }
     else {
         if (roll <= 32) {
