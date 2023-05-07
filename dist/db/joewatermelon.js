@@ -39,7 +39,7 @@ const updateLastDog = (lastDog) => {
     }
     else {
         docSnap.update({
-            invalidNumberError: firestore_1.FieldValue.arrayUnion(`Received invalid dogId: ${lastDog}. ${new Date().toUTCString()}`)
+            invalidNumberError: firestore_1.FieldValue.arrayUnion(`Received invalid id: ${lastDog}. ${new Date().toUTCString()}`)
         });
     }
 };

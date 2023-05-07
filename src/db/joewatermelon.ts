@@ -31,7 +31,7 @@ export const updateLastDog = (lastDog: number) => {
   } else {
     docSnap.update({
       invalidNumberError: FieldValue.arrayUnion(
-        `Received invalid dogId: ${lastDog}. ${new Date().toUTCString()}`
+        `Received invalid id: ${lastDog}. ${new Date().toUTCString()}`
       )
     });
   }

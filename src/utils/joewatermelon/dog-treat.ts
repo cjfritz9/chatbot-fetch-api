@@ -11,17 +11,16 @@ const getDogTreat = async (lastDog = null): Promise<any> => {
   }
   if (!response) return { error: 'Database error - contact wandernaut#2205' };
   if (response.error) return response.error;
-  console.log('last dog: ', response.lastDog);
-  console.log('roll: ', roll);
   if (roll <= 32 && response.lastDog === 0) {
+    console.log('finn roll & finn prev roll: ', roll, response.lastDog)
     return getDogTreat(response.lastDog);
   } else if (roll <= 65 && response.lastDog === 1) {
+    console.log('tilly roll & tilly prev roll: ', roll, response.lastDog)
     return getDogTreat(response.lastDog);
   } else if (roll > 65 && response.lastDog === 2) {
+    console.log('zippy roll & zippy prev roll: ', roll, response.lastDog)
     return getDogTreat(response.lastDog);
   } else {
-    console.log('last dog (post-recursion): ', response.lastDog);
-    console.log('roll (post-recursion): ', roll);
     if (roll <= 32) {
       updateLastDog(0);
       return 'Finn is the good pupper and gets a treat! joewatFinn';
