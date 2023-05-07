@@ -1,35 +1,25 @@
 import { getLastDog, updateLastDog } from '../../db/joewatermelon';
 
 const getDogTreat = async (lastDog = null): Promise<any> => {
-  const roll = Math.random() * 99;
+  const roll = Math.round(Math.random() * 2);
   console.log('roll: ', roll);
   let response: any = { lastDog };
   // Skip call to database if recursion is running and lastDog
   // is already known
   if (lastDog === null) {
     response = await getLastDog();
-    console.log('db response: ', response);
   }
   if (!response) return { error: 'Database error - contact wandernaut#2205' };
   if (response.error) return response.error;
-  if (roll <= 32 && response.lastDog === 0) {
-    console.log('finn roll & finn prev roll: ', roll, response.lastDog);
-    return await getDogTreat(response.lastDog);
-  } else if (roll <= 65 && response.lastDog === 1) {
-    console.log('tilly roll & tilly prev roll: ', roll, response.lastDog);
-    return await getDogTreat(response.lastDog);
-  } else if (roll > 65 && response.lastDog === 2) {
-    console.log('zippy roll & zippy prev roll: ', roll, response.lastDog);
+  if (roll === response.lastDog) {
     return await getDogTreat(response.lastDog);
   } else {
-    if (roll <= 32) {
-      updateLastDog(0);
+    updateLastDog(roll);
+    if (roll === 0) {
       return 'Finn is the good pupper and gets a treat! joewatFinn';
-    } else if (roll <= 65) {
-      updateLastDog(1);
+    } else if (roll === 1) {
       return 'Tilly is the good pupper and gets a treat! joewatTilly';
     } else {
-      updateLastDog(2);
       return 'Zippy is the good pupper and gets a treat! joewatZippy';
     }
   }
