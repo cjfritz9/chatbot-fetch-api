@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const joewatermelon_1 = require("../../db/joewatermelon");
 const getDogTreat = (lastDog = null) => __awaiter(void 0, void 0, void 0, function* () {
     const roll = Math.random() * 99;
+    console.log('roll: ', roll);
     let response = { lastDog };
     // Skip call to database if recursion is running and lastDog
     // is already known
