@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getToaPurple = exports.getTobPurple = exports.raidTob = exports.getCoxPurple = exports.raidCox = void 0;
+exports.getToaPurple = exports.raidToa = exports.getTobPurple = exports.raidTob = exports.getCoxPurple = exports.raidCox = void 0;
 const helpers_1 = require("./helpers");
 const raidCox = (rngBuff = 0) => {
     //@ts-ignore
@@ -216,40 +216,118 @@ const getTobPurple = (rngBuff = 0, deaths, weDoRaids, horribleRng) => {
     return response;
 };
 exports.getTobPurple = getTobPurple;
-const getToaPurple = (rngBuff = 0) => {
+const raidToa = (rngBuff = 0) => {
     //@ts-ignore
-    const roll = getRoll(rngBuff);
-    let rewardMessage = 'You found something special: ';
-    if (roll < 29.163) {
-        rewardMessage += "Osmumten's fang";
+    // const { deaths, weDoRaids, horribleRng } = getTobStats(rngBuff);
+    const raidRoll = Math.round(Math.random() * 4);
+    const raidLevel = raidRoll * 50 + 300;
+    let purpleThreshold;
+    if (raidLevel === 300) {
+        purpleThreshold = 0.0447;
     }
-    else if (roll < 58.326) {
-        rewardMessage += 'Lightbearer';
+    else if (raidLevel === 350) {
+        purpleThreshold = 0.0615;
     }
-    else if (roll < 70.826) {
-        rewardMessage += "Elidinis' ward";
+    else if (raidLevel === 400) {
+        purpleThreshold = 0.0918;
     }
-    else if (roll < 79.159) {
-        rewardMessage += 'Masori mask';
-    }
-    else if (roll < 87.492) {
-        rewardMessage += 'Masori body';
-    }
-    else if (roll < 95.825) {
-        rewardMessage += 'Masori chaps';
-    }
-    else if (roll < 99.991) {
-        rewardMessage += "Tumeken's shadow (uncharged)";
+    else if (raidLevel === 450) {
+        purpleThreshold = 0.1118;
     }
     else {
-        if (rngBuff) {
-            rewardMessage += "Tumeken's shadow (uncharged)";
-        }
-        else {
-            rewardMessage += 'Fossilised dung';
-        }
+        purpleThreshold = 0.1401;
     }
-    return rewardMessage;
+    console.log('Raid Roll: ', raidRoll);
+    console.log('Raid Level: ', raidLevel);
+    console.log('Purple Threshold: ', purpleThreshold);
+    const purpleRoll = Math.random();
+    if (rngBuff === 1) {
+        purpleThreshold = purpleThreshold * 2;
+    }
+    if (rngBuff === 2) {
+        purpleThreshold = purpleThreshold * 4;
+    }
+    let isPurple = false;
+    if (purpleRoll < purpleThreshold) {
+        isPurple = true;
+    }
+    console.log('Purple Roll: ', purpleRoll);
+    console.log('Purple Threshold: ', purpleThreshold);
+    console.log('Is Purple?: ', isPurple);
+    if (isPurple) {
+        return (0, exports.getToaPurple)(rngBuff, raidLevel);
+        // return getTobPurple(rngBuff, deaths, weDoRaids, horribleRng);
+    }
+    else {
+        const roll1 = helpers_1.standardToaLoot[Math.round(Math.random() * 26)];
+        const roll2 = helpers_1.standardToaLoot[Math.round(Math.random() * 26)];
+        const roll3 = helpers_1.standardToaLoot[Math.round(Math.random() * 26)];
+        const roll1qty = (0, helpers_1.toaRollQuantity)(roll1.baseQty, raidRoll);
+        const roll2qty = (0, helpers_1.toaRollQuantity)(roll2.baseQty, raidRoll);
+        const roll3qty = (0, helpers_1.toaRollQuantity)(roll3.baseQty, raidRoll);
+        const response = {
+            raidLevel,
+            chestColor: 'white',
+            itemInfo: [
+                { itemId: roll1.id, quantity: roll1qty },
+                { itemId: roll2.id, quantity: roll2qty },
+                { itemId: roll3.id, quantity: roll3qty }
+            ],
+            itemName: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+            dbEntry: {
+                item: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+                price: '',
+                dateReceived: new Date().toUTCString()
+            }
+        };
+        return response;
+    }
+};
+exports.raidToa = raidToa;
+const getToaPurple = (rngBuff = 0, raidLevel) => {
+    //@ts-ignore
+    const roll = getRoll(rngBuff);
+    const response = {
+        raidLevel,
+        chestColor: 'purple',
+        itemInfo: [{ itemId: '0', quantity: 1 }],
+        itemName: '',
+        dbEntry: {
+            item: '',
+            price: '',
+            dateReceived: new Date().toUTCString()
+        }
+    };
+    if (roll < 29.163) {
+        response.itemInfo[0].itemId = '26219';
+        response.itemName = "Osmumten's fang";
+    }
+    else if (roll < 58.326) {
+        response.itemInfo[0].itemId = '25975';
+        response.itemName = 'Lightbearer';
+    }
+    else if (roll < 70.826) {
+        response.itemInfo[0].itemId = '26804';
+        response.itemName = "Elidinis' ward";
+    }
+    else if (roll < 79.159) {
+        response.itemInfo[0].itemId = '27241';
+        response.itemName = 'Masori mask';
+    }
+    else if (roll < 87.492) {
+        response.itemInfo[0].itemId = '27355';
+        response.itemName = 'Masori body';
+    }
+    else if (roll < 95.825) {
+        response.itemInfo[0].itemId = '27238';
+        response.itemName = 'Masori chaps';
+    }
+    else {
+        response.itemInfo[0].itemId = '27277';
+        response.itemName = "Tumeken's shadow (uncharged)";
+    }
+    response.dbEntry.item = response.itemName;
+    return response;
 };
 exports.getToaPurple = getToaPurple;
 const getRoll = (rngBuff) => {

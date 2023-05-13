@@ -112,9 +112,32 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
         }
     }
 }));
-osrsRouter.get('/raids/toa', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.send(`🏗️ Remaking this to be like !lootcox 🏗️ (You rolled: ${RAIDS.getToaPurple()})`);
-    // res.send(RAIDS.getToaPurple());
+osrsRouter.get('/raids/toa', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username } = req.query;
+    if (!username) {
+        return res.send('Error - No username was supplied');
+    }
+    let user = yield (0, osrs_1.getUser)(username);
+    if (!user) {
+        user = { username: username, gp: '0', rngBuff: 0 };
+    }
+    const loot = RAIDS.raidToa(user.rngBuff);
+    loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
+    console.log('loot res: ', loot);
+    const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
+    const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
+    const formattedWealth = OSRS.formatGP(totalWealth);
+    (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
+    if (loot.chestColor === 'purple') {
+        res.send(`
+    ${username} enters the Tombs of Amascut. They finish the raid with at level ${loot.raidLevel} and find a joewatLOOT PURPLE joewatLOOT chest! Within their chest they find ${loot.itemName} (${formattedPrice}). Total wealth ${formattedWealth}!
+    `);
+    }
+    else {
+        res.send(`
+    ${username} enters the Tombs of Amascut. They finish the raid with at level ${loot.raidLevel} and find a white chest. Within their chest they find ${loot.itemName} (${formattedPrice}). Total wealth ${formattedWealth}!
+    `);
+    }
 }));
 osrsRouter.get('/rngbuff', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username } = req.query;

@@ -17,12 +17,19 @@ export const fetchAndAddPrices = async (
   responses.map((res, i) => {
     if (res?.data?.data) {
       const itemPrices = res.data.data[items[i].itemId];
+      console.log('current item api: ', items[i]);
       if (itemPrices) {
         const stackValue =
           +getMedianPrice(itemPrices.low, itemPrices.high) * items[i].quantity;
         totalValue = (+totalValue + +stackValue).toString();
       } else {
-        totalValue = totalValue;
+        if (items[i].itemId === '-1') {
+          totalValue = (+totalValue + 350000).toString();
+        } else if (items[i].itemId === '1') {
+          totalValue = (+totalValue + items[i].quantity).toString();
+        } else {
+          totalValue = totalValue;
+        }
       }
     }
   });
@@ -114,6 +121,36 @@ export const standardTobLoot = [
   { name: 'Mahogany seed', id: '21488', minQty: 10, maxQty: 12 }
 ];
 
+export const standardToaLoot = [
+  { name: 'Coins', id: '1', baseQty: 23136 },
+  { name: 'Death rune', id: '560', baseQty: 1155 },
+  { name: 'Soul rune', id: '566', baseQty: 577 },
+  { name: 'Gold ore', id: '444', baseQty: 256 },
+  { name: 'Dragon dart tip', id: '11232', baseQty: 231 },
+  { name: 'Mahogany log', id: '6332', baseQty: 127 },
+  { name: 'Sapphire', id: '1607', baseQty: 114 },
+  { name: 'Emerald', id: '1605', baseQty: 92 },
+  { name: 'Gold bar', id: '2357', baseQty: 92 },
+  { name: 'Potato cactus', id: '3138', baseQty: 92 },
+  { name: 'Raw shark', id: '383', baseQty: 92 },
+  { name: 'Ruby', id: '1603', baseQty: 77 },
+  { name: 'Diamond', id: '1601', baseQty: 57 },
+  { name: 'Raw manta ray', id: '389', baseQty: 50 },
+  { name: 'Cactus spine', id: '6016', baseQty: 37 },
+  { name: 'Dragonstone', id: '1615', baseQty: 37 },
+  { name: 'Battlestaff', id: '1391', baseQty: 20 },
+  { name: 'Coconut milk', id: '5935', baseQty: 20 },
+  { name: 'Lily of the sands', id: '27272', baseQty: 20 },
+  { name: 'Toadflax seed', id: '5296', baseQty: 16 },
+  { name: 'Ranarr seed', id: '5295', baseQty: 12 },
+  { name: 'Torstol seed', id: '5304', baseQty: 10 },
+  { name: 'Snapdragon seed', id: '5300', baseQty: 10 },
+  { name: 'Dragon med helm', id: '1149', baseQty: 5 },
+  { name: 'Magic seed', id: '5316', baseQty: 3 },
+  { name: 'Blood essence', id: '26390', baseQty: 2 },
+  { name: 'Cache of Runes', id: '-1', baseQty: 1 }
+];
+
 export const coxRollQuantity = (maxQty: number, didPlank = false) => {
   const quantity = maxQty / 3.3;
   if (maxQty === 1) return 1;
@@ -126,4 +163,13 @@ export const coxRollQuantity = (maxQty: number, didPlank = false) => {
 
 export const tobRollQuantity = (minQty: number, maxQty: number) => {
   return minQty + Math.round(Math.random() * (maxQty - minQty));
+};
+
+export const toaRollQuantity = (baseQty: number, raidRoll: number) => {
+  const multiplier = raidRoll * 0.14;
+  if (baseQty === 1) {
+    return baseQty;
+  } else {
+    return baseQty + Math.round(baseQty * multiplier);
+  }
 };
