@@ -122,11 +122,11 @@ osrsRouter.get('/raids/toa', async (req: any, res: any) => {
   updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
   if (loot.chestColor === 'purple') {
     res.send(`
-    ${username} enters the Tombs of Amascut. They finish the raid with at level ${loot.raidLevel} and find a joewatLOOT PURPLE joewatLOOT chest! Within their chest they find ${loot.itemName} (${formattedPrice}). Total wealth ${formattedWealth}!
+    ${username} enters the Tombs of Amascut. They finish the raid at level ${loot.raidLevel} and find a joewatLOOT PURPLE joewatLOOT chest! Within their chest they find ${loot.itemName} (${formattedPrice}). Total wealth ${formattedWealth}!
     `);
   } else {
     res.send(`
-    ${username} enters the Tombs of Amascut. They finish the raid with at level ${loot.raidLevel} and find a white chest. Within their chest they find ${loot.itemName} (${formattedPrice}). Total wealth ${formattedWealth}!
+    ${username} enters the Tombs of Amascut. They finish the raid at level ${loot.raidLevel} and find a white chest. Within their chest they find ${loot.itemName} (${formattedPrice}). Total wealth ${formattedWealth}!
     `);
   }
 });
