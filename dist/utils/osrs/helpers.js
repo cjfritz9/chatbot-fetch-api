@@ -181,11 +181,8 @@ const tobRollQuantity = (minQty, maxQty) => {
 exports.tobRollQuantity = tobRollQuantity;
 const toaRollQuantity = (baseQty, raidRoll) => {
     const multiplier = raidRoll * 0.14;
-    if (baseQty === 1) {
+    if (baseQty === 1)
         return baseQty;
-    }
-    else {
-        return baseQty + Math.round(baseQty * multiplier);
-    }
+    return baseQty + Math.round(baseQty * multiplier);
 };
 exports.toaRollQuantity = toaRollQuantity;
