@@ -15,9 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const dog_treat_1 = __importDefault(require("../utils/joewatermelon/dog-treat"));
+const gp_reward_1 = __importDefault(require("../utils/joewatermelon/gp-reward"));
 dotenv_1.default.config();
 const joeRouter = express_1.default.Router();
 joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send(yield (0, dog_treat_1.default)());
+}));
+joeRouter.get('/gp_reward', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { username } = req.query;
+    res.send((0, gp_reward_1.default)(username));
 }));
 exports.default = joeRouter;

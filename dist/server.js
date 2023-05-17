@@ -27,8 +27,8 @@ exports.app.use('/osrs', osrs_1.default);
 const joewatermelon_1 = __importDefault(require("./routes/joewatermelon"));
 exports.app.use('/joewatermelon', joewatermelon_1.default);
 exports.app.get('/*', (req, res) => {
-    console.log('request url: ', req.url);
-    console.log('request user query: ', req.query.user);
+    console.log('404 request url: ', req.url);
+    console.log('404 request queries: ', Object.assign({}, req.query));
     res.status(404).send('The page you are looking for does not exist.');
 });
 exports.app.listen(PORT, () => {

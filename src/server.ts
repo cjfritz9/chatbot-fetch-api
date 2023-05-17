@@ -28,8 +28,8 @@ import joeRouter from './routes/joewatermelon';
 app.use('/joewatermelon', joeRouter);
 
 app.get('/*', (req, res) => {
-  console.log('request url: ', req.url);
-  console.log('request user query: ', req.query.user);
+  console.log('404 request url: ', req.url);
+  console.log('404 request queries: ', { ...req.query });
   res.status(404).send('The page you are looking for does not exist.');
 });
 
