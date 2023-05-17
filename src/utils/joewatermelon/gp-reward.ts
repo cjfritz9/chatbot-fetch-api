@@ -1,7 +1,6 @@
 const getRandomGP = (username: string) => {
   const tableRoll = Math.round(Math.random() * 48) + 51;
   const failRoll = Math.round(Math.random() * 99) === 0 ? true : false;
-  console.log(failRoll);
 
   if (failRoll) {
     return {
