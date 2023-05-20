@@ -17,8 +17,8 @@ const getRandomGP = (username) => {
     }
     else if (tableRoll === 99) {
         return {
-            reward: '10M',
-            message: `${username} rolled ${tableRoll} and won 10M GP PogOBusiness`
+            reward: 'A BOND',
+            message: `${username} rolled ${tableRoll} and won A BOND PogOBusiness`
         };
     }
     else {
