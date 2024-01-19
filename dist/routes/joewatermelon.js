@@ -17,6 +17,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const dog_treat_1 = __importDefault(require("../utils/joewatermelon/dog-treat"));
 const gp_reward_1 = __importDefault(require("../utils/joewatermelon/gp-reward"));
 const joewatermelon_1 = require("../db/joewatermelon");
+const youtube_1 = require("../utils/joewatermelon/youtube");
 dotenv_1.default.config();
 const joeRouter = express_1.default.Router();
 joeRouter.get('/dog_treat', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -27,5 +28,8 @@ joeRouter.get('/gp_reward', (req, res) => __awaiter(void 0, void 0, void 0, func
     const { reward, message } = (0, gp_reward_1.default)(username);
     (0, joewatermelon_1.addGpRewardEntry)(username, reward);
     res.send(message);
+}));
+joeRouter.get('/latest_yt_media', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.send(yield (0, youtube_1.getLatestYtMedia)());
 }));
 exports.default = joeRouter;
