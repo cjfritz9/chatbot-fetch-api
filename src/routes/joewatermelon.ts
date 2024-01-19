@@ -21,6 +21,7 @@ joeRouter.get('/gp_reward', async (req, res) => {
 
 joeRouter.get('/latest_yt_media', async (_req, res) => {
   res.send(await getLatestYtMedia());
+  
 });
 
 export default joeRouter;
