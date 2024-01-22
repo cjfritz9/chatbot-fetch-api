@@ -13,8 +13,26 @@ export const getLatestYtMedia = async () => {
   ) {
     const media = response.data.items[0];
 
-    return `Check out my latest video! ${media.snippet.title} https://www.youtube.com/watch?v=${media.id.videoId}`;
+    const formattedTitle = formatVideoTitle(media.snippet.title);
+
+    return `Check out my latest video! ${formattedTitle} https://www.youtube.com/watch?v=${media.id.videoId}`;
   } else {
-    return 'Error fetching latest video.'
+    return '[Error fetching latest video]'
   }
 };
+
+
+const formatVideoTitle = (rawTitle: string) => {
+  const titleChars = [...rawTitle]
+  for (let i = 0; i < titleChars.length; i++) {
+    if (titleChars[i] === '#') {
+      for (let j = 0; j < titleChars.length; j++) {
+        if (titleChars[j] === ' ') {
+          titleChars.splice(i, j)
+        }
+      }
+    }
+  }
+
+  return titleChars.join('');
+}
