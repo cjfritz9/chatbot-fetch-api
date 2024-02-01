@@ -152,6 +152,9 @@ osrsRouter.get('/rngbuff', (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 osrsRouter.get('/price-checker', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { alpha } = req.query;
+    if (!alpha) {
+        res.send('Try !pc [item name]');
+    }
     const response = yield (0, price_checker_1.getItemPriceByAlpha)(alpha);
     res.send(response);
 }));

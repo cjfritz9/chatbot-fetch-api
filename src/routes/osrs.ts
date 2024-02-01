@@ -145,6 +145,10 @@ osrsRouter.get('/rngbuff', async (req: any, res: any) => {
 osrsRouter.get('/price-checker', async (req: any, res: any) => {
   const { alpha } = req.query;
 
+  if (!alpha) {
+    res.send('Try !pc [item name]')
+  }
+
   const response = await getItemPriceByAlpha(alpha);
 
   res.send(response);

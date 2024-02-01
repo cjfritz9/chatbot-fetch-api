@@ -15,9 +15,12 @@ export const getItemPriceByAlpha = async (alpha: string) => {
     return `No price information found for "${alpha}". Check spelling and try again`;
   } else {
     const result = response.data.items[0];
+    console.log(result.name);
     console.log(result.today);
-    return `${result.name} is currently ${
-      result.current.price
-    }. Daily trend: ${result.today.trend === 'negative' ? (result.today.price as string).replaceAll('-', '📉🔽 ') : (result.today.price as string).replace('+', '📈🔼 ')}`;
+    return `${result.name} is currently ${result.current.price}. Daily trend: ${
+      result.today.trend === 'negative'
+        ? result.today.price.toString().replaceAll('-', '📉🔽 ')
+        : result.today.price.toString().replace('+', '📈🔼 ')
+    }`;
   }
 };
