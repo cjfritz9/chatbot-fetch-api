@@ -39,6 +39,7 @@ const express_1 = __importDefault(require("express"));
 const RAIDS = __importStar(require("../utils/osrs/raids"));
 const OSRS = __importStar(require("../utils/osrs/helpers"));
 const osrs_1 = require("../db/osrs");
+const price_checker_1 = require("../utils/osrs/price-checker");
 const osrsRouter = express_1.default.Router();
 // TODO: ADD RAID PARTY SUPPORT (!join command?)
 // TODO: ADD TERTIARY LOOT/PETS
@@ -148,6 +149,11 @@ osrsRouter.get('/rngbuff', (req, res) => __awaiter(void 0, void 0, void 0, funct
     else {
         res.send(response.success);
     }
+}));
+osrsRouter.get('/price-checker', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { alpha } = req.query;
+    const response = yield (0, price_checker_1.getItemPriceByAlpha)(alpha);
+    res.send(response);
 }));
 // osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
 //   const { rngBonus, username } = req.query;

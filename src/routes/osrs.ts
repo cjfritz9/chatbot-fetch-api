@@ -2,6 +2,7 @@ import express from 'express';
 import * as RAIDS from '../utils/osrs/raids';
 import * as OSRS from '../utils/osrs/helpers';
 import { addRng, getUser, updateUser } from '../db/osrs';
+import { getItemPriceByAlpha } from '../utils/osrs/price-checker';
 
 const osrsRouter = express.Router();
 
@@ -139,6 +140,14 @@ osrsRouter.get('/rngbuff', async (req: any, res: any) => {
   } else {
     res.send(response.success);
   }
+});
+
+osrsRouter.get('/price-checker', async (req: any, res: any) => {
+  const { alpha } = req.query;
+
+  const response = await getItemPriceByAlpha(alpha);
+
+  res.send(response);
 });
 
 // osrsRouter.get('/raids/tob_buff', async (req: any, res: any) => {
