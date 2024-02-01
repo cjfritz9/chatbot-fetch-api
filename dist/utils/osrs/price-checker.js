@@ -25,13 +25,13 @@ const getItemPriceByAlpha = (alpha) => __awaiter(void 0, void 0, void 0, functio
         return 'Error fetching Grand Exchange data';
     }
     else if (!response.data.items[0]) {
-        return `No price information found for "${alpha}". Check spelling and try again`;
+        return `No price information found for "${alpha}". Search by the start of the item's name; i.e. "tumeken" instead of "shadow"`;
     }
     else {
         const result = response.data.items[0];
         console.log(result.name);
         console.log(result.today);
-        return `${result.name} is currently ${result.current.price}. Daily trend: ${result.today.trend === 'negative'
+        return `${result.name} is currently ${result.current.price}. Today: ${result.today.trend === 'negative'
             ? result.today.price.toString().replaceAll('-', '📉🔽 ')
             : result.today.price.toString().replace('+', '📈🔼 ')}`;
     }
