@@ -11,12 +11,14 @@ export const raidCox = (rngBuff = 0) => {
   //@ts-ignore
   let purpleThreshold = 867500;
   if (rngBuff === 1) {
-    purpleThreshold = purpleThreshold / 4;
-  }
-  if (rngBuff === 2) {
     purpleThreshold = purpleThreshold / 8;
   }
+  if (rngBuff === 2) {
+    purpleThreshold = purpleThreshold / 16;
+  }
   const { points, didPlank } = getCoxPoints();
+  console.log(points, purpleThreshold);
+  console.log(points / purpleThreshold);
   let isPurple = false;
   if (Math.random() < points / purpleThreshold) {
     isPurple = true;
@@ -114,7 +116,7 @@ export const getCoxPurple = (
     response.dbEntry.item = 'Kodai insignia';
   } else {
     response.itemInfo[0].itemId = '20997';
-    response.itemName = 'a Twisted bow';
+    response.itemName = 'a Twisted bow TBow';
     response.dbEntry.item = 'Twisted bow';
   }
 
@@ -128,10 +130,10 @@ export const raidTob = (rngBuff = 0) => {
   purpleThreshold -= deaths * 0.0065;
   const purpleRoll = Math.random();
   if (rngBuff === 1) {
-    purpleThreshold = purpleThreshold * 2;
+    purpleThreshold = purpleThreshold * 4;
   }
   if (rngBuff === 2) {
-    purpleThreshold = purpleThreshold * 4;
+    purpleThreshold = purpleThreshold * 8;
   }
 
   let isPurple = false;
@@ -211,7 +213,7 @@ export const getTobPurple = (
     response.itemName = 'Justiciar legguards';
   } else {
     response.itemInfo[0].itemId = '22486';
-    response.itemName = 'Scythe of vitur (uncharged)';
+    response.itemName = 'Scythe of vitur (uncharged) ScytheV';
   }
   response.dbEntry.item = response.itemName;
   return response;
@@ -234,23 +236,17 @@ export const raidToa = (rngBuff = 0) => {
   } else {
     purpleThreshold = 0.1401;
   }
-  console.log('Raid Roll: ', raidRoll);
-  console.log('Raid Level: ', raidLevel);
-  console.log('Purple Threshold: ', purpleThreshold);
   const purpleRoll = Math.random();
   if (rngBuff === 1) {
-    purpleThreshold = purpleThreshold * 2;
+    purpleThreshold = purpleThreshold * 3;
   }
   if (rngBuff === 2) {
-    purpleThreshold = purpleThreshold * 4;
+    purpleThreshold = purpleThreshold * 6;
   }
   let isPurple = false;
   if (purpleRoll < purpleThreshold) {
     isPurple = true;
   }
-  console.log('Purple Roll: ', purpleRoll);
-  console.log('Purple Threshold: ', purpleThreshold);
-  console.log('Is Purple?: ', isPurple);
   if (isPurple) {
     return getToaPurple(rngBuff, raidLevel);
     // return getTobPurple(rngBuff, deaths, weDoRaids, horribleRng);
@@ -316,7 +312,7 @@ export const getToaPurple = (rngBuff = 0, raidLevel: number) => {
     response.itemName = 'Masori chaps';
   } else {
     response.itemInfo[0].itemId = '27277';
-    response.itemName = "Tumeken's shadow (uncharged)";
+    response.itemName = "Tumeken's shadow (uncharged) Shadow";
   }
   response.dbEntry.item = response.itemName;
 
@@ -326,17 +322,21 @@ export const getToaPurple = (rngBuff = 0, raidLevel: number) => {
 const getRoll = (rngBuff: 0 | 1 | 2) => {
   let roll = Math.random() * 100;
   if (rngBuff === 0) {
+    console.log({ 'rng0 roll': roll });
     return roll;
   } else if (rngBuff === 1) {
     const difference = 100 - roll;
     roll += Math.random() * difference;
+    console.log({ 'rng1 roll': roll });
     return roll;
   } else {
     const roll1 = Math.random() * 100;
     const roll2 = Math.random() * 100;
-    let bestRoll = roll1 > roll2 ? roll1 : roll2;
+    let bestRoll = Math.max(roll, roll1, roll2);
     const difference = 100 - bestRoll;
     bestRoll += Math.random() * difference;
+
+    console.log({ 'rng2 roll': bestRoll });
     return bestRoll;
   }
 };
