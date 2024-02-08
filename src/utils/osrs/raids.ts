@@ -72,47 +72,47 @@ export const getCoxPurple = (
 
   if (roll < 29.986) {
     response.itemInfo[0].itemId = '21034';
-    response.itemName = 'a Dexterous prayer scroll';
+    response.itemName = 'a Dexterous prayer scroll wrsDex';
     response.dbEntry.item = 'Dexterous prayer scroll';
   } else if (roll < 57.972) {
     response.itemInfo[0].itemId = '21079';
-    response.itemName = 'an Arcane prayer scroll';
+    response.itemName = 'an Arcane prayer scroll wrsArcane';
     response.dbEntry.item = 'Arcane prayer scroll';
   } else if (roll < 63.769) {
     response.itemInfo[0].itemId = '21000';
-    response.itemName = 'a Twisted buckler';
+    response.itemName = 'a Twisted buckler wrsTbuckler';
     response.dbEntry.item = 'Twisted buckler';
   } else if (roll < 69.566) {
     response.itemInfo[0].itemId = '21012';
-    response.itemName = 'a Dragon hunter crossbow';
+    response.itemName = 'a Dragon hunter crossbow wrsDhcb';
     response.dbEntry.item = 'Dragon hunter crossbow';
   } else if (roll < 73.914) {
     response.itemInfo[0].itemId = '21015';
-    response.itemName = "a Dinh's bulwark";
+    response.itemName = "a Dinh's bulwark wrsDinhs";
     response.dbEntry.item = "Dinh's bulwark";
   } else if (roll < 78.262) {
     response.itemInfo[0].itemId = '21018';
-    response.itemName = 'an Ancestral hat';
+    response.itemName = 'an Ancestral hat wrsAncHat';
     response.dbEntry.item = 'Ancestral hat';
   } else if (roll < 82.61) {
     response.itemInfo[0].itemId = '21021';
-    response.itemName = 'an Ancestral robe top';
+    response.itemName = 'an Ancestral robe top wrsAncTop';
     response.dbEntry.item = 'Ancestral robe top';
   } else if (roll < 86.958) {
     response.itemInfo[0].itemId = '21024';
-    response.itemName = 'an Ancestral robe bottom';
+    response.itemName = 'an Ancestral robe bottom wrsAncBottom';
     response.dbEntry.item = 'Ancestral robe bottom';
   } else if (roll < 91.306) {
     response.itemInfo[0].itemId = '13652';
-    response.itemName = 'Dragon claws';
+    response.itemName = 'Dragon claws wrsDclaws';
     response.dbEntry.item = 'Dragon claws';
   } else if (roll < 94.205) {
     response.itemInfo[0].itemId = '21003';
-    response.itemName = 'an Elder maul';
+    response.itemName = 'an Elder maul wrsElderMaul';
     response.dbEntry.item = 'Elder maul';
   } else if (roll < 97.104) {
     response.itemInfo[0].itemId = '21043';
-    response.itemName = 'a Kodai insignia';
+    response.itemName = 'a Kodai insignia wrsKodai';
     response.dbEntry.item = 'Kodai insignia';
   } else {
     response.itemInfo[0].itemId = '20997';
@@ -195,22 +195,22 @@ export const getTobPurple = (
 
   if (roll < 42.105) {
     response.itemInfo[0].itemId = '22477';
-    response.itemName = 'Avernic defender hilt';
+    response.itemName = 'Avernic defender hilt wrsAvernic';
   } else if (roll < 52.631) {
     response.itemInfo[0].itemId = '22324';
-    response.itemName = 'Ghrazi rapier';
+    response.itemName = 'Ghrazi rapier wrsGhrazi';
   } else if (roll < 63.157) {
     response.itemInfo[0].itemId = '22481';
-    response.itemName = 'Sanguinesti staff (uncharged)';
+    response.itemName = 'Sanguinesti staff (uncharged) wrsSang';
   } else if (roll < 73.683) {
     response.itemInfo[0].itemId = '22326';
-    response.itemName = 'Justiciar faceguard';
+    response.itemName = 'Justiciar faceguard wrsJustiHelm';
   } else if (roll < 84.209) {
     response.itemInfo[0].itemId = '22327';
-    response.itemName = 'Justiciar chestguard';
+    response.itemName = 'Justiciar chestguard wrsJustiPlate';
   } else if (roll < 94.735) {
     response.itemInfo[0].itemId = '22328';
-    response.itemName = 'Justiciar legguards';
+    response.itemName = 'Justiciar legguards wrsJustiLegs';
   } else {
     response.itemInfo[0].itemId = '22486';
     response.itemName = 'Scythe of vitur (uncharged) ScytheV';
@@ -294,22 +294,22 @@ export const getToaPurple = (rngBuff = 0, raidLevel: number) => {
 
   if (roll < 29.163) {
     response.itemInfo[0].itemId = '26219';
-    response.itemName = "Osmumten's fang";
+    response.itemName = "Osmumten's fang wrsFang";
   } else if (roll < 58.326) {
     response.itemInfo[0].itemId = '25975';
-    response.itemName = 'Lightbearer';
+    response.itemName = 'Lightbearer wrsLightbearer';
   } else if (roll < 70.826) {
     response.itemInfo[0].itemId = '26804';
-    response.itemName = "Elidinis' ward";
+    response.itemName = "Elidinis' ward wrsWard";
   } else if (roll < 79.159) {
     response.itemInfo[0].itemId = '27241';
-    response.itemName = 'Masori mask';
+    response.itemName = 'Masori mask wrsMasoriMask';
   } else if (roll < 87.492) {
     response.itemInfo[0].itemId = '27355';
-    response.itemName = 'Masori body';
+    response.itemName = 'Masori body wrsMasoriBody';
   } else if (roll < 95.825) {
     response.itemInfo[0].itemId = '27238';
-    response.itemName = 'Masori chaps';
+    response.itemName = 'Masori chaps wrsMasoriChaps';
   } else {
     response.itemInfo[0].itemId = '27277';
     response.itemName = "Tumeken's shadow (uncharged) Shadow";

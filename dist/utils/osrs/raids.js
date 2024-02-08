@@ -62,62 +62,62 @@ const getCoxPurple = (rngBuff = 0, points, didPlank) => {
     };
     if (roll < 29.986) {
         response.itemInfo[0].itemId = '21034';
-        response.itemName = 'a Dexterous prayer scroll';
+        response.itemName = 'a Dexterous prayer scroll wrsDex';
         response.dbEntry.item = 'Dexterous prayer scroll';
     }
     else if (roll < 57.972) {
         response.itemInfo[0].itemId = '21079';
-        response.itemName = 'an Arcane prayer scroll';
+        response.itemName = 'an Arcane prayer scroll wrsArcane';
         response.dbEntry.item = 'Arcane prayer scroll';
     }
     else if (roll < 63.769) {
         response.itemInfo[0].itemId = '21000';
-        response.itemName = 'a Twisted buckler';
+        response.itemName = 'a Twisted buckler wrsTbuckler';
         response.dbEntry.item = 'Twisted buckler';
     }
     else if (roll < 69.566) {
         response.itemInfo[0].itemId = '21012';
-        response.itemName = 'a Dragon hunter crossbow';
+        response.itemName = 'a Dragon hunter crossbow wrsDhcb';
         response.dbEntry.item = 'Dragon hunter crossbow';
     }
     else if (roll < 73.914) {
         response.itemInfo[0].itemId = '21015';
-        response.itemName = "a Dinh's bulwark";
+        response.itemName = "a Dinh's bulwark wrsDinhs";
         response.dbEntry.item = "Dinh's bulwark";
     }
     else if (roll < 78.262) {
         response.itemInfo[0].itemId = '21018';
-        response.itemName = 'an Ancestral hat';
+        response.itemName = 'an Ancestral hat wrsAncHat';
         response.dbEntry.item = 'Ancestral hat';
     }
     else if (roll < 82.61) {
         response.itemInfo[0].itemId = '21021';
-        response.itemName = 'an Ancestral robe top';
+        response.itemName = 'an Ancestral robe top wrsAncTop';
         response.dbEntry.item = 'Ancestral robe top';
     }
     else if (roll < 86.958) {
         response.itemInfo[0].itemId = '21024';
-        response.itemName = 'an Ancestral robe bottom';
+        response.itemName = 'an Ancestral robe bottom wrsAncBottom';
         response.dbEntry.item = 'Ancestral robe bottom';
     }
     else if (roll < 91.306) {
         response.itemInfo[0].itemId = '13652';
-        response.itemName = 'Dragon claws';
+        response.itemName = 'Dragon claws wrsDclaws';
         response.dbEntry.item = 'Dragon claws';
     }
     else if (roll < 94.205) {
         response.itemInfo[0].itemId = '21003';
-        response.itemName = 'an Elder maul';
+        response.itemName = 'an Elder maul wrsElderMaul';
         response.dbEntry.item = 'Elder maul';
     }
     else if (roll < 97.104) {
         response.itemInfo[0].itemId = '21043';
-        response.itemName = 'a Kodai insignia';
+        response.itemName = 'a Kodai insignia wrsKodai';
         response.dbEntry.item = 'Kodai insignia';
     }
     else {
         response.itemInfo[0].itemId = '20997';
-        response.itemName = 'a Twisted bow TBow';
+        response.itemName = 'a Twisted bow wrsTbow';
         response.dbEntry.item = 'Twisted bow';
     }
     return response;
