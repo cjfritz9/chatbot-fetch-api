@@ -116,7 +116,7 @@ export const getCoxPurple = (
     response.dbEntry.item = 'Kodai insignia';
   } else {
     response.itemInfo[0].itemId = '20997';
-    response.itemName = 'a Twisted bow TBow';
+    response.itemName = 'a Twisted bow wrsTbow';
     response.dbEntry.item = 'Twisted bow';
   }
 
@@ -201,19 +201,19 @@ export const getTobPurple = (
     response.itemName = 'Ghrazi rapier wrsGhrazi';
   } else if (roll < 63.157) {
     response.itemInfo[0].itemId = '22481';
-    response.itemName = 'Sanguinesti staff (uncharged) wrsSang';
+    response.itemName = 'Sanguinesti staff (uncharged) wrsSangStaff';
   } else if (roll < 73.683) {
     response.itemInfo[0].itemId = '22326';
     response.itemName = 'Justiciar faceguard wrsJustiHelm';
   } else if (roll < 84.209) {
     response.itemInfo[0].itemId = '22327';
-    response.itemName = 'Justiciar chestguard wrsJustiPlate';
+    response.itemName = 'Justiciar chestguard wrsJustiChest';
   } else if (roll < 94.735) {
     response.itemInfo[0].itemId = '22328';
     response.itemName = 'Justiciar legguards wrsJustiLegs';
   } else {
     response.itemInfo[0].itemId = '22486';
-    response.itemName = 'Scythe of vitur (uncharged) ScytheV';
+    response.itemName = 'Scythe of vitur (uncharged) wrsScythe';
   }
   response.dbEntry.item = response.itemName;
   return response;
@@ -312,7 +312,7 @@ export const getToaPurple = (rngBuff = 0, raidLevel: number) => {
     response.itemName = 'Masori chaps wrsMasoriChaps';
   } else {
     response.itemInfo[0].itemId = '27277';
-    response.itemName = "Tumeken's shadow (uncharged) Shadow";
+    response.itemName = "Tumeken's shadow (uncharged) wrsShadow";
   }
   response.dbEntry.item = response.itemName;
 
