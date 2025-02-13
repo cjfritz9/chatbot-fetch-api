@@ -58,14 +58,14 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
     }
 
     const loot = RAIDS.raidTob(user.rngBuff);
+    const isPurple = loot.chestColor === 'purple';
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
-    const formattedSplit = OSRS.formatGP(
-      (+'0' + +loot.dbEntry.price / 3).toFixed(0)
-    );
+    const value = isPurple
+      ? +'0' + +loot.dbEntry.price / 3
+      : +'0' + +loot.dbEntry.price;
+    const formattedValue = OSRS.formatGP(value.toFixed(0));
     const totalWealth = (
-      loot.chestColor === 'purple'
-        ? (+user.gp + +loot.dbEntry.price / 3).toFixed(0)
-        : +user.gp + +loot.dbEntry.price
+      isPurple ? (+user.gp + value).toFixed(0) : +user.gp + value
     ).toString();
     const formattedWealth = OSRS.formatGP(totalWealth);
     updateUser(username, totalWealth, JSON.stringify(loot.dbEntry));
@@ -73,9 +73,9 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
     const params: RAIDS.ChatStringParams = {
       raid: RAIDS.RaidTypes.TOB,
       username,
-      isPurple: loot.chestColor === 'purple',
+      isPurple,
       lootString: loot.itemName,
-      lootValue: `${formattedSplit} (Split)`,
+      lootValue: `${formattedValue}${isPurple ? '(split)' : ''}`,
       totalWealth: formattedWealth,
       deaths: loot.deaths.toString()
     };

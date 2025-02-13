@@ -222,8 +222,6 @@ export const getTobPurple = (
 };
 
 export const raidToa = (rngBuff = 0) => {
-  //@ts-ignore
-  // const { deaths, weDoRaids, horribleRng } = getTobStats(rngBuff);
   const raidRoll = Math.round(Math.random() * 4);
   const raidLevel = raidRoll * 50 + 300;
   let purpleThreshold: number;
@@ -251,7 +249,6 @@ export const raidToa = (rngBuff = 0) => {
   }
   if (isPurple) {
     return getToaPurple(rngBuff, raidLevel);
-    // return getTobPurple(rngBuff, deaths, weDoRaids, horribleRng);
   } else {
     const roll1 = standardToaLoot[Math.round(Math.random() * 26)];
     const roll2 = standardToaLoot[Math.round(Math.random() * 26)];
@@ -413,13 +410,38 @@ export const getChatString = ({
 }: ChatStringParams) => {
   const uniqueChestEmote = isPurple ? 'peepoPurple' : 'peepoWhite';
 
-  if (raid === RaidTypes.COX) {
-    return `${username} completes ${raid} ${uniqueChestEmote} /// [ Loot: ${lootString} | Value: ${lootValue} | Points: ${points} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
-  } else if (raid === RaidTypes.TOB) {
-    return `${username} completes ${raid} ${uniqueChestEmote} /// [ Loot: ${lootString} | Value: ${lootValue} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
-  } else if (raid === RaidTypes.TOA) {
-    return `${username} completes ${raid} ${uniqueChestEmote} /// [ Loot: ${lootString} | Value: ${lootValue} | Lifetime: ${totalWealth} ]`;
-  } else {
-    return '[Error]';
-  }
+  const stats = {
+    loot: {
+      title: 'Loot',
+      value: lootString
+    },
+    value: {
+      title: 'Value',
+      value: lootValue
+    },
+    points: {
+      title: 'Points',
+      value: points
+    },
+    deaths: {
+      title: 'Deaths',
+      value: deaths
+    },
+    lifetime: {
+      title: 'Lifetime',
+      value: totalWealth
+    }
+  };
+
+  let statisticsString = '';
+
+  Object.values(stats).map((stat) => {
+    if (stat.value !== undefined) {
+      statisticsString += `${stat.title}: ${stat.value} | `;
+    }
+  });
+
+  statisticsString = statisticsString.slice(0, statisticsString.length - 3);
+
+  return `${username} completes ${raid} ${uniqueChestEmote} [ ${statisticsString} ]`;
 };

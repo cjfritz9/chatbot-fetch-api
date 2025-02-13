@@ -88,19 +88,21 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
             user = { username: username, gp: '0', rngBuff: 0 };
         }
         const loot = RAIDS.raidTob(user.rngBuff);
+        const isPurple = loot.chestColor === 'purple';
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
-        const formattedSplit = OSRS.formatGP((+'0' + +loot.dbEntry.price / 3).toFixed(0));
-        const totalWealth = (loot.chestColor === 'purple'
-            ? (+user.gp + +loot.dbEntry.price / 3).toFixed(0)
-            : +user.gp + +loot.dbEntry.price).toString();
+        const value = isPurple
+            ? +'0' + +loot.dbEntry.price / 3
+            : +'0' + +loot.dbEntry.price;
+        const formattedValue = OSRS.formatGP(value.toFixed(0));
+        const totalWealth = (isPurple ? (+user.gp + value).toFixed(0) : +user.gp + value).toString();
         const formattedWealth = OSRS.formatGP(totalWealth);
         (0, osrs_1.updateUser)(username, totalWealth, JSON.stringify(loot.dbEntry));
         const params = {
             raid: RAIDS.RaidTypes.TOB,
             username,
-            isPurple: loot.chestColor === 'purple',
+            isPurple,
             lootString: loot.itemName,
-            lootValue: `${formattedSplit} (Split)`,
+            lootValue: `${formattedValue}${isPurple ? '(split)' : ''}`,
             totalWealth: formattedWealth,
             deaths: loot.deaths.toString()
         };
