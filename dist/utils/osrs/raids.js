@@ -4,9 +4,9 @@ exports.getChatString = exports.getToaPurple = exports.raidToa = exports.getTobP
 const helpers_1 = require("./helpers");
 var RaidTypes;
 (function (RaidTypes) {
-    RaidTypes["COX"] = "cox";
-    RaidTypes["TOB"] = "tob";
-    RaidTypes["TOA"] = "toa";
+    RaidTypes["COX"] = "CoX";
+    RaidTypes["TOB"] = "ToB";
+    RaidTypes["TOA"] = "ToA";
 })(RaidTypes = exports.RaidTypes || (exports.RaidTypes = {}));
 const raidCox = (rngBuff = 0) => {
     let purpleThreshold = 867500;
@@ -398,13 +398,13 @@ const getTobStats = (rngBuff = 0) => {
 const getChatString = ({ raid, username, isPurple, lootString, lootValue, totalWealth, points, deaths }) => {
     const uniqueChestEmote = isPurple ? 'peepoPurple' : 'peepoWhite';
     if (raid === RaidTypes.COX) {
-        return `${username} completes the raid ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Points: ${points} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
+        return `${username} completes ${raid} ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Points: ${points} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
     }
     else if (raid === RaidTypes.TOB) {
-        return `${username} completes the raid ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
+        return `${username} completes ${raid} ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
     }
     else if (raid === RaidTypes.TOA) {
-        return `${username} completes the raid ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Lifetime: ${totalWealth} ]`;
+        return `${username} completes ${raid} ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Lifetime: ${totalWealth} ]`;
     }
     else {
         return '[Error]';
