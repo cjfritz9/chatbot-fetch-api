@@ -299,7 +299,7 @@ const getToaPurple = (rngBuff = 0, raidLevel) => {
     };
     if (roll < 29.163) {
         response.itemInfo[0].itemId = '26219';
-        response.itemName = "wrsFang";
+        response.itemName = 'wrsFang';
     }
     else if (roll < 58.326) {
         response.itemInfo[0].itemId = '25975';
@@ -307,7 +307,7 @@ const getToaPurple = (rngBuff = 0, raidLevel) => {
     }
     else if (roll < 70.826) {
         response.itemInfo[0].itemId = '26804';
-        response.itemName = "wrsWard";
+        response.itemName = 'wrsWard';
     }
     else if (roll < 79.159) {
         response.itemInfo[0].itemId = '27241';
@@ -323,7 +323,7 @@ const getToaPurple = (rngBuff = 0, raidLevel) => {
     }
     else {
         response.itemInfo[0].itemId = '27277';
-        response.itemName = "wrsShadow";
+        response.itemName = 'wrsShadow';
     }
     response.dbEntry.item = response.itemName;
     return response;
@@ -332,13 +332,11 @@ exports.getToaPurple = getToaPurple;
 const getRoll = (rngBuff) => {
     let roll = Math.random() * 100;
     if (rngBuff === 0) {
-        console.log({ 'rng0 roll': roll });
         return roll;
     }
     else if (rngBuff === 1) {
         const difference = 100 - roll;
         roll += Math.random() * difference;
-        console.log({ 'rng1 roll': roll });
         return roll;
     }
     else {
@@ -347,7 +345,6 @@ const getRoll = (rngBuff) => {
         let bestRoll = Math.max(roll, roll1, roll2);
         const difference = 100 - bestRoll;
         bestRoll += Math.random() * difference;
-        console.log({ 'rng2 roll': bestRoll });
         return bestRoll;
     }
 };
@@ -356,7 +353,7 @@ const getCoxPoints = () => {
     const plankRoll = Math.random() * 100;
     let didPlank = false;
     if (plankRoll < 6.5) {
-        points = points * .65;
+        points = points * 0.65;
         didPlank = true;
     }
     return {

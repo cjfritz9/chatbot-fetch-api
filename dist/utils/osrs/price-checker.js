@@ -29,8 +29,6 @@ const getItemPriceByAlpha = (alpha) => __awaiter(void 0, void 0, void 0, functio
     }
     else {
         const result = response.data.items[0];
-        console.log(result.name);
-        console.log(result.today);
         return `${result.name} is currently ${result.current.price}. Today: ${result.today.trend === 'negative'
             ? result.today.price.toString().replaceAll('-', '📉🔽 ')
             : result.today.price.toString().replace('+', '📈🔼 ')}`;

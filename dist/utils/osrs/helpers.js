@@ -27,7 +27,6 @@ const fetchAndAddPrices = (items) => __awaiter(void 0, void 0, void 0, function*
         var _a;
         if ((_a = res === null || res === void 0 ? void 0 : res.data) === null || _a === void 0 ? void 0 : _a.data) {
             const itemPrices = res.data.data[items[i].itemId];
-            console.log('current item api: ', items[i]);
             if (itemPrices) {
                 const stackValue = +(0, exports.getMedianPrice)(itemPrices.low, itemPrices.high) * items[i].quantity;
                 totalValue = (+totalValue + +stackValue).toString();

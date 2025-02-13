@@ -59,7 +59,6 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
 
     const loot = RAIDS.raidTob(user.rngBuff);
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
-    console.log('loot res: ', loot);
     const formattedSplit = OSRS.formatGP(
       (+'0' + +loot.dbEntry.price / 3).toFixed(0)
     );
@@ -101,7 +100,6 @@ osrsRouter.get('/raids/toa', async (req: any, res: any) => {
 
     const loot = RAIDS.raidToa(user.rngBuff);
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
-    console.log('loot res: ', loot);
     const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
     const formattedPrice = OSRS.formatGP(loot.dbEntry.price);
     const formattedWealth = OSRS.formatGP(totalWealth);

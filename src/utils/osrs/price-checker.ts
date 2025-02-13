@@ -15,8 +15,7 @@ export const getItemPriceByAlpha = async (alpha: string) => {
     return `No price information found for "${alpha}". Search by the start of the item's name; i.e. "tumeken" instead of "shadow"`;
   } else {
     const result = response.data.items[0];
-    console.log(result.name);
-    console.log(result.today);
+
     return `${result.name} is currently ${result.current.price}. Today: ${
       result.today.trend === 'negative'
         ? result.today.price.toString().replaceAll('-', '📉🔽 ')

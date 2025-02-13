@@ -17,7 +17,7 @@ export const fetchAndAddPrices = async (
   responses.map((res, i) => {
     if (res?.data?.data) {
       const itemPrices = res.data.data[items[i].itemId];
-      console.log('current item api: ', items[i]);
+
       if (itemPrices) {
         const stackValue =
           +getMedianPrice(itemPrices.low, itemPrices.high) * items[i].quantity;
