@@ -80,7 +80,7 @@ const addRng = (username) => __awaiter(void 0, void 0, void 0, function* () {
         }
         else {
             return {
-                error: `Silly ${username}, you're already at max RNG! (No RNG added)`
+                error: `${username}, you're already at max RNG! (No RNG added)`
             };
         }
     }

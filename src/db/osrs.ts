@@ -78,7 +78,7 @@ export const addRng = async (username: string) => {
       }
     } else {
       return {
-        error: `Silly ${username}, you're already at max RNG! (No RNG added)`
+        error: `${username}, you're already at max RNG! (No RNG added)`
       };
     }
   } else {

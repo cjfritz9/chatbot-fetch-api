@@ -1,19 +1,22 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getToaPurple = exports.raidToa = exports.getTobPurple = exports.raidTob = exports.getCoxPurple = exports.raidCox = void 0;
+exports.getChatString = exports.getToaPurple = exports.raidToa = exports.getTobPurple = exports.raidTob = exports.getCoxPurple = exports.raidCox = exports.RaidTypes = void 0;
 const helpers_1 = require("./helpers");
+var RaidTypes;
+(function (RaidTypes) {
+    RaidTypes["COX"] = "cox";
+    RaidTypes["TOB"] = "tob";
+    RaidTypes["TOA"] = "toa";
+})(RaidTypes = exports.RaidTypes || (exports.RaidTypes = {}));
 const raidCox = (rngBuff = 0) => {
-    //@ts-ignore
     let purpleThreshold = 867500;
     if (rngBuff === 1) {
         purpleThreshold = purpleThreshold / 8;
     }
-    if (rngBuff === 2) {
+    else if (rngBuff >= 2) {
         purpleThreshold = purpleThreshold / 16;
     }
     const { points, didPlank } = getCoxPoints();
-    console.log(points, purpleThreshold);
-    console.log(points / purpleThreshold);
     let isPurple = false;
     if (Math.random() < points / purpleThreshold) {
         isPurple = true;
@@ -34,9 +37,9 @@ const raidCox = (rngBuff = 0) => {
                 { itemId: roll1.id, quantity: roll1qty },
                 { itemId: roll2.id, quantity: roll2qty }
             ],
-            itemName: `${roll1qty}x ${roll1.name} and ${roll2qty}x ${roll2.name}`,
+            itemName: `${roll1qty}x ${roll1.name} & ${roll2qty}x ${roll2.name}`,
             dbEntry: {
-                item: `${roll1qty}x ${roll1.name} and ${roll2qty}x ${roll2.name}`,
+                item: `${roll1qty}x ${roll1.name} & ${roll2qty}x ${roll2.name}`,
                 price: '',
                 dateReceived: new Date().toUTCString()
             }
@@ -62,62 +65,62 @@ const getCoxPurple = (rngBuff = 0, points, didPlank) => {
     };
     if (roll < 29.986) {
         response.itemInfo[0].itemId = '21034';
-        response.itemName = 'a Dexterous prayer scroll wrsDex';
+        response.itemName = 'wrsDex';
         response.dbEntry.item = 'Dexterous prayer scroll';
     }
     else if (roll < 57.972) {
         response.itemInfo[0].itemId = '21079';
-        response.itemName = 'an Arcane prayer scroll wrsArcane';
+        response.itemName = 'wrsArcane';
         response.dbEntry.item = 'Arcane prayer scroll';
     }
     else if (roll < 63.769) {
         response.itemInfo[0].itemId = '21000';
-        response.itemName = 'a Twisted buckler wrsTbuckler';
+        response.itemName = 'wrsTbuckler';
         response.dbEntry.item = 'Twisted buckler';
     }
     else if (roll < 69.566) {
         response.itemInfo[0].itemId = '21012';
-        response.itemName = 'a Dragon hunter crossbow wrsDhcb';
+        response.itemName = 'wrsDhcb';
         response.dbEntry.item = 'Dragon hunter crossbow';
     }
     else if (roll < 73.914) {
         response.itemInfo[0].itemId = '21015';
-        response.itemName = "a Dinh's bulwark wrsDinhs";
+        response.itemName = 'wrsDinhs';
         response.dbEntry.item = "Dinh's bulwark";
     }
     else if (roll < 78.262) {
         response.itemInfo[0].itemId = '21018';
-        response.itemName = 'an Ancestral hat wrsAncHat';
+        response.itemName = 'wrsAncHat';
         response.dbEntry.item = 'Ancestral hat';
     }
     else if (roll < 82.61) {
         response.itemInfo[0].itemId = '21021';
-        response.itemName = 'an Ancestral robe top wrsAncTop';
+        response.itemName = 'wrsAncTop';
         response.dbEntry.item = 'Ancestral robe top';
     }
     else if (roll < 86.958) {
         response.itemInfo[0].itemId = '21024';
-        response.itemName = 'an Ancestral robe bottom wrsAncBottom';
+        response.itemName = 'wrsAncBottom';
         response.dbEntry.item = 'Ancestral robe bottom';
     }
     else if (roll < 91.306) {
         response.itemInfo[0].itemId = '13652';
-        response.itemName = 'Dragon claws wrsDclaws';
+        response.itemName = 'wrsDclaws';
         response.dbEntry.item = 'Dragon claws';
     }
     else if (roll < 94.205) {
         response.itemInfo[0].itemId = '21003';
-        response.itemName = 'an Elder maul wrsElderMaul';
+        response.itemName = 'wrsElderMaul';
         response.dbEntry.item = 'Elder maul';
     }
     else if (roll < 97.104) {
         response.itemInfo[0].itemId = '21043';
-        response.itemName = 'a Kodai insignia wrsKodai';
+        response.itemName = 'wrsKodai';
         response.dbEntry.item = 'Kodai insignia';
     }
     else {
         response.itemInfo[0].itemId = '20997';
-        response.itemName = 'a Twisted bow wrsTbow';
+        response.itemName = 'wrsTbow';
         response.dbEntry.item = 'Twisted bow';
     }
     return response;
@@ -159,9 +162,9 @@ const raidTob = (rngBuff = 0) => {
                 { itemId: roll2.id, quantity: roll2qty },
                 { itemId: roll3.id, quantity: roll3qty }
             ],
-            itemName: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+            itemName: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, & ${roll3qty}x ${roll3.name}`,
             dbEntry: {
-                item: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+                item: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, & ${roll3qty}x ${roll3.name}`,
                 price: '',
                 dateReceived: new Date().toUTCString()
             }
@@ -188,31 +191,31 @@ const getTobPurple = (rngBuff = 0, deaths, weDoRaids, horribleRng) => {
     };
     if (roll < 42.105) {
         response.itemInfo[0].itemId = '22477';
-        response.itemName = 'Avernic defender hilt wrsAvernic';
+        response.itemName = 'wrsAvernic';
     }
     else if (roll < 52.631) {
         response.itemInfo[0].itemId = '22324';
-        response.itemName = 'Ghrazi rapier wrsGhrazi';
+        response.itemName = 'wrsGhrazi';
     }
     else if (roll < 63.157) {
         response.itemInfo[0].itemId = '22481';
-        response.itemName = 'Sanguinesti staff (uncharged) wrsSangStaff';
+        response.itemName = 'wrsSangStaff';
     }
     else if (roll < 73.683) {
         response.itemInfo[0].itemId = '22326';
-        response.itemName = 'Justiciar faceguard wrsJustiHelm';
+        response.itemName = 'wrsJustiHelm';
     }
     else if (roll < 84.209) {
         response.itemInfo[0].itemId = '22327';
-        response.itemName = 'Justiciar chestguard wrsJustiChest';
+        response.itemName = 'wrsJustiChest';
     }
     else if (roll < 94.735) {
         response.itemInfo[0].itemId = '22328';
-        response.itemName = 'Justiciar legguards wrsJustiLegs';
+        response.itemName = 'wrsJustiLegs';
     }
     else {
         response.itemInfo[0].itemId = '22486';
-        response.itemName = 'Scythe of vitur (uncharged) wrsScythe';
+        response.itemName = 'wrsScythe';
     }
     response.dbEntry.item = response.itemName;
     return response;
@@ -269,9 +272,9 @@ const raidToa = (rngBuff = 0) => {
                 { itemId: roll2.id, quantity: roll2qty },
                 { itemId: roll3.id, quantity: roll3qty }
             ],
-            itemName: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+            itemName: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, & ${roll3qty}x ${roll3.name}`,
             dbEntry: {
-                item: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, and ${roll3qty}x ${roll3.name}`,
+                item: `${roll1qty}x ${roll1.name}, ${roll2qty}x ${roll2.name}, & ${roll3qty}x ${roll3.name}`,
                 price: '',
                 dateReceived: new Date().toUTCString()
             }
@@ -296,31 +299,31 @@ const getToaPurple = (rngBuff = 0, raidLevel) => {
     };
     if (roll < 29.163) {
         response.itemInfo[0].itemId = '26219';
-        response.itemName = "Osmumten's fang wrsFang";
+        response.itemName = "wrsFang";
     }
     else if (roll < 58.326) {
         response.itemInfo[0].itemId = '25975';
-        response.itemName = 'Lightbearer wrsLightbearer';
+        response.itemName = 'wrsLightbearer';
     }
     else if (roll < 70.826) {
         response.itemInfo[0].itemId = '26804';
-        response.itemName = "Elidinis' ward wrsWard";
+        response.itemName = "wrsWard";
     }
     else if (roll < 79.159) {
         response.itemInfo[0].itemId = '27241';
-        response.itemName = 'Masori mask wrsMasoriMask';
+        response.itemName = 'wrsMasoriMask';
     }
     else if (roll < 87.492) {
         response.itemInfo[0].itemId = '27355';
-        response.itemName = 'Masori body wrsMasoriBody';
+        response.itemName = 'wrsMasoriBody';
     }
     else if (roll < 95.825) {
         response.itemInfo[0].itemId = '27238';
-        response.itemName = 'Masori chaps wrsMasoriChaps';
+        response.itemName = 'wrsMasoriChaps';
     }
     else {
         response.itemInfo[0].itemId = '27277';
-        response.itemName = "Tumeken's shadow (uncharged) wrsShadow";
+        response.itemName = "wrsShadow";
     }
     response.dbEntry.item = response.itemName;
     return response;
@@ -349,11 +352,11 @@ const getRoll = (rngBuff) => {
     }
 };
 const getCoxPoints = () => {
-    let points = Math.random() * 15000 + 25000;
+    let points = Math.random() * 10000 + 28000;
     const plankRoll = Math.random() * 100;
     let didPlank = false;
     if (plankRoll < 6.5) {
-        points = points / 1.75;
+        points = points * .65;
         didPlank = true;
     }
     return {
@@ -395,3 +398,19 @@ const getTobStats = (rngBuff = 0) => {
     }
     return { deaths, weDoRaids, horribleRng };
 };
+const getChatString = ({ raid, username, isPurple, lootString, lootValue, totalWealth, points, deaths }) => {
+    const uniqueChestEmote = isPurple ? 'peepoPurple' : 'peepoWhite';
+    if (raid === RaidTypes.COX) {
+        return `${username} completes the raid ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Points: ${points} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
+    }
+    else if (raid === RaidTypes.TOB) {
+        return `${username} completes the raid ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
+    }
+    else if (raid === RaidTypes.TOA) {
+        return `${username} completes the raid ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Lifetime: ${totalWealth} ]`;
+    }
+    else {
+        return '[Error]';
+    }
+};
+exports.getChatString = getChatString;
