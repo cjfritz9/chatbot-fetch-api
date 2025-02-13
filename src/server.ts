@@ -10,11 +10,12 @@ app.use(express.json());
 app.use(cors({ origin: '*' }));
 
 app.use('*', (req, _res, next) => {
-  console.log('-----REQUEST LOGGER-----');
-  console.log('request URL: ', req.originalUrl);
-  console.log('request queries: ', { ...req.query });
-  console.log('request body: ', req.body);
-  console.log('-----END LOGGER-----');
+  console.info('-----BEGIN REQUEST-----');
+  console.info('URL: ', req.originalUrl);
+  console.info('Headers: ', req.headers);
+  console.info('Queries: ', req.query);
+  console.info('Body: ', req.body);
+  console.info('-----END REQUEST-----');
   next();
 });
 

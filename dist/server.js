@@ -13,11 +13,12 @@ const PORT = process.env.PORT || 8080;
 exports.app.use(express_1.default.json());
 exports.app.use((0, cors_1.default)({ origin: '*' }));
 exports.app.use('*', (req, _res, next) => {
-    console.log('-----REQUEST LOGGER-----');
-    console.log('request URL: ', req.originalUrl);
-    console.log('request queries: ', Object.assign({}, req.query));
-    console.log('request body: ', req.body);
-    console.log('-----END LOGGER-----');
+    console.info('-----BEGIN REQUEST-----');
+    console.info('URL: ', req.originalUrl);
+    console.info('Headers: ', req.headers);
+    console.info('Queries: ', req.query);
+    console.info('Body: ', req.body);
+    console.info('-----END REQUEST-----');
     next();
 });
 const hunt_showdown_1 = __importDefault(require("./routes/hunt-showdown"));
