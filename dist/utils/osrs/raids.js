@@ -398,13 +398,13 @@ const getTobStats = (rngBuff = 0) => {
 const getChatString = ({ raid, username, isPurple, lootString, lootValue, totalWealth, points, deaths }) => {
     const uniqueChestEmote = isPurple ? 'peepoPurple' : 'peepoWhite';
     if (raid === RaidTypes.COX) {
-        return `${username} completes ${raid} ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Points: ${points} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
+        return `${username} completes ${raid} ${uniqueChestEmote} /// [ Loot: ${lootString} | Value: ${lootValue} | Points: ${points} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
     }
     else if (raid === RaidTypes.TOB) {
-        return `${username} completes ${raid} ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
+        return `${username} completes ${raid} ${uniqueChestEmote} /// [ Loot: ${lootString} | Value: ${lootValue} | Deaths: ${deaths} | Lifetime: ${totalWealth} ]`;
     }
     else if (raid === RaidTypes.TOA) {
-        return `${username} completes ${raid} ${uniqueChestEmote} [ Loot: ${lootString} | Value: ${lootValue} | Lifetime: ${totalWealth} ]`;
+        return `${username} completes ${raid} ${uniqueChestEmote} /// [ Loot: ${lootString} | Value: ${lootValue} | Lifetime: ${totalWealth} ]`;
     }
     else {
         return '[Error]';
