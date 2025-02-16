@@ -16,8 +16,8 @@ exports.getLatestYtMedia = void 0;
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const tools_1 = require("../../lib/broadcasters/tools");
+const API_KEY = 'AIzaSyD2sRkhratG3GHXwi220t7b47bLEXvO5pc';
 dotenv_1.default.config();
-const API_KEY = process.env.YOUTUBE_API_KEY;
 const getLatestYtMedia = (username) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f;
     const genericError = '[Error fetching latest video]';

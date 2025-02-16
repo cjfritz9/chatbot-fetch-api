@@ -1,10 +1,8 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import { getBroadcasterId } from '../../lib/broadcasters/tools';
-
+const API_KEY = 'AIzaSyD2sRkhratG3GHXwi220t7b47bLEXvO5pc';
 dotenv.config();
-
-const API_KEY = process.env.YOUTUBE_API_KEY;
 
 export const getLatestYtMedia = async (username: string) => {
   const genericError = '[Error fetching latest video]';
