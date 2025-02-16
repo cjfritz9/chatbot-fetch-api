@@ -19,6 +19,9 @@ app.use('*', (req, _res, next) => {
   next();
 });
 
+import generalRouter from './routes/general';
+app.use('/general', generalRouter);
+
 import huntShowdownRouter from './routes/hunt-showdown';
 app.use('/hunt_showdown', huntShowdownRouter);
 

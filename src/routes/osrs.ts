@@ -75,7 +75,7 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
       username,
       isPurple,
       lootString: loot.itemName,
-      lootValue: `${formattedValue}${isPurple ? '(split)' : ''}`,
+      lootValue: `${formattedValue}${isPurple ? ' (split)' : ''}`,
       totalWealth: formattedWealth,
       deaths: loot.deaths.toString()
     };

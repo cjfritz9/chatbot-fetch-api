@@ -21,6 +21,8 @@ exports.app.use('*', (req, _res, next) => {
     console.info('-----END REQUEST-----');
     next();
 });
+const general_1 = __importDefault(require("./routes/general"));
+exports.app.use('/general', general_1.default);
 const hunt_showdown_1 = __importDefault(require("./routes/hunt-showdown"));
 exports.app.use('/hunt_showdown', hunt_showdown_1.default);
 const osrs_1 = __importDefault(require("./routes/osrs"));

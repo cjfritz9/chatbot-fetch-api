@@ -102,7 +102,7 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
             username,
             isPurple,
             lootString: loot.itemName,
-            lootValue: `${formattedValue}${isPurple ? '(split)' : ''}`,
+            lootValue: `${formattedValue}${isPurple ? ' (split)' : ''}`,
             totalWealth: formattedWealth,
             deaths: loot.deaths.toString()
         };

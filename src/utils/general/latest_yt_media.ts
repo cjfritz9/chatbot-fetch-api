@@ -1,11 +1,18 @@
 import axios from 'axios';
+import dotenv from 'dotenv';
+import { getBroadcasterId } from '../../lib/broadcasters/tools';
 
-export const getLatestYtMedia = async () => {
-  const genericError = { error: '[Error fetching latest video]' };
+dotenv.config();
+
+const API_KEY = process.env.YOUTUBE_API_KEY;
+
+export const getLatestYtMedia = async (username: string) => {
+  const genericError = '[Error fetching latest video]';
 
   try {
+    const channelId = getBroadcasterId(username);
     const response = await axios.get(
-      'https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC-vjqhlVcyT54gUgzCGO13A&maxResults=1&order=date&type=video&key=AIzaSyD2sRkhratG3GHXwi220t7b47bLEXvO5pc'
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=1&order=date&type=video&key=${API_KEY}`
     );
 
     if (response?.data?.items?.[0]) {
@@ -36,7 +43,7 @@ const formatVideoTitle = (rawTitle: string) => {
     if (titleChars?.[i] === splitChar) {
       for (let j = 0; j < titleChars.length; j++) {
         if (titleChars?.[j] === ' ') {
-          titleChars.splice(i + 1, j);
+          titleChars.splice(i, j);
         }
       }
     }
