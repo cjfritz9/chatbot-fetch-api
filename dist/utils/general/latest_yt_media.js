@@ -45,8 +45,9 @@ const getLatestYtMedia = (username) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.getLatestYtMedia = getLatestYtMedia;
 const formatVideoTitle = (rawTitle) => {
+    const formattedTitle = decodeHtml(rawTitle);
+    const titleChars = [...formattedTitle];
     const splitChar = '|';
-    const titleChars = [...rawTitle];
     for (let i = 0; i < titleChars.length; i++) {
         if ((titleChars === null || titleChars === void 0 ? void 0 : titleChars[i]) === splitChar) {
             for (let j = 0; j < titleChars.length; j++) {
@@ -57,4 +58,27 @@ const formatVideoTitle = (rawTitle) => {
         }
     }
     return titleChars.join('');
+};
+const decodeHtml = (title) => {
+    const htmlEntities = [
+        { searchVal: 'amp', replacement: '&' },
+        { searchVal: 'apos', replacement: "'" },
+        { searchVal: 'lt', replacement: '<' },
+        { searchVal: 'gt', replacement: '>' },
+        { searchVal: 'nbsp', replacement: ' ' },
+        { searchVal: 'quot', replacement: '"' },
+        { searchVal: 'copy', replacement: '©' },
+        { searchVal: 'reg', replacement: '®' },
+        { searchVal: '#x27', replacement: "'" },
+        { searchVal: '#x2F', replacement: '/' },
+        { searchVal: '#39', replacement: "'" },
+        { searchVal: '#47', replacement: '/' },
+    ];
+    for (const item of htmlEntities) {
+        const valToHtml = `&${item.searchVal};`;
+        if (title.includes(valToHtml)) {
+            title = title.replaceAll(valToHtml, item.replacement);
+        }
+    }
+    return title;
 };
