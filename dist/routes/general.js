@@ -25,6 +25,7 @@ generalRouter.get('/latest_yt_media/:broadcaster', (req, res) => __awaiter(void 
     res.send(yield (0, latest_yt_media_1.getLatestYtMedia)(broadcaster));
 }));
 generalRouter.get('/vip_roll', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req);
     const { username } = (req === null || req === void 0 ? void 0 : req.query) || {};
     if (!username) {
         res.send(new ApiResponse_1.ApiResponse('Error - No username was supplied', 'Username was a nullish value'));
