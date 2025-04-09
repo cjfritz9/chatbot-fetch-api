@@ -10,7 +10,7 @@ export const getVipRoll = async (username: string) => {
     if (roll === 1) {
       return `${username} rolled a ${roll} and WON vip! Poooound`;
     } else {
-      return `${username} rolled a ${roll} and needed a 1... -25k x0r6ztGiggle `;
+      return `${username} rolled a ${roll} and needed a 1... -20k x0r6ztGiggle `;
     }
   } catch (error) {
     console.error('Caught Error: ', error);
