@@ -16,14 +16,14 @@ exports.getLatestYtMedia = void 0;
 const axios_1 = __importDefault(require("axios"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const tools_1 = require("../../lib/broadcasters/tools");
-const API_KEY = 'AIzaSyD2sRkhratG3GHXwi220t7b47bLEXvO5pc';
+const api_1 = require("./api");
 dotenv_1.default.config();
 const getLatestYtMedia = (username) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f;
     const genericError = '[Error fetching latest video]';
     try {
         const channelId = (0, tools_1.getBroadcasterId)(username);
-        const response = yield axios_1.default.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=1&order=date&type=video&key=${API_KEY}`);
+        const response = yield axios_1.default.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=1&order=date&type=video&key=${api_1.API_KEY}`);
         if ((_b = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.items) === null || _b === void 0 ? void 0 : _b[0]) {
             const media = (_d = (_c = response === null || response === void 0 ? void 0 : response.data) === null || _c === void 0 ? void 0 : _c.items) === null || _d === void 0 ? void 0 : _d[0];
             const title = (_e = media === null || media === void 0 ? void 0 : media.snippet) === null || _e === void 0 ? void 0 : _e.title;
@@ -72,7 +72,7 @@ const decodeHtml = (title) => {
         { searchVal: '#x27', replacement: "'" },
         { searchVal: '#x2F', replacement: '/' },
         { searchVal: '#39', replacement: "'" },
-        { searchVal: '#47', replacement: '/' },
+        { searchVal: '#47', replacement: '/' }
     ];
     for (const item of htmlEntities) {
         const valToHtml = `&${item.searchVal};`;

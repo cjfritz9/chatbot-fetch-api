@@ -1,7 +1,7 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 import { getBroadcasterId } from '../../lib/broadcasters/tools';
-const API_KEY = 'AIzaSyD2sRkhratG3GHXwi220t7b47bLEXvO5pc';
+import { API_KEY } from './api';
 dotenv.config();
 
 export const getLatestYtMedia = async (username: string) => {
@@ -64,7 +64,7 @@ const decodeHtml = (title: string) => {
     { searchVal: '#x27', replacement: "'" },
     { searchVal: '#x2F', replacement: '/' },
     { searchVal: '#39', replacement: "'" },
-    { searchVal: '#47', replacement: '/' },
+    { searchVal: '#47', replacement: '/' }
   ];
 
   for (const item of htmlEntities) {

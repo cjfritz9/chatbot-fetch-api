@@ -1,6 +1,7 @@
 import express from 'express';
 import { getLatestYtMedia } from '../utils/general/latest_yt_media';
 import { ApiResponse } from '../lib/classes/ApiResponse';
+import { getVipRoll } from '../utils/general/vip_roll';
 
 const generalRouter = express.Router();
 
@@ -19,6 +20,24 @@ generalRouter.get(
     }
 
     res.send(await getLatestYtMedia(broadcaster));
+  }
+);
+
+generalRouter.get(
+  '/vip_roll',
+  async (req: any, res: any) => {
+    const { username } = req?.query || {};
+
+    if (!username) {
+      res.send(
+        new ApiResponse(
+          'Error - No username was supplied',
+          'Username was a nullish value'
+        )
+      );
+    }
+
+    res.send(await getVipRoll(username));
   }
 );
 
