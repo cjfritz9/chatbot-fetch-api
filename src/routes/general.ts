@@ -26,7 +26,6 @@ generalRouter.get(
 generalRouter.get(
   '/vip_roll',
   async (req: any, res: any) => {
-    console.log(req)
     const { username } = req?.query || {};
 
     if (!username) {
