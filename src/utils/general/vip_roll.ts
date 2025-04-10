@@ -6,8 +6,8 @@ export const getVipRoll = async (channelName: string, username: string) => {
   const genericError = '[Error getting VIP Roll]';
 
   try {
-    const dealerRoll = Math.round(Math.random() * 9) + 1;
-    const userRoll = Math.round(Math.random() * 9) + 1;
+    const dealerRoll = Math.floor(Math.random() * 10) + 1;
+    const userRoll = Math.floor(Math.random() * 10) + 1;
 
     if (dealerRoll === userRoll) {
       addVipWinner(channelName, username);

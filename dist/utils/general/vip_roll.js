@@ -19,8 +19,8 @@ dotenv_1.default.config();
 const getVipRoll = (channelName, username) => __awaiter(void 0, void 0, void 0, function* () {
     const genericError = '[Error getting VIP Roll]';
     try {
-        const dealerRoll = Math.round(Math.random() * 9) + 1;
-        const userRoll = Math.round(Math.random() * 9) + 1;
+        const dealerRoll = Math.floor(Math.random() * 10) + 1;
+        const userRoll = Math.floor(Math.random() * 10) + 1;
         if (dealerRoll === userRoll) {
             (0, general_1.addVipWinner)(channelName, username);
             return `${username} WINS VIP! Poooound !!!!! [ rolled ${userRoll} against ${dealerRoll} ]`;
