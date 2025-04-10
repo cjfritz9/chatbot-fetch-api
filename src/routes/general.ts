@@ -1,6 +1,6 @@
 import express from 'express';
-import { getLatestYtMedia } from '../utils/general/latest_yt_media';
 import { ApiResponse } from '../lib/classes/ApiResponse';
+import { getLatestYtMedia } from '../utils/general/latest_yt_media';
 import { getVipRoll } from '../utils/general/vip_roll';
 
 const generalRouter = express.Router();
@@ -23,22 +23,29 @@ generalRouter.get(
   }
 );
 
-generalRouter.get(
-  '/vip_roll',
-  async (req: any, res: any) => {
-    const { username } = req?.query || {};
+generalRouter.get('/vip_roll', async (req: any, res: any) => {
+  const { username } = req?.query || {};
+  const channelName = req?.headers?.['x-fossabot-channeldisplayname'] || '';
 
-    if (!username) {
-      res.send(
-        new ApiResponse(
-          'Error - No username was supplied',
-          'Username was a nullish value'
-        )
-      );
-    }
-
-    res.send(await getVipRoll(username));
+  if (!channelName) {
+    res.send(
+      new ApiResponse(
+        'Error - No channel name was supplied',
+        'Channel name was not found in headers'
+      )
+    );
   }
-);
+
+  if (!username) {
+    res.send(
+      new ApiResponse(
+        'Error - No username was supplied',
+        'Username was a nullish value'
+      )
+    );
+  }
+
+  res.send(await getVipRoll(channelName, username));
+});
 
 export default generalRouter;

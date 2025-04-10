@@ -14,13 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getVipRoll = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
+const general_1 = require("../../db/general");
 dotenv_1.default.config();
-const getVipRoll = (username) => __awaiter(void 0, void 0, void 0, function* () {
+const getVipRoll = (channelName, username) => __awaiter(void 0, void 0, void 0, function* () {
     const genericError = '[Error getting VIP Roll]';
     try {
         const dealerRoll = Math.round(Math.random() * 9) + 1;
         const userRoll = Math.round(Math.random() * 9) + 1;
         if (dealerRoll === userRoll) {
+            (0, general_1.addVipWinner)(channelName, username);
             return `${username} WINS VIP! Poooound [ rolled ${userRoll} against ${dealerRoll} ]`;
         }
         else {

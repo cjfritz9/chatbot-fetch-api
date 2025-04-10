@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const latest_yt_media_1 = require("../utils/general/latest_yt_media");
 const ApiResponse_1 = require("../lib/classes/ApiResponse");
+const latest_yt_media_1 = require("../utils/general/latest_yt_media");
 const vip_roll_1 = require("../utils/general/vip_roll");
 const generalRouter = express_1.default.Router();
 generalRouter.get('/latest_yt_media/:broadcaster', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -25,10 +25,15 @@ generalRouter.get('/latest_yt_media/:broadcaster', (req, res) => __awaiter(void 
     res.send(yield (0, latest_yt_media_1.getLatestYtMedia)(broadcaster));
 }));
 generalRouter.get('/vip_roll', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const { username } = (req === null || req === void 0 ? void 0 : req.query) || {};
+    const channelName = ((_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a['x-fossabot-channeldisplayname']) || '';
+    if (!channelName) {
+        res.send(new ApiResponse_1.ApiResponse('Error - No channel name was supplied', 'Channel name was not found in headers'));
+    }
     if (!username) {
         res.send(new ApiResponse_1.ApiResponse('Error - No username was supplied', 'Username was a nullish value'));
     }
-    res.send(yield (0, vip_roll_1.getVipRoll)(username));
+    res.send(yield (0, vip_roll_1.getVipRoll)(channelName, username));
 }));
 exports.default = generalRouter;
