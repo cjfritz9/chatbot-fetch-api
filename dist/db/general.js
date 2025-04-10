@@ -12,24 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getVipRoll = void 0;
-const dotenv_1 = __importDefault(require("dotenv"));
-dotenv_1.default.config();
-const getVipRoll = (username) => __awaiter(void 0, void 0, void 0, function* () {
-    const genericError = '[Error getting VIP Roll]';
-    try {
-        const dealerRoll = Math.round(Math.random() * 9) + 1;
-        const userRoll = Math.round(Math.random() * 9) + 1;
-        if (dealerRoll === userRoll) {
-            return `${username} WINS VIP! Poooound [ rolled ${userRoll} against ${dealerRoll} ]`;
-        }
-        else {
-            return `${username} lost 20k x0r6ztGiggle [ rolled ${userRoll} against ${dealerRoll} ]`;
-        }
-    }
-    catch (error) {
-        console.error('Caught Error: ', error);
-        return genericError;
-    }
+exports.getVipWinner = void 0;
+const firestore_client_1 = __importDefault(require("./firestore-client"));
+const vipSnap = firestore_client_1.default.collection('general').doc('vip_rolls');
+const getChannelWinnersSnap = (channelName) => vipSnap.collection('channels').doc(channelName).collection('winners');
+const getVipWinner = (channelName, username) => __awaiter(void 0, void 0, void 0, function* () {
+    const winnerDoc = yield getChannelWinnersSnap(channelName).where('username', '==', username).get();
 });
-exports.getVipRoll = getVipRoll;
+exports.getVipWinner = getVipWinner;

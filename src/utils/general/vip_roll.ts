@@ -5,12 +5,14 @@ export const getVipRoll = async (username: string) => {
   const genericError = '[Error getting VIP Roll]';
 
   try {
-    const roll = Math.round(Math.random() * 9) + 1;
+    const dealerRoll = Math.round(Math.random() * 9) + 1;
+    const userRoll = Math.round(Math.random() * 9) + 1;
 
-    if (roll === 1) {
-      return `${username} rolled a ${roll} and WON vip! Poooound`;
+    if (dealerRoll === userRoll) {
+      
+      return `${username} WINS VIP! Poooound [ rolled ${userRoll} against ${dealerRoll} ]`;
     } else {
-      return `${username} rolled a ${roll} and needed a 1... -20k x0r6ztGiggle `;
+      return `${username} lost 20k x0r6ztGiggle [ rolled ${userRoll} against ${dealerRoll} ]`;
     }
   } catch (error) {
     console.error('Caught Error: ', error);
