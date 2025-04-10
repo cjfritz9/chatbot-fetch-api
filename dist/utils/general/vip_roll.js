@@ -23,10 +23,10 @@ const getVipRoll = (channelName, username) => __awaiter(void 0, void 0, void 0, 
         const userRoll = Math.round(Math.random() * 9) + 1;
         if (dealerRoll === userRoll) {
             (0, general_1.addVipWinner)(channelName, username);
-            return `${username} WINS VIP! Poooound [ rolled ${userRoll} against ${dealerRoll} ]`;
+            return `${username} WINS VIP! Poooound !!!!! [ rolled ${userRoll} against ${dealerRoll} ]`;
         }
         else {
-            return `${username} lost 20k x0r6ztGiggle [ rolled ${userRoll} against ${dealerRoll} ]`;
+            return `${username} lost 20k x0r6ztGiggle !! [ rolled ${userRoll} against ${dealerRoll} ]`;
         }
     }
     catch (error) {

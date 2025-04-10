@@ -11,9 +11,9 @@ export const getVipRoll = async (channelName: string, username: string) => {
 
     if (dealerRoll === userRoll) {
       addVipWinner(channelName, username);
-      return `${username} WINS VIP! Poooound [ rolled ${userRoll} against ${dealerRoll} ]`;
+      return `${username} WINS VIP! Poooound !!!!! [ rolled ${userRoll} against ${dealerRoll} ]`;
     } else {
-      return `${username} lost 20k x0r6ztGiggle [ rolled ${userRoll} against ${dealerRoll} ]`;
+      return `${username} lost 20k x0r6ztGiggle !! [ rolled ${userRoll} against ${dealerRoll} ]`;
     }
   } catch (error) {
     console.error('Caught Error: ', error);
