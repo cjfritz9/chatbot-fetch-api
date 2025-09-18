@@ -36,16 +36,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const RAIDS = __importStar(require("../utils/osrs/raids"));
-const OSRS = __importStar(require("../utils/osrs/helpers"));
 const osrs_1 = require("../db/osrs");
+const OSRS = __importStar(require("../utils/osrs/helpers"));
 const price_checker_1 = require("../utils/osrs/price-checker");
+const RAIDS = __importStar(require("../utils/osrs/raids"));
 const osrsRouter = express_1.default.Router();
 // TODO: ADD RAID PARTY SUPPORT (!join command?)
 // TODO: ADD TERTIARY LOOT/PETS
 osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username } = req.query;
+        const { username, rngEvent } = req.query;
         if (!username) {
             return res.send('Error - No username was supplied');
         }
@@ -53,6 +53,8 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (!user) {
             user = { username: username, gp: '0', rngBuff: 0 };
         }
+        if (rngEvent === 'true')
+            user.rngBuff = 2;
         const loot = RAIDS.raidCox(user.rngBuff);
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
         const totalWealth = (+user.gp + +loot.dbEntry.price).toString();
@@ -79,7 +81,7 @@ osrsRouter.get('/raids/cox', (req, res) => __awaiter(void 0, void 0, void 0, fun
 }));
 osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username } = req.query;
+        const { username, rngEvent } = req.query;
         if (!username) {
             return res.send('Error - No username was supplied');
         }
@@ -87,6 +89,8 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (!user) {
             user = { username: username, gp: '0', rngBuff: 0 };
         }
+        if (rngEvent === 'true')
+            user.rngBuff = 2;
         const loot = RAIDS.raidTob(user.rngBuff);
         const isPurple = loot.chestColor === 'purple';
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
@@ -115,7 +119,7 @@ osrsRouter.get('/raids/tob', (req, res) => __awaiter(void 0, void 0, void 0, fun
 }));
 osrsRouter.get('/raids/toa', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { username } = req.query;
+        const { username, rngEvent } = req.query;
         if (!username) {
             return res.send('Error - No username was supplied');
         }
@@ -123,6 +127,8 @@ osrsRouter.get('/raids/toa', (req, res) => __awaiter(void 0, void 0, void 0, fun
         if (!user) {
             user = { username: username, gp: '0', rngBuff: 0 };
         }
+        if (rngEvent === 'true')
+            user.rngBuff = 2;
         const loot = RAIDS.raidToa(user.rngBuff);
         loot.dbEntry.price = yield OSRS.fetchAndAddPrices(loot.itemInfo);
         const totalWealth = (+user.gp + +loot.dbEntry.price).toString();

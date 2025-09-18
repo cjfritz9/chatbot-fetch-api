@@ -1,8 +1,8 @@
 import express from 'express';
-import * as RAIDS from '../utils/osrs/raids';
-import * as OSRS from '../utils/osrs/helpers';
 import { addRng, getUser, updateUser } from '../db/osrs';
+import * as OSRS from '../utils/osrs/helpers';
 import { getItemPriceByAlpha } from '../utils/osrs/price-checker';
+import * as RAIDS from '../utils/osrs/raids';
 
 const osrsRouter = express.Router();
 
@@ -11,7 +11,7 @@ const osrsRouter = express.Router();
 
 osrsRouter.get('/raids/cox', async (req: any, res: any) => {
   try {
-    const { username } = req.query;
+    const { username, rngEvent } = req.query;
     if (!username) {
       return res.send('Error - No username was supplied');
     }
@@ -19,6 +19,8 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
     if (!user) {
       user = { username: username, gp: '0', rngBuff: 0 };
     }
+
+    if (rngEvent === 'true') user.rngBuff = 2;
 
     const loot = RAIDS.raidCox(user.rngBuff);
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
@@ -48,7 +50,7 @@ osrsRouter.get('/raids/cox', async (req: any, res: any) => {
 
 osrsRouter.get('/raids/tob', async (req: any, res: any) => {
   try {
-    const { username } = req.query;
+    const { username, rngEvent } = req.query;
     if (!username) {
       return res.send('Error - No username was supplied');
     }
@@ -56,6 +58,8 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
     if (!user) {
       user = { username: username, gp: '0', rngBuff: 0 };
     }
+
+    if (rngEvent === 'true') user.rngBuff = 2;
 
     const loot = RAIDS.raidTob(user.rngBuff);
     const isPurple = loot.chestColor === 'purple';
@@ -89,7 +93,7 @@ osrsRouter.get('/raids/tob', async (req: any, res: any) => {
 
 osrsRouter.get('/raids/toa', async (req: any, res: any) => {
   try {
-    const { username } = req.query;
+    const { username, rngEvent } = req.query;
     if (!username) {
       return res.send('Error - No username was supplied');
     }
@@ -97,6 +101,8 @@ osrsRouter.get('/raids/toa', async (req: any, res: any) => {
     if (!user) {
       user = { username: username, gp: '0', rngBuff: 0 };
     }
+
+    if (rngEvent === 'true') user.rngBuff = 2;
 
     const loot = RAIDS.raidToa(user.rngBuff);
     loot.dbEntry.price = await OSRS.fetchAndAddPrices(loot.itemInfo);
