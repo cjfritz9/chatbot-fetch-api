@@ -24,9 +24,10 @@ generalRouter.get(
 );
 
 generalRouter.get('/vip_roll', async (req: any, res: any) => {
-  const { username, querystring } = req?.query || {};
+  const { username, query } = req?.query || {};
   const channelName = req?.headers?.['x-fossabot-channeldisplayname'] || '';
-  console.log('user input', querystring);
+  console.log('user input', query);
+  console.log('full query', req.query);
 
   if (!channelName) {
     res.send(

@@ -26,9 +26,10 @@ generalRouter.get('/latest_yt_media/:broadcaster', (req, res) => __awaiter(void 
 }));
 generalRouter.get('/vip_roll', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const { username, querystring } = (req === null || req === void 0 ? void 0 : req.query) || {};
+    const { username, query } = (req === null || req === void 0 ? void 0 : req.query) || {};
     const channelName = ((_a = req === null || req === void 0 ? void 0 : req.headers) === null || _a === void 0 ? void 0 : _a['x-fossabot-channeldisplayname']) || '';
-    console.log('user input', querystring);
+    console.log('user input', query);
+    console.log('full query', req.query);
     if (!channelName) {
         res.send(new ApiResponse_1.ApiResponse('Error - No channel name was supplied', 'Channel name was not found in headers'));
     }
