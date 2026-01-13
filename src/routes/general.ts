@@ -24,10 +24,25 @@ generalRouter.get(
 );
 
 generalRouter.get('/vip_roll', async (req: any, res: any) => {
-  const { username, query } = req?.query || {};
+  const { username } = req?.query || {};
   const channelName = req?.headers?.['x-fossabot-channeldisplayname'] || '';
-  console.log('user input', query);
-  console.log('full query', req.query);
+  const customApiToken = req?.headers?.['x-fossabot-customapitoken'];
+
+  let userInput = '';
+  if (customApiToken) {
+    try {
+      const contextRes = await fetch(
+        `https://api.fossabot.com/v2/customapi/context/${customApiToken}`
+      );
+      const context = await contextRes.json();
+      userInput = context?.message?.content || '';
+      console.log('Fetched Fossabot context', context);
+    } catch (e) {
+      console.error('Failed to fetch Fossabot context', e);
+    }
+  }
+
+  console.log('user input', userInput);
 
   if (!channelName) {
     res.send(
