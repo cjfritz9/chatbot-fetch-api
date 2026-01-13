@@ -31,6 +31,9 @@ app.use('/osrs', osrsRouter);
 import joeRouter from './routes/joewatermelon';
 app.use('/joewatermelon', joeRouter);
 
+import twitchEventSubRouter from './routes/twitch-eventsub';
+app.use('/twitch', twitchEventSubRouter);
+
 app.get('/*', (req, res) => {
   console.log('404 request url: ', req.url);
   console.log('404 request queries: ', { ...req.query });

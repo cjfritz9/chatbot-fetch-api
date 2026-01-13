@@ -29,6 +29,8 @@ const osrs_1 = __importDefault(require("./routes/osrs"));
 exports.app.use('/osrs', osrs_1.default);
 const joewatermelon_1 = __importDefault(require("./routes/joewatermelon"));
 exports.app.use('/joewatermelon', joewatermelon_1.default);
+const twitch_eventsub_1 = __importDefault(require("./routes/twitch-eventsub"));
+exports.app.use('/twitch', twitch_eventsub_1.default);
 exports.app.get('/*', (req, res) => {
     console.log('404 request url: ', req.url);
     console.log('404 request queries: ', Object.assign({}, req.query));
