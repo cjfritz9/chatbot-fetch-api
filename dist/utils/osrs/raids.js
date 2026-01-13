@@ -7,7 +7,7 @@ var RaidTypes;
     RaidTypes["COX"] = "CoX";
     RaidTypes["TOB"] = "ToB";
     RaidTypes["TOA"] = "ToA";
-})(RaidTypes = exports.RaidTypes || (exports.RaidTypes = {}));
+})(RaidTypes || (exports.RaidTypes = RaidTypes = {}));
 const raidCox = (rngBuff = 0) => {
     let purpleThreshold = 867500;
     if (rngBuff === 1) {

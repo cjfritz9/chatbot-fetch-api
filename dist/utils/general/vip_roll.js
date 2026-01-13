@@ -17,12 +17,11 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const general_1 = require("../../db/general");
 dotenv_1.default.config();
 const getVipRoll = (channelName, username) => __awaiter(void 0, void 0, void 0, function* () {
-    const genericError = '[Error getting VIP Roll]';
     try {
         const dealerRoll = Math.floor(Math.random() * 10) + 1;
         const userRoll = Math.floor(Math.random() * 10) + 1;
         if (dealerRoll === userRoll) {
-            (0, general_1.addVipWinner)(channelName, username);
+            yield (0, general_1.addVipWinner)(channelName, username);
             return `${username} WINS VIP! Poooound !!!!! [ rolled ${userRoll} against ${dealerRoll} ]`;
         }
         else {
@@ -31,7 +30,7 @@ const getVipRoll = (channelName, username) => __awaiter(void 0, void 0, void 0, 
     }
     catch (error) {
         console.error('Caught Error: ', error);
-        return genericError;
+        return '[Error getting VIP Roll]';
     }
 });
 exports.getVipRoll = getVipRoll;
