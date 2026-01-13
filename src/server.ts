@@ -6,10 +6,6 @@ dotenv.config();
 export const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Twitch EventSub needs raw body for signature verification - must come before express.json()
-import twitchEventSubRouter from './routes/twitch-eventsub';
-app.use('/twitch', twitchEventSubRouter);
-
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 
