@@ -1,3 +1,4 @@
+import axios from 'axios';
 import express from 'express';
 import { ApiResponse } from '../lib/classes/ApiResponse';
 import { getLatestYtMedia } from '../utils/general/latest_yt_media';
@@ -31,16 +32,15 @@ generalRouter.get('/vip_roll', async (req: any, res: any) => {
   let userInput = '';
   if (customApiToken) {
     try {
-      const contextRes = await fetch(
+      const { data: context } = await axios.get(
         `https://api.fossabot.com/v2/customapi/context/${customApiToken}`
       );
-      const context = await contextRes.json();
       userInput = context?.message?.content || '';
       console.log('Fetched Fossabot context', context);
     } catch (e) {
       console.error('Failed to fetch Fossabot context', e);
     }
-  }
+  } 
 
   console.log('user input', userInput);
 

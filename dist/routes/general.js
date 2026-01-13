@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const axios_1 = __importDefault(require("axios"));
 const express_1 = __importDefault(require("express"));
 const ApiResponse_1 = require("../lib/classes/ApiResponse");
 const latest_yt_media_1 = require("../utils/general/latest_yt_media");
@@ -32,8 +33,7 @@ generalRouter.get('/vip_roll', (req, res) => __awaiter(void 0, void 0, void 0, f
     let userInput = '';
     if (customApiToken) {
         try {
-            const contextRes = yield fetch(`https://api.fossabot.com/v2/customapi/context/${customApiToken}`);
-            const context = yield contextRes.json();
+            const { data: context } = yield axios_1.default.get(`https://api.fossabot.com/v2/customapi/context/${customApiToken}`);
             userInput = ((_c = context === null || context === void 0 ? void 0 : context.message) === null || _c === void 0 ? void 0 : _c.content) || '';
             console.log('Fetched Fossabot context', context);
         }
