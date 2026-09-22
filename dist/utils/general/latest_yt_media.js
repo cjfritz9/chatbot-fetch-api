@@ -18,6 +18,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const tools_1 = require("../../lib/broadcasters/tools");
 const api_1 = require("./api");
 dotenv_1.default.config();
+const DEPRECATION_NOTICE = '[Deprecated: this command is moving to Wanderbaut, use !newvid via https://wanderbaut.app]';
 const getLatestYtMedia = (username) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f;
     const genericError = '[Error fetching latest video]';
@@ -32,7 +33,7 @@ const getLatestYtMedia = (username) => __awaiter(void 0, void 0, void 0, functio
                 return genericError;
             }
             const formattedTitle = formatVideoTitle(title);
-            return `Check out my latest video! ${formattedTitle} https://www.youtube.com/watch?v=${videoId}`;
+            return `Check out my latest video! ${formattedTitle} https://www.youtube.com/watch?v=${videoId} ${DEPRECATION_NOTICE}`;
         }
         else {
             return genericError;

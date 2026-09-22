@@ -4,6 +4,9 @@ import { getBroadcasterId } from '../../lib/broadcasters/tools';
 import { API_KEY } from './api';
 dotenv.config();
 
+const DEPRECATION_NOTICE =
+  '[Deprecated: this command is moving to Wanderbaut, use !newvid via https://wanderbaut.app]';
+
 export const getLatestYtMedia = async (username: string) => {
   const genericError = '[Error fetching latest video]';
 
@@ -23,7 +26,7 @@ export const getLatestYtMedia = async (username: string) => {
       }
       const formattedTitle = formatVideoTitle(title);
 
-      return `Check out my latest video! ${formattedTitle} https://www.youtube.com/watch?v=${videoId}`;
+      return `Check out my latest video! ${formattedTitle} https://www.youtube.com/watch?v=${videoId} ${DEPRECATION_NOTICE}`;
     } else {
       return genericError;
     }

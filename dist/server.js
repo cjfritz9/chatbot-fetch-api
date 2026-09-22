@@ -10,9 +10,6 @@ const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 exports.app = (0, express_1.default)();
 const PORT = process.env.PORT || 8080;
-// Twitch EventSub needs raw body for signature verification - must come before express.json()
-const twitch_eventsub_1 = __importDefault(require("./routes/twitch-eventsub"));
-exports.app.use('/twitch', twitch_eventsub_1.default);
 exports.app.use(express_1.default.json());
 exports.app.use((0, cors_1.default)({ origin: '*' }));
 exports.app.use('*', (req, _res, next) => {
